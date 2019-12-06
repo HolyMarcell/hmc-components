@@ -5,7 +5,7 @@ import React, {useState} from "react";
 const Dummy: React.FC<DummyProps> = ({foo}) => {
   const [st, setSt] = useState('wadismitmir');
   return (
-    <div>{foo} {st} Hello</div>
+    <div className={'pd-nm b-r-sm b-c1'}>{foo} {st} Hello</div>
   )
 };
 

@@ -11,6 +11,10 @@
     &-xl {border-radius: var(--border-radius-xl)}
   }
 
+  &-c1 {border: 1px solid var(--c-border-1)}
+  &-c2 {border: 1px solid var(--c-border-2)}
+  &-c3 {border: 1px solid var(--c-border-3)}
+
   &-b-c1 {border-bottom: 1px solid var(--c-border-1)}
   &-b-c2 {border-bottom: 1px solid var(--c-border-2)}
   &-b-c3 {border-bottom: 1px solid var(--c-border-3)}

@@ -1,4 +1,6 @@
 import DummyE from "./dummy/Dummy";
-import './theme/shorthands.scss';
+import CardE from "./card/Card";
+import './theme/theme.scss';
 
 export const Dummy = DummyE;
+export const Card = CardE;
