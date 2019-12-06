@@ -1,0 +1,37 @@
+
+
+
+.b {
+  &-r {
+    &-xs {border-radius: var(--border-radius-xs)}
+    &-sm {border-radius: var(--border-radius-sm)}
+    &-nm {border-radius: var(--border-radius-nm)}
+    &-md {border-radius: var(--border-radius-md)}
+    &-lg {border-radius: var(--border-radius-lg)}
+    &-xl {border-radius: var(--border-radius-xl)}
+  }
+
+  &-b-c1 {border-bottom: 1px solid var(--c-border-1)}
+  &-b-c2 {border-bottom: 1px solid var(--c-border-2)}
+  &-b-c3 {border-bottom: 1px solid var(--c-border-3)}
+
+  &-t-c1 {border-top: 1px solid var(--c-border-1)}
+  &-t-c2 {border-top: 1px solid var(--c-border-2)}
+  &-t-c3 {border-top: 1px solid var(--c-border-3)}
+
+  &-l-c1 {border-left: 1px solid var(--c-border-1)}
+  &-l-c2 {border-left: 1px solid var(--c-border-2)}
+  &-l-c3 {border-left: 1px solid var(--c-border-3)}
+
+  &-r-c1 {border-right: 1px solid var(--c-border-1)}
+  &-r-c2 {border-right: 1px solid var(--c-border-2)}
+  &-r-c3 {border-right: 1px solid var(--c-border-3)}
+
+  &-v-c1 {@extend .b-l-c1; @extend .b-r-c1}
+  &-v-c2 {@extend .b-l-c2; @extend .b-r-c2}
+  &-v-c3 {@extend .b-l-c3; @extend .b-r-c3}
+
+  &-h-c1 {@extend .b-t-c1; @extend .b-b-c1}
+  &-h-c2 {@extend .b-t-c2; @extend .b-b-c2}
+  &-h-c3 {@extend .b-t-c3; @extend .b-b-c3}
+}

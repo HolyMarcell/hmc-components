@@ -1,0 +1,78 @@
+
+
+body {
+
+  // --color
+
+  --c-primary-1: #231b95;
+  --c-primary-2: #231b95;
+  --c-primary-3: #231b95;
+
+  --c-secondary-1: #952234;
+  --c-secondary-2: #952234;
+  --c-secondary-3: #952234;
+
+  --c-success-1: #0e5700;
+  --c-success-2: #0e5700;
+  --c-success-3: #0e5700;
+
+  --c-info-1: #1a6a8f;
+  --c-info-2: #1a6a8f;
+  --c-info-3: #1a6a8f;
+
+  --c-warn-1: #ee8d35;
+  --c-warn-2: #ee8d35;
+  --c-warn-3: #ee8d35;
+
+  --c-danger-1: #ee4340;
+  --c-danger-2: #ee4340;
+  --c-danger-3: #ee4340;
+
+
+  --c-border-1: #ccc;
+  --c-border-2: #aaa;
+  --c-border-3: #999;
+
+  // -- border
+
+  --border-radius-xs: 3px;
+  --border-radius-sm: 6px;
+  --border-radius-nm: 9px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 15px;
+  --border-radius-xl: 18px;
+
+  // -- txt
+  --txt-base: 16px;
+  font-size: var(--txt-base);
+
+
+  --text-default: #111;
+  --text-info: #111;
+  --text-positive: #111;
+  --text-negative: #111;
+  --text-warning: #111;
+  --text-primary: #111;
+  --text-accent: #111;
+
+  --text-light-1: #333;
+  --text-light-2: #313131;
+  --text-light-3: #282828;
+
+  --text-size-xs: 0.6em;
+  --text-size-sm: 0.8em;
+  --text-size-nm: 1em;
+  --text-size-md: 1.4em;
+  --text-size-lg: 1.8em;
+  --text-size-xl: 2.2em;
+
+  // -- Spacing
+
+  --space-null: 0;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-nm: 1rem;
+  --space-md: 1.25rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+}

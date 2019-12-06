@@ -33,8 +33,10 @@ const config = [
     plugins: [
       typescript(),
       peerDepsExternal(),
-      sass(),
-      postcss({extract: true, plugins: [autoprefixer]}),
+      sass({
+        output: 'dist/hmc-components.css',
+      }),
+      // postcss({extract: true, plugins: [autoprefixer]}),
       babel({exclude: 'node_modules/**'}),
       localResolve(),
       resolve(),

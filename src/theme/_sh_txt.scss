@@ -1,0 +1,114 @@
+.txt {
+
+  &-nb {
+    white-space: nowrap;
+  }
+
+  &-l-1 {
+    color: var(--text-light-1);
+  }
+
+  &-l-2 {
+    color: var(--text-light-2);
+  }
+
+  &-l-3 {
+    color: var(--text-light-3);
+  }
+
+  &-xs {
+    font-size: var(--text-size-xs);
+  }
+
+  &-sm {
+    font-size: var(--text-size-sm);
+  }
+
+  &-nm {
+    font-size: var(--text-size-nm);
+  }
+
+  &-md {
+    font-size: var(--text-size-md);
+  }
+
+  &-lg {
+    font-size: var(--text-size-lg);
+  }
+
+  &-xl {
+    font-size: var(--text-size-xl);
+  }
+
+  &-i {
+    font-style: italic !important;
+  }
+
+  &-b {
+    font-weight: bold !important;
+  }
+
+  &-nrm {
+    font-weight: normal !important;
+  }
+
+  &-u {
+    text-decoration: underline;
+  }
+
+  &-u_h:hover {
+    text-decoration: underline !important;
+  }
+
+  &-lc {
+    text-transform: lowercase;
+  }
+
+  &-uc {
+    text-transform: uppercase;
+  }
+
+  &-default {
+    color: var(--text-default) !important;
+  }
+
+  &-info {
+    color: var(--text-info) !important;
+  }
+
+  &-pos {
+    color: var(--text-positive) !important;
+  }
+
+  &-neg {
+    color: var(--text-negative) !important;
+  }
+
+  &-warn {
+    color: var(--text-warning) !important;
+  }
+
+  &-prim {
+    color: var(--text-primary) !important;
+  }
+
+  &-acc {
+    color: var(--text-accent) !important;
+  }
+
+  &-al {
+    text-align: left;
+  }
+
+  &-ac {
+    text-align: center;
+  }
+
+  &-aj {
+    text-align: justify;
+  }
+
+  &-ar {
+    text-align: right;
+  }
+}
