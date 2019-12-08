@@ -3,13 +3,13 @@ import React from "react";
 import {isEmpty, isNil} from "../util/ram";
 
 
-const Card: React.FC<CardProps> = ({title, topRight, actions, children}) => {
+const Card: React.FC<CardProps> = ({title, topRight, actions, children, className, style}) => {
 
   const showTitle = !isNil(title) || !isNil(topRight);
   const showActions = !isNil(actions) && !isEmpty(actions);
 
   return (
-    <div className={'card'}>
+    <div className={`card ${className}`} style={style}>
       {showTitle &&
       <div className={'title-bar'}>
         {!isNil(title) &&

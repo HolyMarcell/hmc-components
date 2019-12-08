@@ -13,5 +13,10 @@ export interface CardProps extends ReactStyleProps {
   title?: string;
   topRight?: React.ReactNode;
   actions?: React.ReactNode[];
+}
 
+export interface TabbedCardProps extends ReactStyleProps {
+  tabs: Tab[];
+  actions?: CardActions;
+  topRight?: React.ReactNode;
 }

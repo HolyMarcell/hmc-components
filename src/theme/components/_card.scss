@@ -1,5 +1,8 @@
 
 
+
+
+
 .card {
   @extend .bs-1;
   display: flex;
@@ -16,6 +19,10 @@
     & .title {
       @extend .pd-v-sm;
       @extend .pd-h-nm;
+      border-bottom: 1px solid #ccc;
+      @extend .pd-nm;
+      background-color: darken(#fefefe, 1%);
+      font-size: 1.2em;
     }
 
     & .top-right {
@@ -29,6 +36,10 @@
   }
 
   & .actions {
+    @extend .pd-sm;
+    background-color: var(--c-bg-2);
+    display: flex;
+    justify-content: flex-end;
 
   }
 }
