@@ -8,7 +8,7 @@
   "style": "dist/hmc-components.css",
   "scripts": {
     "start": "rollup -cw",
-    "build": "rollup -c",
+    "build": "NODE_ENV=production rollup -c",
     "storybook": "start-storybook -p 6006 --ci",
     "build-storybook": "build-storybook"
   },
@@ -53,10 +53,12 @@
     "typings": "^2.1.1"
   },
   "dependencies": {
+    "@types/react-transition-group": "^4.2.3",
     "eslint": "^6.7.2",
     "ramda": "^0.26.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-transition-group": "^4.3.0",
     "rollup-plugin-typescript2": "^0.25.3"
   }
 }

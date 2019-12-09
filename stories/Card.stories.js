@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card} from "../src";
+import {Card, CardActions, CardBody, CardTitle} from "../src";
 
 export default {
   title: 'Card',
@@ -7,12 +7,35 @@ export default {
 
 
 export const card = () => (
-  <Card
-    title={'Hello world'}
-    topRight={<span>Link To somewhere</span>}
-    actions={[<button>one</button>, <button>two</button>]}
-  >
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis doloremque et numquam quo totam veritatis!
-    A amet, cupiditate delectus doloribus eligendi error libero nam nemo odio quisquam rem similique, voluptas.
-  </Card>)
-;
+  <Card>
+    <CardTitle topRight={<span>Link To somewhere</span>}>Hello world</CardTitle>
+    <CardBody>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis doloremque et numquam quo totam veritatis!
+      A amet, cupiditate delectus doloribus eligendi error libero nam nemo odio quisquam rem similique, voluptas.
+    </CardBody>
+    <CardActions>
+      <button>button one</button>
+      <button>button two</button>
+    </CardActions>
+  </Card>);
+
+export const plain = () => (
+  <Card>
+    <CardBody>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis doloremque et numquam quo totam veritatis!
+      A amet, cupiditate delectus doloribus eligendi error libero nam nemo odio quisquam rem similique, voluptas.
+    </CardBody>
+  </Card>);
+
+
+export const actions = () => (
+  <Card>
+    <CardBody>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis doloremque et numquam quo totam veritatis!
+      A amet, cupiditate delectus doloribus eligendi error libero nam nemo odio quisquam rem similique, voluptas.
+    </CardBody>
+    <CardActions>
+      <button>button one</button>
+      <button>button two</button>
+    </CardActions>
+  </Card>);

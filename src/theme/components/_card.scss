@@ -8,6 +8,39 @@
   display: flex;
   flex-direction: column;
   background-color: var(--c-bg-1);
+  @extend .mg-b-xl;
+
+  &.tabbed {
+
+    & .title-bar {
+
+      & .tabs {
+        display: flex;
+        list-style: none;
+        margin: 0 0 -1px 0;
+        padding: 0;
+        border-bottom: 1px solid #ccc;
+
+        & li {
+          display: flex;
+          @extend .pd-nm;
+
+          & span {
+            cursor: pointer;
+            color: #111;
+          }
+
+          border-bottom: 3px solid rgba(0,0,0,0);
+          &.active {
+            border-bottom: 3px solid var(--c-primary-1);
+            font-weight: bold;
+            transition: border-bottom-color 0.2s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+
 
   & .title-bar {
     display: flex;
@@ -19,9 +52,7 @@
     & .title {
       @extend .pd-v-sm;
       @extend .pd-h-nm;
-      border-bottom: 1px solid #ccc;
       @extend .pd-nm;
-      background-color: darken(#fefefe, 1%);
       font-size: 1.2em;
     }
 
@@ -33,6 +64,29 @@
 
   & .body {
     @extend .pd-nm;
+
+    // -- Animations:
+    transition: opacity;
+
+    &.enter {
+      opacity: 0.4;
+    }
+    &.enter-active {
+      opacity: 1;
+      transition: opacity 300ms;
+    }
+
+    &.enter-done {
+    }
+
+    &.exit {
+      display: none;
+    }
+    &.exit-active {
+    }
+
+    &.exit-done {
+    }
   }
 
   & .actions {

@@ -9,14 +9,25 @@ export interface ReactStyleProps {
   style?: React.CSSProperties;
 }
 
-export interface CardProps extends ReactStyleProps {
-  title?: string;
+export interface CardTitleProps extends ReactStyleProps {
   topRight?: React.ReactNode;
-  actions?: React.ReactNode[];
+}
+
+export interface CardActionsProps extends ReactStyleProps {
+}
+
+export interface CardProps extends ReactStyleProps {
+}
+
+export interface CardBodyProps extends ReactStyleProps {
+}
+
+export interface Tab {
+  title: React.ReactNode;
+  body?: React.ReactNode;
 }
 
 export interface TabbedCardProps extends ReactStyleProps {
   tabs: Tab[];
-  actions?: CardActions;
   topRight?: React.ReactNode;
 }
