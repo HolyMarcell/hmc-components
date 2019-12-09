@@ -10,7 +10,10 @@
     "start": "rollup -cw",
     "build": "NODE_ENV=production rollup -c",
     "storybook": "start-storybook -p 6006 --ci",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "release:patch": "node release.js patch",
+    "release:minor": "node release.js minor",
+    "release:major": "node release.js major"
   },
   "author": "Tristan Döhl",
   "license": "SEE LICENSE IN license.md",
