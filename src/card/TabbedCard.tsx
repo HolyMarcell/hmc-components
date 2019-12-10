@@ -34,8 +34,10 @@ const TabbedCard: React.FC<TabbedCardProps> = ({children, topRight, tabs, classN
         }
       </div>
       <TransitionGroup>
-        <CSSTransition key={active} timeout={300}>
-          {pathOr(null, [active, 'body'], tabs)}
+        <CSSTransition key={active} timeout={300} classNames={'tabbed-card'}>
+          <div className={'tabbed-animation-wrapper'}>
+            {pathOr(null, [active, 'body'], tabs)}
+          </div>
         </CSSTransition>
       </TransitionGroup>
       {children}

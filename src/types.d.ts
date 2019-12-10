@@ -31,3 +31,10 @@ export interface TabbedCardProps extends ReactStyleProps {
   tabs: Tab[];
   topRight?: React.ReactNode;
 }
+
+export interface CollapsibleCardProps extends ReactStyleProps {
+  title: React.ReactNode;
+  topRight?: React.ReactNode;
+  collapsed?: boolean;
+}
+

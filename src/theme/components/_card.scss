@@ -39,6 +39,59 @@
         }
       }
     }
+
+    & .tabbed-animation-wrapper {
+      // -- Animations:
+      transition: opacity;
+
+      &.tabbed-card-enter {
+        opacity: 0.4;
+      }
+      &.tabbed-card-enter-active {
+        opacity: 1;
+        transition: opacity 300ms;
+      }
+
+      &.tabbed-card-enter-done {
+      }
+
+      &.tabbed-card-exit {
+        display: none;
+      }
+      &.tabbed-card-exit-active {
+      }
+
+      &.tabbed-card-exit-done {
+      }
+    }
+  }
+
+  &.collapsible {
+
+    & .collapsible-animation-wrapper {
+      // -- Animations:
+      transition: opacity;
+
+      &.collapsible-card-enter {
+        opacity: 0.4;
+      }
+      &.collapsible-card-enter-active {
+        opacity: 1;
+        transition: opacity 300ms;
+      }
+
+      &.collapsible-card-enter-done {
+      }
+
+      &.collapsible-card-exit {
+        display: none;
+      }
+      &.collapsible-card-exit-active {
+      }
+
+      &.collapsible-card-exit-done {
+      }
+    }
   }
 
 
@@ -62,31 +115,9 @@
     }
   }
 
+
   & .body {
     @extend .pd-nm;
-
-    // -- Animations:
-    transition: opacity;
-
-    &.enter {
-      opacity: 0.4;
-    }
-    &.enter-active {
-      opacity: 1;
-      transition: opacity 300ms;
-    }
-
-    &.enter-done {
-    }
-
-    &.exit {
-      display: none;
-    }
-    &.exit-active {
-    }
-
-    &.exit-done {
-    }
   }
 
   & .actions {
