@@ -70,26 +70,42 @@
 
     & .collapsible-animation-wrapper {
       // -- Animations:
-      transition: opacity;
+
+      transition: opacity 100ms ease-in-out, max-height 100ms ease-in-out, transform 100ms ease-in-out;
+      overflow: hidden;
 
       &.collapsible-card-enter {
-        opacity: 0.4;
+        max-height: 10000px;
+        transform: translateY(0px);
+        opacity: 1;
       }
       &.collapsible-card-enter-active {
+        max-height: 10000px;
+        transform: translateY(0px);
         opacity: 1;
-        transition: opacity 300ms;
       }
 
       &.collapsible-card-enter-done {
+        max-height: 0;
+        transform: translateY(-20px);
+        opacity: 0;
       }
 
       &.collapsible-card-exit {
-        display: none;
+        max-height: 0;
+        transform: translateY(-20px);
+        opacity: 0;
       }
       &.collapsible-card-exit-active {
+        max-height: 10000px;
+        transform: translateY(0px);
+        opacity: 1;
       }
 
       &.collapsible-card-exit-done {
+        max-height: 10000px;
+        transform: translateY(0px);
+        opacity: 1;
       }
     }
   }

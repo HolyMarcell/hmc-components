@@ -1,4 +1,5 @@
 import React from 'react';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface DummyProps {
   foo: string;
@@ -7,6 +8,14 @@ interface DummyProps {
 interface ReactStyleProps {
   className?: string;
   style?: React.CSSProperties;
+}
+
+interface AllyProps extends AriaAriaAttributes {
+  tabIndex?: number;
+}
+
+interface ReactClickable {
+  onClick?: () => void;
 }
 
 interface CardTitleProps extends ReactStyleProps {
@@ -32,4 +41,14 @@ interface TabbedCardProps extends ReactStyleProps {
   topRight?: React.ReactNode;
 }
 
-export { CardActionsProps, CardBodyProps, CardProps, CardTitleProps, DummyProps, ReactStyleProps, Tab, TabbedCardProps };
+interface CollapsibleCardProps extends ReactStyleProps {
+  title: React.ReactNode;
+  topRight?: React.ReactNode;
+  collapsed?: boolean;
+}
+
+interface IconProps extends ReactStyleProps, AllyProps, ReactClickable {
+  icon: IconProp | string;
+}
+
+export { AllyProps, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, DummyProps, IconProps, ReactClickable, ReactStyleProps, Tab, TabbedCardProps };

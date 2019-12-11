@@ -1,5 +1,5 @@
 import React from "react";
-import {CardBodyProps} from "../types";
+import {CardBodyProps} from "./types";
 
 
 const CardBody: React.FC<CardBodyProps> = ({children, className = '', style = {}}) => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import TabbedCard from "../src/card/TabbedCard";
 import {CardActions, CardBody, CollapsibleCard} from "../src";
 
 export default {

@@ -1,6 +1,6 @@
-import {CardTitleProps} from "../types";
 import React from "react";
 import {isNil} from "../util/ram";
+import {CardTitleProps} from "./types";
 
 
 const CardTitle: React.FC<CardTitleProps> = ({topRight, children, className = '', style = {}}) => {

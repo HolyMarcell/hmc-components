@@ -1,5 +1,5 @@
 import React from "react";
-import {CardActionsProps} from "../types";
+import {CardActionsProps} from "./types";
 
 
 const CardActions: React.FC<CardActionsProps> = ({children, className = '', style = {}}) => {
