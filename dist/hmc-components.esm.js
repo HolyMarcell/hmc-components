@@ -10,13 +10,11 @@ var Dummy = function (_a) {
         st,
         " Hello"));
 };
-//# sourceMappingURL=Dummy.js.map
 
 var Card = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React.createElement("div", { className: "card " + className, style: style }, children));
 };
-//# sourceMappingURL=Card.js.map
 
 /**
  * A function that always returns `false`. Any passed in parameters are ignored.
@@ -11187,7 +11185,6 @@ var isEmpty$2 = function () {
     }
     return isEmpty$1.apply(R, args);
 };
-//# sourceMappingURL=ram.js.map
 
 var CardTitle = function (_a) {
     var topRight = _a.topRight, children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
@@ -11197,19 +11194,16 @@ var CardTitle = function (_a) {
         !isNil$2(topRight) &&
             React.createElement("div", { className: 'top-right' }, topRight)));
 };
-//# sourceMappingURL=CardTitle.js.map
 
 var CardBody = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React.createElement("div", { className: "body " + className, style: style }, children));
 };
-//# sourceMappingURL=CardBody.js.map
 
 var CardActions = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React.createElement("div", { className: "actions " + className, style: style }, children));
 };
-//# sourceMappingURL=CardActions.js.map
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -13728,7 +13722,6 @@ var TabbedCard = function (_a) {
                 React.createElement("div", { className: 'tabbed-animation-wrapper' }, pathOr$1(null, [active, 'body'], tabs)))),
         children));
 };
-//# sourceMappingURL=TabbedCard.js.map
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
