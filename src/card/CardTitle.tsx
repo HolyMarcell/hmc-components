@@ -10,6 +10,8 @@ const CardTitle: React.FC<CardTitleProps> = ({topRight, children, className = ''
       <div className={'title'}>{children}</div>
       }
 
+      {isNil(children) && <span></span>}
+
       {!isNil(topRight) &&
       <div className={'top-right'}>{topRight}</div>
       }

@@ -8,3 +8,5 @@ export declare const CardActions: import("react").FC<import("./types").CardActio
 export declare const TabbedCard: import("react").FC<import("./types").TabbedCardProps>;
 export declare const CollapsibleCard: import("react").FC<import("./types").CollapsibleCardProps>;
 export declare const Icon: import("react").FC<import("./types").IconProps>;
+export declare const Currency: import("react").FC<import("./types").CurrencyProps>;
+export declare const RelativeTime: import("react").FC<import("./types").RelativeTimeProps>;

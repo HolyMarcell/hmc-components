@@ -11,6 +11,9 @@ import CollapsibleCardE from "./card/CollapsibleCard";
 
 import IconE from "./icon/Icon";
 
+import CurrencyE from "./data/Currency";
+import RelativeTimeE from "./data/RelativeTime";
+
 
 export const Dummy = DummyE;
 export const Card = CardE;
@@ -22,3 +25,7 @@ export const TabbedCard = TabbedCardE;
 export const CollapsibleCard = CollapsibleCardE;
 
 export const Icon = IconE;
+
+
+export const Currency = CurrencyE;
+export const RelativeTime = RelativeTimeE;

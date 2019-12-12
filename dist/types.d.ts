@@ -51,4 +51,15 @@ interface IconProps extends ReactStyleProps, AllyProps, ReactClickable {
   icon: IconProp | string;
 }
 
-export { AllyProps, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, DummyProps, IconProps, ReactClickable, ReactStyleProps, Tab, TabbedCardProps };
+interface CurrencyProps {
+  amount: number;
+  currency: string;
+  locale?: string;
+}
+
+interface RelativeTimeProps {
+  date: string;
+  locale?: string;
+}
+
+export { AllyProps, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, DummyProps, IconProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Tab, TabbedCardProps };
