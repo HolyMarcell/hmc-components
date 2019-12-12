@@ -17,13 +17,11 @@ var Dummy = function (_a) {
         st,
         " Hello"));
 };
-//# sourceMappingURL=Dummy.js.map
 
 var Card = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "card " + className, style: style }, children));
 };
-//# sourceMappingURL=Card.js.map
 
 /**
  * A function that always returns `false`. Any passed in parameters are ignored.
@@ -11194,7 +11192,6 @@ var isEmpty$2 = function () {
     }
     return isEmpty$1.apply(R, args);
 };
-//# sourceMappingURL=ram.js.map
 
 var CardTitle = function (_a) {
     var topRight = _a.topRight, children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
@@ -11210,13 +11207,11 @@ var CardBody = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "body " + className, style: style }, children));
 };
-//# sourceMappingURL=CardBody.js.map
 
 var CardActions = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "actions " + className, style: style }, children));
 };
-//# sourceMappingURL=CardActions.js.map
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -13741,7 +13736,6 @@ var TabbedCard = function (_a) {
                 React__default.createElement("div", { className: 'tabbed-animation-wrapper' }, pathOr$1(null, [active, 'body'], tabs)))),
         children));
 };
-//# sourceMappingURL=TabbedCard.js.map
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -21912,7 +21906,6 @@ var Icon = function (_a) {
     var icon = _a.icon, _b = _a.style, style = _b === void 0 ? {} : _b, _c = _a.className, className = _c === void 0 ? '' : _c, tabIndex = _a.tabIndex, onClick = _a.onClick;
     return (React__default.createElement(FontAwesomeIcon, { icon: icon, style: style, className: "icon " + className, tabIndex: tabIndex, onClick: onClick }));
 };
-//# sourceMappingURL=Icon.js.map
 
 var CollapsibleCard = function (_a) {
     var children = _a.children, title = _a.title, topRight = _a.topRight, _b = _a.collapsed, collapsed = _b === void 0 ? false : _b, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
@@ -21933,7 +21926,6 @@ var Currency = function (_a) {
     var loc = isNil$2(locale) ? window.navigator.language : locale;
     return React__default.createElement(React__default.Fragment, null, new Intl.NumberFormat(loc, { style: 'currency', currency: currency }).format(amount));
 };
-//# sourceMappingURL=Currency.js.map
 
 var moment = createCommonjsModule(function (module, exports) {
 (function (global, factory) {
@@ -26541,7 +26533,6 @@ var RelativeTime = function (_a) {
     var loc = isNil$2(locale) ? window.navigator.language : locale;
     return React__default.createElement(React__default.Fragment, null, moment(date).locale(loc).fromNow());
 };
-//# sourceMappingURL=RelativeTime.js.map
 
 var Dummy$1 = Dummy;
 var Card$1 = Card;

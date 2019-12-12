@@ -31,16 +31,16 @@ body {
   --border-radius-xl: 18px;
   --txt-base: 13px;
   font-size: var(--txt-base);
-  --text-default: #111;
-  --text-info: #111;
-  --text-positive: #111;
-  --text-negative: #111;
-  --text-warning: #111;
-  --text-primary: #111;
-  --text-accent: #111;
-  --text-light-1: #333;
-  --text-light-2: #313131;
-  --text-light-3: #282828;
+  --c-text-default: #111;
+  --c-text-info: #111;
+  --c-text-positive: #111;
+  --c-text-negative: #111;
+  --c-text-warning: #111;
+  --c-text-primary: #111;
+  --c-text-accent: #111;
+  --c-text-light-1: #333;
+  --c-text-light-2: #313131;
+  --c-text-light-3: #282828;
   --text-size-xs: 0.6em;
   --text-size-sm: 0.8em;
   --text-size-nm: 1em;
@@ -537,13 +537,13 @@ body {
   white-space: nowrap;
 }
 .txt-l-1 {
-  color: var(--text-light-1);
+  color: var(--c-text-light-1);
 }
 .txt-l-2 {
-  color: var(--text-light-2);
+  color: var(--c-text-light-2);
 }
 .txt-l-3 {
-  color: var(--text-light-3);
+  color: var(--c-text-light-3);
 }
 .txt-xs {
   font-size: var(--text-size-xs);
@@ -585,25 +585,25 @@ body {
   text-transform: uppercase;
 }
 .txt-default {
-  color: var(--text-default) !important;
+  color: var(--c-text-default) !important;
 }
 .txt-info {
-  color: var(--text-info) !important;
+  color: var(--c-text-info) !important;
 }
 .txt-pos {
-  color: var(--text-positive) !important;
+  color: var(--c-text-positive) !important;
 }
 .txt-neg {
-  color: var(--text-negative) !important;
+  color: var(--c-text-negative) !important;
 }
 .txt-warn {
-  color: var(--text-warning) !important;
+  color: var(--c-text-warning) !important;
 }
 .txt-prim {
-  color: var(--text-primary) !important;
+  color: var(--c-text-primary) !important;
 }
 .txt-acc {
-  color: var(--text-accent) !important;
+  color: var(--c-text-accent) !important;
 }
 .txt-al {
   text-align: left;
@@ -617,9 +617,85 @@ body {
 .txt-ar {
   text-align: right;
 }
+.txt-sc {
+  font-variant: small-caps;
+}
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.bgc-1 {
+  background-color: var(--c-bg-1);
+}
+.bgc-2 {
+  background-color: var(--c-bg-2);
+}
+.bgc-3 {
+  background-color: var(--c-bg-3);
+}
+.bgc-primary-1 {
+  background-color: var(--c-primary-1);
+}
+.bgc-primary-2 {
+  background-color: var(--c-primary-2);
+}
+.bgc-primary-3 {
+  background-color: var(--c-primary-3);
+}
+.bgc-secondary-1 {
+  background-color: var(--c-secondary-1);
+}
+.bgc-secondary-2 {
+  background-color: var(--c-secondary-2);
+}
+.bgc-secondary-3 {
+  background-color: var(--c-secondary-3);
+}
+.bgc-success-1 {
+  background-color: var(--c-success-1);
+}
+.bgc-success-2 {
+  background-color: var(--c-success-2);
+}
+.bgc-success-3 {
+  background-color: var(--c-success-3);
+}
+.bgc-info-1 {
+  background-color: var(--c-info-1);
+}
+.bgc-info-2 {
+  background-color: var(--c-info-2);
+}
+.bgc-info-3 {
+  background-color: var(--c-info-3);
+}
+.bgc-warn-1 {
+  background-color: var(--c-warn-1);
+}
+.bgc-warn-2 {
+  background-color: var(--c-warn-2);
+}
+.bgc-warn-3 {
+  background-color: var(--c-warn-3);
+}
+.bgc-danger-1 {
+  background-color: var(--c-danger-1);
+}
+.bgc-danger-2 {
+  background-color: var(--c-danger-2);
+}
+.bgc-danger-3 {
+  background-color: var(--c-danger-3);
+}
+.bgc-border-1 {
+  background-color: var(--c-border-1);
+}
+.bgc-border-2 {
+  background-color: var(--c-border-2);
+}
+.bgc-border-3 {
+  background-color: var(--c-border-3);
 }
 
 .card {
@@ -697,7 +773,7 @@ body {
 .card .title-bar {
   display: flex;
   justify-content: space-between;
-  background-color: var(--c-bg-2);
+  background-color: var(--c-bg-3);
 }
 .card .title-bar .title {
   font-size: 1.2em;
@@ -709,7 +785,7 @@ body {
 }
 
 .icon {
-  color: var(--text-light-1);
+  color: var(--c-text-light-1);
 }
 
 body {
