@@ -1,23 +1,39 @@
+import React, {useState} from 'react';
+import {TabBarProps} from "./types";
+import {isNil} from "../util/ram";
+import Icon from '../icon/Icon';
 
-import React from 'react';
+const TabBar: React.FC<TabBarProps> = ({tabs, onChange, active, style = {}, className = ''}) => {
 
-interface TabBarTab {
-  title: string;
-  key: string;
-}
+  const [visibleOptions, setVisibleOptions] = useState(null);
 
-const TabBar: React.FC<{ tabs: TabBarTab[]; onChange; active }> = ({ tabs, onChange, active }) => {
+  const changeTab = (id) => {
+    setVisibleOptions(null);
+    onChange(id);
+  };
 
   return (
-    <div className={'tabs'}>
+    <div className={`tabs ${className}`} style={style}>
       <ul className={'tabs-navigation'}>
         {tabs.map((item, i) => {
-          const {key, title} = item;
+          const {id, title, options} = item;
           return (
-            <li key={`${key},${i}`} className={`${key === active ? 'active' : ''}`}>
-              <span onClick={() => onChange(key)}>
+            <li key={`${id},${i}`} className={`${id === active ? 'active' : ''}`}>
+              <span onClick={() => changeTab(id)}>
                 {title}
               </span>
+              {!isNil(options) &&
+              <>
+                <span className={'options'} onClick={() => setVisibleOptions((v) => isNil(v) ? id : null)}>
+                  <Icon icon={'ellipsis-v'} className={'optselect'}/>
+                </span>
+                {visibleOptions === id &&
+                  <ul>
+                    <li>foo</li>
+                  </ul>
+                }
+              </>
+              }
             </li>
           );
         })}

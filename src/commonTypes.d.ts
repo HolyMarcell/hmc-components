@@ -1,8 +1,5 @@
 import React from "react";
 
-export interface DummyProps {
-  foo: string;
-}
 
 export interface ReactStyleProps {
   className?: string;
@@ -16,3 +13,14 @@ export interface AllyProps extends AriaAriaAttributes {
 export interface ReactClickable {
   onClick?: () => void;
 }
+
+export type BoxPlacement =
+  'top'
+  | 'right'
+  | 'bottom'
+  | 'left'
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-left'
+  | 'bottom-right'
+  | string;

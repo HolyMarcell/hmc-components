@@ -1,0 +1,41 @@
+
+.tooltip-wrapper {
+  position: relative;
+  & .tooltip {
+    position: absolute;
+    z-index: 42;
+    @extend .pd-xs;
+    @extend .bs-1;
+    @extend .bgc-1;
+
+    &--caret {
+
+    }
+
+    &--top {
+    }
+
+    &--right {
+    }
+
+    &--bottom {
+
+    }
+
+    &--left {
+    }
+
+    &--top-left {
+    }
+
+    &--top-right {
+    }
+
+    &--botton-left {
+    }
+
+    &--botton-right {
+    }
+
+  }
+}
