@@ -1,6 +1,5 @@
 /// <reference types="react" />
 import './theme/theme.scss';
-export declare const Dummy: import("react").FC<import("./commonTypes").DummyProps>;
 export declare const Card: import("react").FC<import("./types").CardProps>;
 export declare const CardTitle: import("react").FC<import("./types").CardTitleProps>;
 export declare const CardBody: import("react").FC<import("./types").CardBodyProps>;
@@ -10,3 +9,5 @@ export declare const CollapsibleCard: import("react").FC<import("./types").Colla
 export declare const Icon: import("react").FC<import("./types").IconProps>;
 export declare const Currency: import("react").FC<import("./types").CurrencyProps>;
 export declare const RelativeTime: import("react").FC<import("./types").RelativeTimeProps>;
+export declare const LoadingUntil: import("react").FC<import("./types").LoadingUntilProps>;
+export declare const TabBar: import("react").FC<import("./types").TabBarProps>;

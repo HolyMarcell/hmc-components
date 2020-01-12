@@ -1,11 +1,4 @@
 import React from 'react';
-interface TabBarTab {
-    title: string;
-    key: string;
-}
-declare const TabBar: React.FC<{
-    tabs: TabBarTab[];
-    onChange: any;
-    active: any;
-}>;
+import { TabBarProps } from "./types";
+declare const TabBar: React.FC<TabBarProps>;
 export default TabBar;

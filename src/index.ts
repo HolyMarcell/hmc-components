@@ -13,6 +13,8 @@ import IconE from "./icon/Icon";
 import CurrencyE from "./data/Currency";
 import RelativeTimeE from "./data/RelativeTime";
 
+import LoadingUntilE from "./datamangagement/LoadingUntil";
+
 import TabBarE from "./tabs/TabBar";
 
 export const Card = CardE;
@@ -28,6 +30,8 @@ export const Icon = IconE;
 
 export const Currency = CurrencyE;
 export const RelativeTime = RelativeTimeE;
+
+export const LoadingUntil = LoadingUntilE;
 
 
 export const TabBar = TabBarE;

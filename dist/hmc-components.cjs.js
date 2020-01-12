@@ -8,16 +8,6 @@ var React = require('react');
 var React__default = _interopDefault(React);
 var ReactDOM = _interopDefault(require('react-dom'));
 
-var Dummy = function (_a) {
-    var foo = _a.foo;
-    var _b = React.useState('wadismitmir'), st = _b[0], setSt = _b[1];
-    return (React__default.createElement("div", { className: 'pd-nm b-r-sm b-c1' },
-        foo,
-        " ",
-        st,
-        " Hello"));
-};
-
 var Card = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "card " + className, style: style }, children));
@@ -26534,7 +26524,40 @@ var RelativeTime = function (_a) {
     return React__default.createElement(React__default.Fragment, null, moment(date).locale(loc).fromNow());
 };
 
-var Dummy$1 = Dummy;
+var LoadingUntil = function (_a) {
+    var loading = _a.loading, alt = _a.alt, children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
+    if (!loading && !isNil$1(loading)) {
+        return React__default.createElement(React__default.Fragment, null, children || null); // some weird typescript fuckup?
+    }
+    return !isNil$1(alt) ?
+        React__default.createElement(React__default.Fragment, null, alt)
+        :
+            React__default.createElement("div", { className: className, style: style },
+                React__default.createElement(Icon, { icon: 'spinner', className: 'fa-spin fa-3x' }));
+};
+
+var TabBar = function (_a) {
+    var tabs = _a.tabs, onChange = _a.onChange, active = _a.active, _b = _a.style, style = _b === void 0 ? {} : _b, _c = _a.className, className = _c === void 0 ? '' : _c;
+    var _d = React.useState(null), visibleOptions = _d[0], setVisibleOptions = _d[1];
+    var changeTab = function (id) {
+        setVisibleOptions(null);
+        onChange(id);
+    };
+    return (React__default.createElement("div", { className: "tabs " + className, style: style },
+        React__default.createElement("ul", { className: 'tabs-navigation' }, tabs.map(function (item, i) {
+            var id = item.id, title = item.title, options = item.options;
+            return (React__default.createElement("li", { key: id + "," + i, className: "" + (id === active ? 'active' : '') },
+                React__default.createElement("span", { onClick: function () { return changeTab(id); } }, title),
+                !isNil$2(options) &&
+                    React__default.createElement(React__default.Fragment, null,
+                        React__default.createElement("span", { className: 'options', onClick: function () { return setVisibleOptions(function (v) { return isNil$2(v) ? id : null; }); } },
+                            React__default.createElement(Icon, { icon: 'ellipsis-v', className: 'optselect' })),
+                        visibleOptions === id &&
+                            React__default.createElement("ul", null,
+                                React__default.createElement("li", null, "foo")))));
+        }))));
+};
+
 var Card$1 = Card;
 var CardTitle$1 = CardTitle;
 var CardBody$1 = CardBody;
@@ -26544,6 +26567,8 @@ var CollapsibleCard$1 = CollapsibleCard;
 var Icon$1 = Icon;
 var Currency$1 = Currency;
 var RelativeTime$1 = RelativeTime;
+var LoadingUntil$1 = LoadingUntil;
+var TabBar$1 = TabBar;
 
 exports.Card = Card$1;
 exports.CardActions = CardActions$1;
@@ -26551,7 +26576,8 @@ exports.CardBody = CardBody$1;
 exports.CardTitle = CardTitle$1;
 exports.CollapsibleCard = CollapsibleCard$1;
 exports.Currency = Currency$1;
-exports.Dummy = Dummy$1;
 exports.Icon = Icon$1;
+exports.LoadingUntil = LoadingUntil$1;
 exports.RelativeTime = RelativeTime$1;
+exports.TabBar = TabBar$1;
 exports.TabbedCard = TabbedCard$1;

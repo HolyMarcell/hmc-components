@@ -1,15 +1,5 @@
-import React, { useState, Children, isValidElement, cloneElement } from 'react';
+import React, { Children, isValidElement, cloneElement, useState } from 'react';
 import ReactDOM from 'react-dom';
-
-var Dummy = function (_a) {
-    var foo = _a.foo;
-    var _b = useState('wadismitmir'), st = _b[0], setSt = _b[1];
-    return (React.createElement("div", { className: 'pd-nm b-r-sm b-c1' },
-        foo,
-        " ",
-        st,
-        " Hello"));
-};
 
 var Card = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
@@ -26527,7 +26517,40 @@ var RelativeTime = function (_a) {
     return React.createElement(React.Fragment, null, moment(date).locale(loc).fromNow());
 };
 
-var Dummy$1 = Dummy;
+var LoadingUntil = function (_a) {
+    var loading = _a.loading, alt = _a.alt, children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
+    if (!loading && !isNil$1(loading)) {
+        return React.createElement(React.Fragment, null, children || null); // some weird typescript fuckup?
+    }
+    return !isNil$1(alt) ?
+        React.createElement(React.Fragment, null, alt)
+        :
+            React.createElement("div", { className: className, style: style },
+                React.createElement(Icon, { icon: 'spinner', className: 'fa-spin fa-3x' }));
+};
+
+var TabBar = function (_a) {
+    var tabs = _a.tabs, onChange = _a.onChange, active = _a.active, _b = _a.style, style = _b === void 0 ? {} : _b, _c = _a.className, className = _c === void 0 ? '' : _c;
+    var _d = useState(null), visibleOptions = _d[0], setVisibleOptions = _d[1];
+    var changeTab = function (id) {
+        setVisibleOptions(null);
+        onChange(id);
+    };
+    return (React.createElement("div", { className: "tabs " + className, style: style },
+        React.createElement("ul", { className: 'tabs-navigation' }, tabs.map(function (item, i) {
+            var id = item.id, title = item.title, options = item.options;
+            return (React.createElement("li", { key: id + "," + i, className: "" + (id === active ? 'active' : '') },
+                React.createElement("span", { onClick: function () { return changeTab(id); } }, title),
+                !isNil$2(options) &&
+                    React.createElement(React.Fragment, null,
+                        React.createElement("span", { className: 'options', onClick: function () { return setVisibleOptions(function (v) { return isNil$2(v) ? id : null; }); } },
+                            React.createElement(Icon, { icon: 'ellipsis-v', className: 'optselect' })),
+                        visibleOptions === id &&
+                            React.createElement("ul", null,
+                                React.createElement("li", null, "foo")))));
+        }))));
+};
+
 var Card$1 = Card;
 var CardTitle$1 = CardTitle;
 var CardBody$1 = CardBody;
@@ -26537,5 +26560,7 @@ var CollapsibleCard$1 = CollapsibleCard;
 var Icon$1 = Icon;
 var Currency$1 = Currency;
 var RelativeTime$1 = RelativeTime;
+var LoadingUntil$1 = LoadingUntil;
+var TabBar$1 = TabBar;
 
-export { Card$1 as Card, CardActions$1 as CardActions, CardBody$1 as CardBody, CardTitle$1 as CardTitle, CollapsibleCard$1 as CollapsibleCard, Currency$1 as Currency, Dummy$1 as Dummy, Icon$1 as Icon, RelativeTime$1 as RelativeTime, TabbedCard$1 as TabbedCard };
+export { Card$1 as Card, CardActions$1 as CardActions, CardBody$1 as CardBody, CardTitle$1 as CardTitle, CollapsibleCard$1 as CollapsibleCard, Currency$1 as Currency, Icon$1 as Icon, LoadingUntil$1 as LoadingUntil, RelativeTime$1 as RelativeTime, TabBar$1 as TabBar, TabbedCard$1 as TabbedCard };

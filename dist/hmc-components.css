@@ -151,7 +151,7 @@ body {
 .b-c3 {
   border: 1px solid var(--c-border-3);
 }
-.b-b-c1, .card .title-bar, .b-h-c1 {
+.b-b-c1, .tabs .tabs-navigation, .card .title-bar, .b-h-c1 {
   border-bottom: 1px solid var(--c-border-1);
 }
 .b-b-c2, .b-h-c2 {
@@ -187,7 +187,7 @@ body {
 .b-r-c3, .b-v-c3 {
   border-right: 1px solid var(--c-border-3);
 }
-.bs-1, .card {
+.bs-1, .tooltip-wrapper .tooltip, .card {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 .bs-2 {
@@ -206,7 +206,7 @@ body {
 .pd-n {
   padding: var(--space-null);
 }
-.pd-xs {
+.pd-xs, .tooltip-wrapper .tooltip {
   padding: var(--space-xs);
 }
 .pd-sm, .card .actions {
@@ -236,7 +236,7 @@ body {
   padding-left: var(--space-sm);
   padding-right: var(--space-sm);
 }
-.pd-h-nm, .card .title-bar .top-right, .card .title-bar .title {
+.pd-h-nm, .tabs .tabs-navigation li, .card .title-bar .top-right, .card .title-bar .title {
   padding-left: var(--space-nm);
   padding-right: var(--space-nm);
 }
@@ -260,7 +260,7 @@ body {
   padding-top: var(--space-xs);
   padding-bottom: var(--space-xs);
 }
-.pd-v-sm, .card .title-bar .top-right, .card .title-bar .title {
+.pd-v-sm, .tabs .tabs-navigation li, .card .title-bar .top-right, .card .title-bar .title {
   padding-top: var(--space-sm);
   padding-bottom: var(--space-sm);
 }
@@ -625,7 +625,7 @@ body {
   cursor: pointer;
 }
 
-.bgc-1 {
+.bgc-1, .tooltip-wrapper .tooltip {
   background-color: var(--c-bg-1);
 }
 .bgc-2 {
@@ -788,6 +788,41 @@ body {
   color: var(--c-text-light-1);
 }
 
+.tabs .tabs-navigation {
+  display: flex;
+  list-style: none;
+  margin: 0 0 30px 0;
+  padding: 0 0 0 0;
+}
+.tabs .tabs-navigation li {
+  display: flex;
+  border-bottom: 3px solid rgba(0, 0, 0, 0);
+}
+.tabs .tabs-navigation li span {
+  cursor: pointer;
+  color: #111;
+}
+.tabs .tabs-navigation li.active {
+  border-bottom: 3px solid var(--c-primary-1);
+  font-weight: bold;
+  transition: border-bottom-color 0.2s ease-in-out;
+}
+.tabs .tabs-navigation li span.options {
+  margin-right: -8px;
+  margin-left: 8px;
+  font-size: 10px;
+}
+.tabs .tabs-navigation li span.options .optselect {
+  color: #999 !important;
+}
+
+.tooltip-wrapper {
+  position: relative;
+}
+.tooltip-wrapper .tooltip {
+  position: absolute;
+  z-index: 42;
+}
 body {
   font-family: sans-serif;
 }

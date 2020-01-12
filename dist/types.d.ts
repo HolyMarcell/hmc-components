@@ -1,10 +1,6 @@
 import React from 'react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-interface DummyProps {
-  foo: string;
-}
-
 interface ReactStyleProps {
   className?: string;
   style?: React.CSSProperties;
@@ -17,6 +13,17 @@ interface AllyProps extends AriaAriaAttributes {
 interface ReactClickable {
   onClick?: () => void;
 }
+
+type BoxPlacement =
+  'top'
+  | 'right'
+  | 'bottom'
+  | 'left'
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-left'
+  | 'bottom-right'
+  | string;
 
 interface CardTitleProps extends ReactStyleProps {
   topRight?: React.ReactNode;
@@ -62,4 +69,37 @@ interface RelativeTimeProps {
   locale?: string;
 }
 
-export { AllyProps, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, DummyProps, IconProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Tab, TabbedCardProps };
+interface TabOption {
+  label: string;
+  onClick: Function;
+}
+
+
+interface TabBarTab {
+  title: string;
+  id: string;
+  options?: TabOption[];
+}
+
+interface TabBarProps extends ReactStyleProps{
+  tabs: TabBarTab[];
+  onChange: Function;
+  active: string;
+}
+
+type TooltipMode = 'hover' | 'activated' | string;
+
+interface TooltipProps extends ReactStyleProps {
+  mode?: TooltipMode;
+  content: React.ReactNode;
+  position?: BoxPlacement;
+  show?: boolean;
+  caret?: boolean;
+}
+
+interface LoadingUntilProps extends ReactStyleProps{
+  loading: boolean;
+  alt?: React.ReactNode;
+}
+
+export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, IconProps, LoadingUntilProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps };
