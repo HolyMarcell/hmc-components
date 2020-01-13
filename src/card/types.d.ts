@@ -29,3 +29,4 @@ export interface CollapsibleCardProps extends ReactStyleProps {
   topRight?: React.ReactNode;
   collapsed?: boolean;
 }
+

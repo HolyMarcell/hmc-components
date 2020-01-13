@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardActions, CardBody, CardTitle} from "../src";
+import {Card, CardActions, CardBody, CardGrid, CardTitle} from "../src";
 
 export default {
   title: 'Card',
@@ -39,3 +39,4 @@ export const actions = () => (
       <button>button two</button>
     </CardActions>
   </Card>);
+
