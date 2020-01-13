@@ -12,6 +12,7 @@ import TabbedCardE from "./card/TabbedCard";
 import CollapsibleCardE from "./card/CollapsibleCard";
 
 import IconE from "./icon/Icon";
+import YesNoIconE from "./icon/YesNoIcon";
 
 import CurrencyE from "./data/Currency";
 import RelativeTimeE from "./data/RelativeTime";
@@ -32,6 +33,7 @@ export const TabbedCard = TabbedCardE;
 export const CollapsibleCard = CollapsibleCardE;
 
 export const Icon = IconE;
+export const YesNoIcon = YesNoIconE;
 
 
 export const Currency = CurrencyE;

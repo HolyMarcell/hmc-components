@@ -58,6 +58,12 @@ interface IconProps extends ReactStyleProps, AllyProps, ReactClickable {
   icon: IconProp | string;
 }
 
+interface YesNoIconProps extends ReactStyleProps{
+  yes: boolean;
+  yesIcon?: string;
+  noIcon?: string;
+}
+
 interface CurrencyProps {
   amount: number;
   currency: string;
@@ -102,4 +108,4 @@ interface LoadingUntilProps extends ReactStyleProps{
   alt?: React.ReactNode;
 }
 
-export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, IconProps, LoadingUntilProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps };
+export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, IconProps, LoadingUntilProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps, YesNoIconProps };
