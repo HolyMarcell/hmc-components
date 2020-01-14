@@ -17,7 +17,7 @@ const Grid: React.FC<GridProps> = ({children, cols = '1fr 1fr 1fr',  rows = 1, r
 
 
   return (
-    <div style={grid} className={className}>
+    <div style={grid} className={`${className} grid`}>
       {children}
     </div>
   );

@@ -8,6 +8,12 @@ var React = require('react');
 var React__default = _interopDefault(React);
 var ReactDOM = _interopDefault(require('react-dom'));
 
+var ControlArea = function (_a) {
+    var onClick = _a.onClick, _b = _a.type, type = _b === void 0 ? 'default' : _b, children = _a.children, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
+    return (React__default.createElement("div", { className: "control-area control-area--" + type + " " + className, style: style, onClick: onClick }, children));
+};
+//# sourceMappingURL=ControlArea.js.map
+
 var Card = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "card " + className, style: style }, children));
@@ -11237,7 +11243,7 @@ var __assign = function() {
 var Grid = function (_a) {
     var children = _a.children, _b = _a.cols, cols = _b === void 0 ? '1fr 1fr 1fr' : _b, _c = _a.rows, rows = _c === void 0 ? 1 : _c, _d = _a.rowGap, rowGap = _d === void 0 ? '1rem' : _d, _e = _a.colGap, colGap = _e === void 0 ? '1rem' : _e, _f = _a.className, className = _f === void 0 ? '' : _f, _g = _a.style, style = _g === void 0 ? {} : _g;
     var grid = __assign(__assign({}, style), { display: 'grid', gridTemplateColumns: cols, gridTemplateRows: "repeat(" + rows + ", 1fr)", gridColumnGap: colGap, gridRowGap: rowGap });
-    return (React__default.createElement("div", { style: grid, className: className }, children));
+    return (React__default.createElement("div", { style: grid, className: className + " grid" }, children));
 };
 //# sourceMappingURL=Grid.js.map
 
@@ -11247,6 +11253,12 @@ var E = function (_a) {
     return (React__default.createElement("div", { style: pos, className: className }, children));
 };
 //# sourceMappingURL=E.js.map
+
+var CC = function (_a) {
+    var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
+    return (React__default.createElement("div", { className: "d-f f-jc-c f-ai-c " + className, style: __assign({ height: '100%' }, style) }, children));
+};
+//# sourceMappingURL=CC.js.map
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -21942,6 +21954,7 @@ var Icon = function (_a) {
     var icon = _a.icon, _b = _a.style, style = _b === void 0 ? {} : _b, _c = _a.className, className = _c === void 0 ? '' : _c, tabIndex = _a.tabIndex, onClick = _a.onClick;
     return (React__default.createElement(FontAwesomeIcon, { icon: icon, style: style, className: "icon " + className, tabIndex: tabIndex, onClick: onClick }));
 };
+//# sourceMappingURL=Icon.js.map
 
 var CollapsibleCard = function (_a) {
     var children = _a.children, title = _a.title, topRight = _a.topRight, _b = _a.collapsed, collapsed = _b === void 0 ? false : _b, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
@@ -21962,6 +21975,7 @@ var YesNoIcon = function (_a) {
     var yes = _a.yes, _b = _a.yesIcon, yesIcon = _b === void 0 ? 'check' : _b, _c = _a.noIcon, noIcon = _c === void 0 ? 'times' : _c, _d = _a.className, className = _d === void 0 ? '' : _d, _e = _a.style, style = _e === void 0 ? {} : _e;
     return yes ? React__default.createElement(Icon, { icon: yesIcon, className: className, style: style }) : React__default.createElement(Icon, { icon: noIcon, className: className, style: style });
 };
+//# sourceMappingURL=YesNoIcon.js.map
 
 var Currency = function (_a) {
     var amount = _a.amount, currency = _a.currency, locale = _a.locale;
@@ -26578,6 +26592,18 @@ var RelativeTime = function (_a) {
 };
 //# sourceMappingURL=RelativeTime.js.map
 
+var DatePretty = function (_a) {
+    var date = _a.date, _b = _a.format, format = _b === void 0 ? 'lll' : _b, locale = _a.locale;
+    var loc = isNil$1(locale) ? window.navigator.language : locale;
+    if (isNil$1(date)) {
+        return React__default.createElement(React__default.Fragment, null, "-");
+    }
+    moment.locale(loc);
+    var l = moment(date);
+    return React__default.createElement(React__default.Fragment, null, l.format(format));
+};
+//# sourceMappingURL=DatePretty.js.map
+
 var LoadingUntil = function (_a) {
     var loading = _a.loading, alt = _a.alt, children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     if (!loading && !isNil$1(loading)) {
@@ -26614,27 +26640,34 @@ var TabBar = function (_a) {
 };
 //# sourceMappingURL=TabBar.js.map
 
+var ControlArea$1 = ControlArea;
 var Card$1 = Card;
 var CardTitle$1 = CardTitle;
 var CardBody$1 = CardBody;
 var CardActions$1 = CardActions;
 var Grid$1 = Grid;
 var E$1 = E;
+var CC$1 = CC;
 var TabbedCard$1 = TabbedCard;
 var CollapsibleCard$1 = CollapsibleCard;
 var Icon$1 = Icon;
 var YesNoIcon$1 = YesNoIcon;
 var Currency$1 = Currency;
 var RelativeTime$1 = RelativeTime;
+var DatePretty$1 = DatePretty;
 var LoadingUntil$1 = LoadingUntil;
 var TabBar$1 = TabBar;
+//# sourceMappingURL=index.js.map
 
+exports.CC = CC$1;
 exports.Card = Card$1;
 exports.CardActions = CardActions$1;
 exports.CardBody = CardBody$1;
 exports.CardTitle = CardTitle$1;
 exports.CollapsibleCard = CollapsibleCard$1;
+exports.ControlArea = ControlArea$1;
 exports.Currency = Currency$1;
+exports.DatePretty = DatePretty$1;
 exports.E = E$1;
 exports.Grid = Grid$1;
 exports.Icon = Icon$1;

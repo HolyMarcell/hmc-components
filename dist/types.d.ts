@@ -75,6 +75,13 @@ interface RelativeTimeProps {
   locale?: string;
 }
 
+
+interface DatePrettyProps {
+  date?: string;
+  format?: 'l' | 'll' | 'lll' | string;
+  locale?: string;
+}
+
 interface TabOption {
   label: string;
   onClick: Function;
@@ -108,4 +115,4 @@ interface LoadingUntilProps extends ReactStyleProps{
   alt?: React.ReactNode;
 }
 
-export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, IconProps, LoadingUntilProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps, YesNoIconProps };
+export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, DatePrettyProps, IconProps, LoadingUntilProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps, YesNoIconProps };

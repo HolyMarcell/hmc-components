@@ -1,5 +1,6 @@
 import React from 'react';
 import {Card, CardActions, CardBody, CardGrid, CardTitle} from "../src";
+import TabbedCard from "../src/card/TabbedCard";
 
 export default {
   title: 'Card',
@@ -40,3 +41,25 @@ export const actions = () => (
     </CardActions>
   </Card>);
 
+
+
+const tabs = [
+  {
+    title: <>Foo</>, body: <CardBody>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, cum,
+        deleniti, dolorum esse et excepturi ipsam nam neque nihil omnis possimus praesentium
+        quibusdam voluptatibus? Commodi doloribus ex id incidunt officiis!</p>
+    </CardBody>
+  },
+  {
+    title: <>Br</>, body: <CardBody>
+      <p>Lorem ipsum dolor Bbauz bazex id incidunt officiis!</p>
+    </CardBody>
+  }
+];
+
+
+export const tabbedCard = () => (
+  <TabbedCard tabs={tabs}>
+    <CardActions>Foo</CardActions>
+  </TabbedCard>);

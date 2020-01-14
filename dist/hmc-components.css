@@ -228,7 +228,7 @@ body {
   padding-left: var(--space-null);
   padding-right: var(--space-null);
 }
-.pd-h-xs {
+.pd-h-xs, .control-area {
   padding-left: var(--space-xs);
   padding-right: var(--space-xs);
 }
@@ -260,7 +260,7 @@ body {
   padding-top: var(--space-xs);
   padding-bottom: var(--space-xs);
 }
-.pd-v-sm, .tabs .tabs-navigation li, .card .title-bar .top-right, .card .title-bar .title {
+.pd-v-sm, .control-area, .tabs .tabs-navigation li, .card .title-bar .top-right, .card .title-bar .title {
   padding-top: var(--space-sm);
   padding-bottom: var(--space-sm);
 }
@@ -584,7 +584,7 @@ body {
 .txt-uc {
   text-transform: uppercase;
 }
-.txt-default {
+.txt-default, .control-area--default {
   color: var(--c-text-default) !important;
 }
 .txt-info {
@@ -621,7 +621,7 @@ body {
   font-variant: small-caps;
 }
 
-.cursor-pointer {
+.cursor-pointer, .control-area {
   cursor: pointer;
 }
 
@@ -631,10 +631,10 @@ body {
 .bgc-2 {
   background-color: var(--c-bg-2);
 }
-.bgc-3 {
+.bgc-3, .control-area--default {
   background-color: var(--c-bg-3);
 }
-.bgc-primary-1 {
+.bgc-primary-1, .control-area--primary {
   background-color: var(--c-primary-1);
 }
 .bgc-primary-2 {
@@ -643,7 +643,7 @@ body {
 .bgc-primary-3 {
   background-color: var(--c-primary-3);
 }
-.bgc-secondary-1 {
+.bgc-secondary-1, .control-area--secondary {
   background-color: var(--c-secondary-1);
 }
 .bgc-secondary-2 {
@@ -652,7 +652,7 @@ body {
 .bgc-secondary-3 {
   background-color: var(--c-secondary-3);
 }
-.bgc-success-1 {
+.bgc-success-1, .control-area--success {
   background-color: var(--c-success-1);
 }
 .bgc-success-2 {
@@ -661,7 +661,7 @@ body {
 .bgc-success-3 {
   background-color: var(--c-success-3);
 }
-.bgc-info-1 {
+.bgc-info-1, .control-area--info {
   background-color: var(--c-info-1);
 }
 .bgc-info-2 {
@@ -670,7 +670,7 @@ body {
 .bgc-info-3 {
   background-color: var(--c-info-3);
 }
-.bgc-warn-1 {
+.bgc-warn-1, .control-area--warn {
   background-color: var(--c-warn-1);
 }
 .bgc-warn-2 {
@@ -679,7 +679,7 @@ body {
 .bgc-warn-3 {
   background-color: var(--c-warn-3);
 }
-.bgc-danger-1 {
+.bgc-danger-1, .control-area--danger {
   background-color: var(--c-danger-1);
 }
 .bgc-danger-2 {
@@ -822,6 +822,32 @@ body {
 .tooltip-wrapper .tooltip {
   position: absolute;
   z-index: 42;
+}
+.grid {
+  overflow: hidden;
+  transition: grid-template-columns 0.2s ease-in-out;
+}
+
+@keyframes highlighter {
+  0% {
+    filter: brightness(100%);
+  }
+  50% {
+    filter: brightness(130%);
+  }
+  100% {
+    filter: brightness(100%);
+  }
+}
+.control-area {
+  color: #eee;
+  overflow: hidden;
+  justify-content: center;
+  display: flex;
+  flex: 1;
+}
+.control-area:active {
+  animation: highlighter 0.2s;
 }
 body {
   font-family: sans-serif;

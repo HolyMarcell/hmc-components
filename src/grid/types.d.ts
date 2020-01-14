@@ -11,3 +11,7 @@ export interface GridProps extends ReactStyleProps {
   rowGap?: string;
   colGap?: string;
 }
+
+export interface CCProps extends ReactStyleProps {
+
+}

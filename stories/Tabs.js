@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {TabBar} from "../src";
 
 export default {
-  title: 'TabBar',
+  title: 'Tabs',
 };
 
 
 
 
-export const plain = () => {
+export const tabBarplain = () => {
   const tabs = [
     {title: 'First tab', id: 'first'},
     {title: 'Second tab', id: '2'},
@@ -26,7 +26,7 @@ export const plain = () => {
   )
 };
 
-export const options = () => {
+export const tabBaroptions = () => {
   const tabs = [
     {title: 'First tab', id: 'first', options: {label: 'An Option', onClick: () => alert('foo')}},
     {title: 'Second tab', id: '2'},
