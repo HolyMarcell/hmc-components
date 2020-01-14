@@ -12,13 +12,11 @@ var ControlArea = function (_a) {
     var onClick = _a.onClick, _b = _a.type, type = _b === void 0 ? 'default' : _b, children = _a.children, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
     return (React__default.createElement("div", { className: "control-area control-area--" + type + " " + className, style: style, onClick: onClick }, children));
 };
-//# sourceMappingURL=ControlArea.js.map
 
 var Card = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "card " + className, style: style }, children));
 };
-//# sourceMappingURL=Card.js.map
 
 /**
  * A function that always returns `false`. Any passed in parameters are ignored.
@@ -11189,7 +11187,6 @@ var isEmpty$2 = function () {
     }
     return isEmpty$1.apply(R, args);
 };
-//# sourceMappingURL=ram.js.map
 
 var CardTitle = function (_a) {
     var topRight = _a.topRight, children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
@@ -11200,19 +11197,16 @@ var CardTitle = function (_a) {
         !isNil$2(topRight) &&
             React__default.createElement("div", { className: 'top-right' }, topRight)));
 };
-//# sourceMappingURL=CardTitle.js.map
 
 var CardBody = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "body " + className, style: style }, children));
 };
-//# sourceMappingURL=CardBody.js.map
 
 var CardActions = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "actions " + className, style: style }, children));
 };
-//# sourceMappingURL=CardActions.js.map
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -11245,20 +11239,17 @@ var Grid = function (_a) {
     var grid = __assign(__assign({}, style), { display: 'grid', gridTemplateColumns: cols, gridTemplateRows: "repeat(" + rows + ", 1fr)", gridColumnGap: colGap, gridRowGap: rowGap });
     return (React__default.createElement("div", { style: grid, className: className + " grid" }, children));
 };
-//# sourceMappingURL=Grid.js.map
 
 var E = function (_a) {
     var _b = _a.children, children = _b === void 0 ? null : _b, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
     var pos = __assign(__assign({}, style), { gridColumn: '0 / 1', gridRow: '0 / 1' });
     return (React__default.createElement("div", { style: pos, className: className }, children));
 };
-//# sourceMappingURL=E.js.map
 
 var CC = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "d-f f-jc-c f-ai-c " + className, style: __assign({ height: '100%' }, style) }, children));
 };
-//# sourceMappingURL=CC.js.map
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -13783,7 +13774,6 @@ var TabbedCard = function (_a) {
                 React__default.createElement("div", { className: 'tabbed-animation-wrapper' }, pathOr$1(null, [active, 'body'], tabs)))),
         children));
 };
-//# sourceMappingURL=TabbedCard.js.map
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -21954,7 +21944,6 @@ var Icon = function (_a) {
     var icon = _a.icon, _b = _a.style, style = _b === void 0 ? {} : _b, _c = _a.className, className = _c === void 0 ? '' : _c, tabIndex = _a.tabIndex, onClick = _a.onClick;
     return (React__default.createElement(FontAwesomeIcon, { icon: icon, style: style, className: "icon " + className, tabIndex: tabIndex, onClick: onClick }));
 };
-//# sourceMappingURL=Icon.js.map
 
 var CollapsibleCard = function (_a) {
     var children = _a.children, title = _a.title, topRight = _a.topRight, _b = _a.collapsed, collapsed = _b === void 0 ? false : _b, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
@@ -21969,20 +21958,17 @@ var CollapsibleCard = function (_a) {
         React__default.createElement(CSSTransition, { in: !isCollapsed, timeout: 110, classNames: 'collapsible-card' },
             React__default.createElement("div", { className: 'collapsible-animation-wrapper' }, children))));
 };
-//# sourceMappingURL=CollapsibleCard.js.map
 
 var YesNoIcon = function (_a) {
     var yes = _a.yes, _b = _a.yesIcon, yesIcon = _b === void 0 ? 'check' : _b, _c = _a.noIcon, noIcon = _c === void 0 ? 'times' : _c, _d = _a.className, className = _d === void 0 ? '' : _d, _e = _a.style, style = _e === void 0 ? {} : _e;
     return yes ? React__default.createElement(Icon, { icon: yesIcon, className: className, style: style }) : React__default.createElement(Icon, { icon: noIcon, className: className, style: style });
 };
-//# sourceMappingURL=YesNoIcon.js.map
 
 var Currency = function (_a) {
     var amount = _a.amount, currency = _a.currency, locale = _a.locale;
     var loc = isNil$2(locale) ? window.navigator.language : locale;
     return React__default.createElement(React__default.Fragment, null, new Intl.NumberFormat(loc, { style: 'currency', currency: currency }).format(amount));
 };
-//# sourceMappingURL=Currency.js.map
 
 var moment = createCommonjsModule(function (module, exports) {
 (function (global, factory) {
@@ -26590,7 +26576,6 @@ var RelativeTime = function (_a) {
     var loc = isNil$2(locale) ? window.navigator.language : locale;
     return React__default.createElement(React__default.Fragment, null, moment(date).locale(loc).fromNow());
 };
-//# sourceMappingURL=RelativeTime.js.map
 
 var DatePretty = function (_a) {
     var date = _a.date, _b = _a.format, format = _b === void 0 ? 'lll' : _b, locale = _a.locale;
@@ -26602,7 +26587,6 @@ var DatePretty = function (_a) {
     var l = moment(date);
     return React__default.createElement(React__default.Fragment, null, l.format(format));
 };
-//# sourceMappingURL=DatePretty.js.map
 
 var LoadingUntil = function (_a) {
     var loading = _a.loading, alt = _a.alt, children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
@@ -26615,7 +26599,6 @@ var LoadingUntil = function (_a) {
             React__default.createElement("div", { className: className, style: style },
                 React__default.createElement(Icon, { icon: 'spinner', className: 'fa-spin fa-3x' }));
 };
-//# sourceMappingURL=LoadingUntil.js.map
 
 var TabBar = function (_a) {
     var tabs = _a.tabs, onChange = _a.onChange, active = _a.active, _b = _a.style, style = _b === void 0 ? {} : _b, _c = _a.className, className = _c === void 0 ? '' : _c;
@@ -26638,7 +26621,6 @@ var TabBar = function (_a) {
                                 React__default.createElement("li", null, "foo")))));
         }))));
 };
-//# sourceMappingURL=TabBar.js.map
 
 var ControlArea$1 = ControlArea;
 var Card$1 = Card;
@@ -26657,7 +26639,6 @@ var RelativeTime$1 = RelativeTime;
 var DatePretty$1 = DatePretty;
 var LoadingUntil$1 = LoadingUntil;
 var TabBar$1 = TabBar;
-//# sourceMappingURL=index.js.map
 
 exports.CC = CC$1;
 exports.Card = Card$1;
