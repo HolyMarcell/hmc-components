@@ -1,6 +1,6 @@
 {
   "name": "@hmc/components",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "react components shared for me",
   "module": "dist/hmc-components.esm.js",
   "main": "dist/hmc-components.cjs.js",
