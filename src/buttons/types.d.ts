@@ -1,7 +1,8 @@
-import {ReactStyleProps} from "../commonTypes";
+import {ReactClickable, ReactStyleProps} from "../commonTypes";
 
-export interface ControlAreaProps extends ReactStyleProps {
-  onClick: () => any;
-  type?: 'default' | 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger' | string;
+export type ButtonType = 'default' | 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger' | string;
+
+export interface ControlAreaProps extends ReactStyleProps, ReactClickable {
+  type?: ButtonType;
 }
 

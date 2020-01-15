@@ -11,8 +11,11 @@ interface AllyProps extends AriaAriaAttributes {
 }
 
 interface ReactClickable {
-  onClick?: () => void;
+  onClick?: () => any;
 }
+
+type Sizes = 'xs' | 'sm' | 'nm' | 'md' | 'lg' | 'xl' | 'xxl' | string;
+
 
 type BoxPlacement =
   'top'
@@ -56,12 +59,19 @@ interface CollapsibleCardProps extends ReactStyleProps {
 
 interface IconProps extends ReactStyleProps, AllyProps, ReactClickable {
   icon: IconProp | string;
+  size?: Sizes;
 }
 
-interface YesNoIconProps extends ReactStyleProps{
+interface YesNoIconProps extends ReactStyleProps {
   yes: boolean;
   yesIcon?: string;
   noIcon?: string;
+  size?: Sizes;
+}
+
+interface SpinnerProps extends ReactStyleProps {
+  icon?: IconProp | string;
+  size?: Sizes;
 }
 
 interface CurrencyProps {
@@ -82,9 +92,8 @@ interface DatePrettyProps {
   locale?: string;
 }
 
-interface TabOption {
+interface TabOption extends ReactClickable {
   label: string;
-  onClick: Function;
 }
 
 
@@ -96,7 +105,7 @@ interface TabBarTab {
 
 interface TabBarProps extends ReactStyleProps{
   tabs: TabBarTab[];
-  onChange: Function;
+  onChange: (_: any) => any;
   active: string;
 }
 
@@ -115,4 +124,4 @@ interface LoadingUntilProps extends ReactStyleProps{
   alt?: React.ReactNode;
 }
 
-export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, DatePrettyProps, IconProps, LoadingUntilProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps, YesNoIconProps };
+export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, DatePrettyProps, IconProps, LoadingUntilProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Sizes, SpinnerProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps, YesNoIconProps };

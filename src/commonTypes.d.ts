@@ -11,8 +11,11 @@ export interface AllyProps extends AriaAriaAttributes {
 }
 
 export interface ReactClickable {
-  onClick?: () => void;
+  onClick?: () => any;
 }
+
+export type Sizes = 'xs' | 'sm' | 'nm' | 'md' | 'lg' | 'xl' | 'xxl' | string;
+
 
 export type BoxPlacement =
   'top'

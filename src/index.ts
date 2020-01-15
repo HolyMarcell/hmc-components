@@ -1,5 +1,6 @@
 import './theme/theme.scss';
 
+import ButtonE from "./buttons/Button";
 import ControlAreaE from "./buttons/ControlArea";
 
 
@@ -17,6 +18,7 @@ import CollapsibleCardE from "./card/CollapsibleCard";
 
 import IconE from "./icon/Icon";
 import YesNoIconE from "./icon/YesNoIcon";
+import SpinnerE from "./icon/Spinner";
 
 import CurrencyE from "./data/Currency";
 import RelativeTimeE from "./data/RelativeTime";
@@ -27,6 +29,7 @@ import LoadingUntilE from "./datamangagement/LoadingUntil";
 import TabBarE from "./tabs/TabBar";
 
 
+export const Button = ButtonE;
 export const ControlArea = ControlAreaE;
 
 export const Card = CardE;
@@ -43,6 +46,7 @@ export const CollapsibleCard = CollapsibleCardE;
 
 export const Icon = IconE;
 export const YesNoIcon = YesNoIconE;
+export const Spinner = SpinnerE;
 
 
 export const Currency = CurrencyE;

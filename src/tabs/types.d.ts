@@ -1,8 +1,7 @@
-import {ReactStyleProps} from "../commonTypes";
+import {ReactClickable, ReactStyleProps} from "../commonTypes";
 
-export interface TabOption {
+export interface TabOption extends ReactClickable {
   label: string;
-  onClick: Function;
 }
 
 
@@ -14,6 +13,6 @@ export interface TabBarTab {
 
 export interface TabBarProps extends ReactStyleProps{
   tabs: TabBarTab[];
-  onChange: Function;
+  onChange: (_: any) => any;
   active: string;
 }

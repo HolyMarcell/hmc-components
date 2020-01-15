@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import './theme/theme.scss';
+export declare const Button: import("react").FC<import("./buttons/Button").ButtonProps>;
 export declare const ControlArea: import("react").FC<import("./buttons/types").ControlAreaProps>;
 export declare const Card: import("react").FC<import("./types").CardProps>;
 export declare const CardTitle: import("react").FC<import("./types").CardTitleProps>;
@@ -12,6 +13,7 @@ export declare const TabbedCard: import("react").FC<import("./types").TabbedCard
 export declare const CollapsibleCard: import("react").FC<import("./types").CollapsibleCardProps>;
 export declare const Icon: import("react").FC<import("./types").IconProps>;
 export declare const YesNoIcon: import("react").FC<import("./types").YesNoIconProps>;
+export declare const Spinner: import("react").FC<import("./types").SpinnerProps>;
 export declare const Currency: import("react").FC<import("./types").CurrencyProps>;
 export declare const RelativeTime: import("react").FC<import("./types").RelativeTimeProps>;
 export declare const DatePretty: import("react").FC<import("./types").DatePrettyProps>;
