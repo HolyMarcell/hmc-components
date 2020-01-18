@@ -15,3 +15,11 @@ export interface GridProps extends ReactStyleProps {
 export interface CCProps extends ReactStyleProps {
 
 }
+
+export interface CHProps extends ReactStyleProps {
+
+}
+
+export interface CVProps extends ReactStyleProps {
+
+}

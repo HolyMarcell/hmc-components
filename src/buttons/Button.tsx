@@ -1,20 +1,7 @@
-import {ButtonType} from "./types";
+import {ButtonProps} from "./types";
 import React, {useEffect, useRef, useState} from "react";
-import {ReactClickable, ReactStyleProps, Sizes} from "../commonTypes";
 import {is, isNil} from "../util/ram";
 import {Spinner} from "../index";
-
-
-export interface ButtonProps extends ReactStyleProps, ReactClickable {
-  type?: ButtonType;
-  disabled?: boolean;
-  active?: boolean;
-  promise?: boolean;
-  loading?: boolean;
-  appearance?: 'default' | 'subtle' | 'outlined' | 'text' | string;
-  groupPos?: 'left' | 'middle' | 'right' | string;
-  size?: Sizes;
-}
 
 
 export const Button: React.FC<ButtonProps> = (

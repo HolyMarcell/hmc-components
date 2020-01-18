@@ -12,6 +12,8 @@ import CardActionsE from "./card/CardActions";
 import GridE from "./grid/Grid";
 import EE from "./grid/E";
 import CCE from "./grid/CC";
+import CVE from "./grid/CV";
+import CHE from "./grid/CH";
 
 import TabbedCardE from "./card/TabbedCard";
 import CollapsibleCardE from "./card/CollapsibleCard";
@@ -40,6 +42,8 @@ export const CardActions = CardActionsE;
 export const Grid = GridE;
 export const E = EE;
 export const CC = CCE;
+export const CV = CVE;
+export const CH = CHE;
 
 export const TabbedCard = TabbedCardE;
 export const CollapsibleCard = CollapsibleCardE;
