@@ -21,17 +21,3 @@ React Component library written in TypeScript for my personal use only. This lib
 
 
 MIT License with no military use clause.
-
-
-
-///
-
-mute
-def
-
-info
-pos
-warn
-neg
-
------ every color has a HUE and 6 shades
