@@ -27,6 +27,7 @@ import RelativeTimeE from "./data/RelativeTime";
 import DatePrettyE from "./data/DatePretty";
 
 import LoadingUntilE from "./datamangagement/LoadingUntil";
+import PaginationFooterE from "./datamangagement/PaginationFooter";
 
 import TabBarE from "./tabs/TabBar";
 
@@ -58,6 +59,7 @@ export const RelativeTime = RelativeTimeE;
 export const DatePretty = DatePrettyE;
 
 export const LoadingUntil = LoadingUntilE;
+export const PaginationFooter = PaginationFooterE;
 
 
 export const TabBar = TabBarE;

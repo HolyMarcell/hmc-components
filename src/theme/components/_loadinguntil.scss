@@ -1,0 +1,39 @@
+
+.loading-overlay {
+
+  & .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+  }
+
+  @keyframes gradientBG {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  position: relative;
+  pointer-events: none;
+
+  &:before {
+    position: absolute;
+    display: block;
+    content: '';
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(-45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+    background-size: 400% 400%;
+    animation: gradientBG 1s ease infinite;
+    z-index: 2;
+  }
+}
+

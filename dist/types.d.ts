@@ -121,7 +121,26 @@ interface TooltipProps extends ReactStyleProps {
 
 interface LoadingUntilProps extends ReactStyleProps{
   loading: boolean;
+  hasData?: boolean;
   alt?: React.ReactNode;
 }
 
-export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, DatePrettyProps, IconProps, LoadingUntilProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Sizes, SpinnerProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps, YesNoIconProps };
+interface Pagination {
+  numberOfElements: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  page: number;
+  onNext: () => { go: () => Promise<any> };
+  onPrev: () => { go: () => Promise<any> };
+  onPageSelect: (page: number) => { go: () => Promise<any> };
+}
+
+interface PaginationFooterProps extends ReactStyleProps {
+  pagination: Pagination;
+  showTotal?: boolean;
+  prevNextBtns?: boolean;
+  totalLabel?: string;
+}
+
+export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, DatePrettyProps, IconProps, LoadingUntilProps, Pagination, PaginationFooterProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Sizes, SpinnerProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps, YesNoIconProps };

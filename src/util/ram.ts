@@ -27,5 +27,6 @@ export const splitAt = (...args) => R.splitAt(...args);
 export const contains = (...args) => R.contains(...args);
 export const find = (...args) => R.find(...args);
 export const propEq = (...args) => R.propEq(...args);
+export const range = (start: number, end: number) => R.range(start, end);
 export const filter = (predicate: Function, filterable: any) => R.filter(predicate, filterable);
 export const take = (amount: number, collection: any) => R.take(amount, collection);

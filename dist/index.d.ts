@@ -20,4 +20,5 @@ export declare const Currency: import("react").FC<import("./types").CurrencyProp
 export declare const RelativeTime: import("react").FC<import("./types").RelativeTimeProps>;
 export declare const DatePretty: import("react").FC<import("./types").DatePrettyProps>;
 export declare const LoadingUntil: import("react").FC<import("./types").LoadingUntilProps>;
+export declare const PaginationFooter: import("react").FC<import("./types").PaginationFooterProps>;
 export declare const TabBar: import("react").FC<import("./types").TabBarProps>;

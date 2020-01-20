@@ -11184,6 +11184,9 @@ var isEmpty$2 = function () {
     }
     return isEmpty$1.apply(R, args);
 };
+var range$2 = function (start, end) { return range$1(start, end); };
+var filter$2 = function (predicate, filterable) { return filter$1(predicate, filterable); };
+//# sourceMappingURL=ram.js.map
 
 var Button = function (_a) {
     var _b = _a.type, type = _b === void 0 ? 'default' : _b, _c = _a.disabled, disabled = _c === void 0 ? false : _c, _d = _a.active, active = _d === void 0 ? false : _d, _e = _a.promise, promise = _e === void 0 ? false : _e, _f = _a.loading, loading = _f === void 0 ? false : _f, _g = _a.appearance, appearance = _g === void 0 ? 'default' : _g, groupPos = _a.groupPos, _h = _a.className, className = _h === void 0 ? '' : _h, _j = _a.style, style = _j === void 0 ? {} : _j, onClick = _a.onClick, _k = _a.size, size = _k === void 0 ? 'nm' : _k, children = _a.children;
@@ -11214,16 +11217,19 @@ var Button = function (_a) {
         (loading || promiseOn) &&
             React__default.createElement(Spinner$1, null)));
 };
+//# sourceMappingURL=Button.js.map
 
 var ControlArea = function (_a) {
     var onClick = _a.onClick, _b = _a.type, type = _b === void 0 ? 'default' : _b, children = _a.children, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
     return (React__default.createElement("div", { className: "control-area control-area--" + type + " " + className, style: style, onClick: onClick }, children));
 };
+//# sourceMappingURL=ControlArea.js.map
 
 var Card = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "card " + className, style: style }, children));
 };
+//# sourceMappingURL=Card.js.map
 
 var CardTitle = function (_a) {
     var topRight = _a.topRight, children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
@@ -11234,16 +11240,19 @@ var CardTitle = function (_a) {
         !isNil$2(topRight) &&
             React__default.createElement("div", { className: 'top-right' }, topRight)));
 };
+//# sourceMappingURL=CardTitle.js.map
 
 var CardBody = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "body " + className, style: style }, children));
 };
+//# sourceMappingURL=CardBody.js.map
 
 var CardActions = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "actions " + className, style: style }, children));
 };
+//# sourceMappingURL=CardActions.js.map
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -11276,27 +11285,32 @@ var Grid = function (_a) {
     var grid = __assign(__assign({}, style), { display: 'grid', gridTemplateColumns: cols, gridTemplateRows: "repeat(" + rows + ", 1fr)", gridColumnGap: colGap, gridRowGap: rowGap });
     return (React__default.createElement("div", { style: grid, className: className + " grid" }, children));
 };
+//# sourceMappingURL=Grid.js.map
 
 var E = function (_a) {
     var _b = _a.children, children = _b === void 0 ? null : _b, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
     var pos = __assign(__assign({}, style), { gridColumn: '0 / 1', gridRow: '0 / 1' });
     return (React__default.createElement("div", { style: pos, className: className }, children));
 };
+//# sourceMappingURL=E.js.map
 
 var CC = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "d-f f-jc-c f-ai-c " + className, style: __assign({ height: '100%' }, style) }, children));
 };
+//# sourceMappingURL=CC.js.map
 
 var CV = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "d-f f-ai-c " + className, style: __assign({ height: '100%' }, style) }, children));
 };
+//# sourceMappingURL=CV.js.map
 
 var CH = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "d-f f-jc-c " + className, style: __assign({ height: '100%' }, style) }, children));
 };
+//# sourceMappingURL=CH.js.map
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -13821,6 +13835,7 @@ var TabbedCard = function (_a) {
                 React__default.createElement("div", { className: 'tabbed-animation-wrapper' }, pathOr$1(null, [active, 'body'], tabs)))),
         children));
 };
+//# sourceMappingURL=TabbedCard.js.map
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -22001,6 +22016,7 @@ var Icon = function (_a) {
     var s = prop$2(size, iconSizes);
     return (React__default.createElement(FontAwesomeIcon, { icon: icon, style: style, className: "icon " + className + " " + s, tabIndex: tabIndex, onClick: onClick }));
 };
+//# sourceMappingURL=Icon.js.map
 
 var CollapsibleCard = function (_a) {
     var children = _a.children, title = _a.title, topRight = _a.topRight, _b = _a.collapsed, collapsed = _b === void 0 ? false : _b, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
@@ -22015,22 +22031,26 @@ var CollapsibleCard = function (_a) {
         React__default.createElement(CSSTransition, { in: !isCollapsed, timeout: 110, classNames: 'collapsible-card' },
             React__default.createElement("div", { className: 'collapsible-animation-wrapper' }, children))));
 };
+//# sourceMappingURL=CollapsibleCard.js.map
 
 var YesNoIcon = function (_a) {
     var yes = _a.yes, _b = _a.yesIcon, yesIcon = _b === void 0 ? 'check' : _b, _c = _a.noIcon, noIcon = _c === void 0 ? 'times' : _c, size = _a.size, _d = _a.className, className = _d === void 0 ? '' : _d, _e = _a.style, style = _e === void 0 ? {} : _e;
     return yes ? React__default.createElement(Icon, { icon: yesIcon, size: size, className: className, style: style }) : React__default.createElement(Icon, { icon: noIcon, size: size, className: className, style: style });
 };
+//# sourceMappingURL=YesNoIcon.js.map
 
 var Spinner = function (_a) {
     var _b = _a.icon, icon = _b === void 0 ? 'spinner' : _b, size = _a.size, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
     return React__default.createElement(Icon, { icon: icon, size: size, className: "fa-spin " + className, style: style });
 };
+//# sourceMappingURL=Spinner.js.map
 
 var Currency = function (_a) {
     var amount = _a.amount, currency = _a.currency, locale = _a.locale;
     var loc = isNil$2(locale) ? window.navigator.language : locale;
     return React__default.createElement(React__default.Fragment, null, new Intl.NumberFormat(loc, { style: 'currency', currency: currency }).format(amount));
 };
+//# sourceMappingURL=Currency.js.map
 
 var moment = createCommonjsModule(function (module, exports) {
 (function (global, factory) {
@@ -26638,6 +26658,7 @@ var RelativeTime = function (_a) {
     var loc = isNil$2(locale) ? window.navigator.language : locale;
     return React__default.createElement(React__default.Fragment, null, moment(date).locale(loc).fromNow());
 };
+//# sourceMappingURL=RelativeTime.js.map
 
 var DatePretty = function (_a) {
     var date = _a.date, _b = _a.format, format = _b === void 0 ? 'lll' : _b, locale = _a.locale;
@@ -26649,17 +26670,87 @@ var DatePretty = function (_a) {
     var l = moment(date);
     return React__default.createElement(React__default.Fragment, null, l.format(format));
 };
+//# sourceMappingURL=DatePretty.js.map
 
 var LoadingUntil = function (_a) {
-    var loading = _a.loading, alt = _a.alt, children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
+    var loading = _a.loading, _b = _a.hasData, hasData = _b === void 0 ? false : _b, alt = _a.alt, children = _a.children, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
     if (!loading && !isNil$1(loading)) {
         return React__default.createElement(React__default.Fragment, null, children || null); // some weird typescript fuckup?
+    }
+    if (loading && hasData) {
+        return React__default.createElement("div", { className: 'loading-overlay' },
+            React__default.createElement("div", { className: className, style: style },
+                React__default.createElement(Icon, { icon: 'spinner', className: 'fa-spin fa-3x spinner' })),
+            children);
     }
     return !isNil$1(alt) ?
         React__default.createElement(React__default.Fragment, null, alt)
         :
             React__default.createElement("div", { className: className, style: style },
                 React__default.createElement(Icon, { icon: 'spinner', className: 'fa-spin fa-3x' }));
+};
+
+var PaginationFooter = function (_a) {
+    var pagination = _a.pagination, _b = _a.showTotal, showTotal = _b === void 0 ? true : _b, _c = _a.prevNextBtns, prevNextBtns = _c === void 0 ? true : _c, _d = _a.totalLabel, totalLabel = _d === void 0 ? 'Total' : _d, _e = _a.className, className = _e === void 0 ? '' : _e, _f = _a.style, style = _f === void 0 ? {} : _f;
+    var numberOfElements = pagination.numberOfElements, size = pagination.size, totalElements = pagination.totalElements, totalPages = pagination.totalPages, page = pagination.page, onNext = pagination.onNext, onPageSelect = pagination.onPageSelect, onPrev = pagination.onPrev;
+    // Calculations start at 0, just as teh pagination
+    var pageList = [];
+    if (totalPages <= 5) {
+        pageList = range$2(0, totalPages);
+    }
+    else {
+        pageList = range$2(page - 2, page + 3); // 5
+        pageList = filter$2(function (a) { return a >= 0; }, pageList);
+        pageList = filter$2(function (a) { return a < totalPages; }, pageList);
+        // add starter
+        if (page - 2 > 0) {
+            if (page - 3 === 0) {
+                pageList = [0,].concat(pageList);
+            }
+            else {
+                pageList = [0, '..'].concat(pageList);
+            }
+        }
+        // add ender
+        if (page + 3 < totalPages) {
+            if (page + 4 === totalPages) {
+                pageList = pageList.concat([totalPages - 1]);
+            }
+            else {
+                pageList = pageList.concat(['..', totalPages - 1]);
+            }
+        }
+    }
+    // increment for display uses
+    var displayedPages = pageList.map(function (e) {
+        return e === '..' ? '..' : e + 1;
+    });
+    var hasPrev = page > 0;
+    var hasNext = page < totalPages - 1;
+    return (React__default.createElement("div", { className: "pagination-footer " + className, style: style },
+        prevNextBtns &&
+            React__default.createElement(Button, { appearance: 'text', onClick: onPrev, disabled: !hasPrev, className: 'prev' },
+                React__default.createElement(Icon, { icon: 'caret-left' })),
+        displayedPages.map(function (pag, index) {
+            if (pag !== '..') {
+                return (React__default.createElement(Button, { className: 'page-select', appearance: 'text', key: "" + index, onClick: function () { return onPageSelect(pag - 1); } },
+                    pag - 1 === page &&
+                        React__default.createElement("span", { className: 'txt-b' }, pag),
+                    pag - 1 !== page &&
+                        React__default.createElement("span", null, pag)));
+            }
+            else {
+                return (React__default.createElement("div", { className: 'ellipsis', key: index }, ".."));
+            }
+        }),
+        prevNextBtns &&
+            React__default.createElement(Button, { appearance: 'text', onClick: onNext, disabled: !hasNext, className: 'next' },
+                React__default.createElement(Icon, { icon: 'caret-right' })),
+        showTotal &&
+            React__default.createElement("div", { className: 'total' },
+                totalLabel,
+                ": ",
+                totalElements)));
 };
 
 var TabBar = function (_a) {
@@ -26683,6 +26774,7 @@ var TabBar = function (_a) {
                                 React__default.createElement("li", null, "foo")))));
         }))));
 };
+//# sourceMappingURL=TabBar.js.map
 
 var Button$1 = Button;
 var ControlArea$1 = ControlArea;
@@ -26704,6 +26796,7 @@ var Currency$1 = Currency;
 var RelativeTime$1 = RelativeTime;
 var DatePretty$1 = DatePretty;
 var LoadingUntil$1 = LoadingUntil;
+var PaginationFooter$1 = PaginationFooter;
 var TabBar$1 = TabBar;
 
 exports.Button = Button$1;
@@ -26722,6 +26815,7 @@ exports.E = E$1;
 exports.Grid = Grid$1;
 exports.Icon = Icon$1;
 exports.LoadingUntil = LoadingUntil$1;
+exports.PaginationFooter = PaginationFooter$1;
 exports.RelativeTime = RelativeTime$1;
 exports.Spinner = Spinner$1;
 exports.TabBar = TabBar$1;

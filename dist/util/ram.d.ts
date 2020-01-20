@@ -23,5 +23,6 @@ export declare const splitAt: (...args: any[]) => any;
 export declare const contains: (...args: any[]) => any;
 export declare const find: (...args: any[]) => any;
 export declare const propEq: (...args: any[]) => any;
+export declare const range: (start: number, end: number) => any;
 export declare const filter: (predicate: Function, filterable: any) => any;
 export declare const take: (amount: number, collection: any) => any;
