@@ -1,7 +1,7 @@
 import {ButtonProps} from "./types";
 import React, {useEffect, useRef, useState} from "react";
 import {is, isNil} from "../util/ram";
-import {Spinner} from "../index";
+import Spinner from "../icon/Spinner";
 
 
 export const Button: React.FC<ButtonProps> = (

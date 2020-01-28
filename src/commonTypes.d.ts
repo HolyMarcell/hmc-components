@@ -27,3 +27,8 @@ export type BoxPlacement =
   | 'bottom-left'
   | 'bottom-right'
   | string;
+
+export interface DataItem {
+  value: any;
+  label: string;
+}

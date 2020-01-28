@@ -31,6 +31,9 @@ import PaginationFooterE from "./datamangagement/PaginationFooter";
 
 import TabBarE from "./tabs/TabBar";
 
+// -- Form
+import SelectE from "./form/controls/Select";
+
 
 export const Button = ButtonE;
 export const ControlArea = ControlAreaE;
@@ -63,3 +66,7 @@ export const PaginationFooter = PaginationFooterE;
 
 
 export const TabBar = TabBarE;
+
+// -- Form
+
+export const Select = SelectE;

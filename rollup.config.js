@@ -6,7 +6,7 @@ import filesize from 'rollup-plugin-filesize';
 import localResolve from 'rollup-plugin-local-resolve';
 import typescript from "rollup-plugin-typescript2";
 import sass from 'rollup-plugin-sass';
-import dts from 'rollup-plugin-dts';
+//import dts from 'rollup-plugin-dts';
 
 import pkg from './package.json';
 
@@ -29,24 +29,24 @@ const config = [
       'react-dom',
     ],
     plugins: [
-      typescript(),
+      resolve(),
+      localResolve(),
       peerDepsExternal(),
+      typescript(),
       sass({
         output: 'dist/hmc-components.css',
       }),
       // postcss({extract: true, plugins: [autoprefixer]}),
       babel({exclude: 'node_modules/**'}),
-      localResolve(),
-      resolve(),
       commonjs(),
       filesize(),
     ],
   },
-  {
+/*  {
     input: "src/types.d.ts",
     output: [{file: "dist/types.d.ts", format: "es"}],
     plugins: [dts()],
-  },
+  },*/
 
 ];
 

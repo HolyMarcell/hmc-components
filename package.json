@@ -66,6 +66,7 @@
     "ramda": "^0.26.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-select": "^3.0.8",
     "react-transition-group": "^4.3.0",
     "rollup-plugin-typescript2": "^0.25.3",
     "use-timeout": "^1.1.0"

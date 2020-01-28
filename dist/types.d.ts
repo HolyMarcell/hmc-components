@@ -28,6 +28,11 @@ type BoxPlacement =
   | 'bottom-right'
   | string;
 
+interface DataItem {
+  value: any;
+  label: string;
+}
+
 interface CardTitleProps extends ReactStyleProps {
   topRight?: React.ReactNode;
 }
@@ -143,4 +148,4 @@ interface PaginationFooterProps extends ReactStyleProps {
   totalLabel?: string;
 }
 
-export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, DatePrettyProps, IconProps, LoadingUntilProps, Pagination, PaginationFooterProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Sizes, SpinnerProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps, YesNoIconProps };
+export { AllyProps, BoxPlacement, CardActionsProps, CardBodyProps, CardProps, CardTitleProps, CollapsibleCardProps, CurrencyProps, DataItem, DatePrettyProps, IconProps, LoadingUntilProps, Pagination, PaginationFooterProps, ReactClickable, ReactStyleProps, RelativeTimeProps, Sizes, SpinnerProps, Tab, TabBarProps, TabBarTab, TabOption, TabbedCardProps, TooltipMode, TooltipProps, YesNoIconProps };
