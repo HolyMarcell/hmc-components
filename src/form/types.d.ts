@@ -24,4 +24,15 @@ export interface SelectProps extends ReactStyleProps {
 }
 
 
+export interface AsyncSelectProps extends ReactStyleProps {
+  value: any;
+  asyncOptions: (search) => Promise<DataItem[]>;
+  options: DataItem[];
+  dirty: boolean;
+  valid: boolean;
+  touched?: boolean;
+  onChange: OnChangeFunc;
+}
+
+
 

@@ -33,6 +33,7 @@ import TabBarE from "./tabs/TabBar";
 
 // -- Form
 import SelectE from "./form/controls/Select";
+import AsyncSelectE from "./form/controls/AsyncSelect";
 
 
 export const Button = ButtonE;
@@ -70,3 +71,4 @@ export const TabBar = TabBarE;
 // -- Form
 
 export const Select = SelectE;
+export const AsyncSelect = AsyncSelectE;

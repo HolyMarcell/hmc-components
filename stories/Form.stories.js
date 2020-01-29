@@ -1,5 +1,5 @@
 import React from 'react';
-import {Select} from "../src";
+import {AsyncSelect, Select} from "../src";
 
 export default {
   title: 'Form Fields',
@@ -21,6 +21,35 @@ export const select = () => {
     <div style={{width: '200px'}}>
       <h3>Select</h3>
       <Select options={options} dirty={false} onChange={oc} valid={true} value={'baz'} touched={false} />
+    </div>
+  );
+};
+
+export const asyncSelect = () => {
+  const options = [
+    {value: 'foo', label: 'Foo: search for bar'},
+  ];
+
+  const asyncOptions = (search) => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve([{label: 'bar', value: 'bar'}]);
+      }, 1000);
+    });
+
+  };
+
+  return (
+    <div style={{width: '200px'}}>
+      <h3>Select</h3>
+      <AsyncSelect
+        asyncOptions={asyncOptions}
+        options={options}
+        dirty={false}
+        onChange={oc}
+        valid={true}
+        value={'baz'}
+        touched={false} />
     </div>
   );
 };

@@ -23,3 +23,4 @@ export declare const LoadingUntil: import("react").FC<import("./types").LoadingU
 export declare const PaginationFooter: import("react").FC<import("./types").PaginationFooterProps>;
 export declare const TabBar: import("react").FC<import("./types").TabBarProps>;
 export declare const Select: import("react").FC<import("./form/types").SelectProps>;
+export declare const AsyncSelect: import("react").FC<import("./form/types").AsyncSelectProps>;

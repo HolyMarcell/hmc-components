@@ -1,10 +1,10 @@
 import React from "react";
 import Field from "../Field";
-import {SelectProps} from "../types";
-import ReactSelect from 'react-select';
+import {AsyncSelectProps} from "../types";
+import AsyncReactSelect from 'react-select/async';
 import {find, prop, propEq} from "../../util/ram";
 
-const Select: React.FC<SelectProps> = ({value, options = [], dirty, valid, touched, onChange, className, style}) => {
+const AsyncSelect: React.FC<AsyncSelectProps> = ({value, asyncOptions, options = [], dirty, valid, touched, onChange, className, style}) => {
   const oc = (item) => {
     onChange(prop('value', item));
   };
@@ -13,12 +13,13 @@ const Select: React.FC<SelectProps> = ({value, options = [], dirty, valid, touch
 
   return (
     <Field style={style} className={`${className}`} type={'select'} dirty={dirty} valid={valid} touched={touched}>
-      <ReactSelect
-        options={options}
+      <AsyncReactSelect
+        loadOptions={asyncOptions}
+        defaultOptions={options}
         onChange={oc}
         value={selected} />
     </Field>
   )
 };
 
-export default Select;
+export default AsyncSelect;
