@@ -21,6 +21,8 @@ export interface SelectProps extends ReactStyleProps {
   valid: boolean;
   touched?: boolean;
   onChange: OnChangeFunc;
+  clearable?: boolean;
+  placeholder?: string;
 }
 
 
@@ -32,6 +34,8 @@ export interface AsyncSelectProps extends ReactStyleProps {
   valid: boolean;
   touched?: boolean;
   onChange: OnChangeFunc;
+  clearable?: boolean;
+  placeholder?: string;
 }
 
 
