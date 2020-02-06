@@ -67,8 +67,8 @@ body {
   --c-text-light-3: #282828;
   --text-size-xs: 0.6em;
   --text-size-sm: 0.8em;
-  --text-size-nm: 1em;
-  --text-size-md: 1.4em;
+  --text-size-md: 1em;
+  --text-size-nm: 1.4em;
   --text-size-lg: 1.8em;
   --text-size-xl: 2.2em;
   --space-null: 0;
@@ -1115,6 +1115,41 @@ body .h\:foo {
   background-size: 400% 400%;
   animation: gradientBG 1s ease infinite;
   z-index: 2;
+}
+
+.title {
+  font-weight: bolder;
+}
+.title-xs {
+  font-weight: normal;
+  font-size: var(--text-size-xs);
+}
+.title-sm {
+  font-weight: normal;
+  font-size: var(--text-size-sm);
+}
+.title-nm {
+  font-size: var(--text-size-nm);
+}
+.title-md {
+  font-size: var(--text-size-md);
+}
+.title-lg {
+  letter-spacing: 0.1em;
+  font-size: var(--text-size-lg);
+}
+.title-xl {
+  letter-spacing: 0.2em;
+  font-size: var(--text-size-xl);
+}
+
+.link-alike {
+  cursor: pointer;
+  color: #1675e0;
+  white-space: nowrap;
+}
+.link-alike:hover {
+  text-decoration: underline;
 }
 
 body {

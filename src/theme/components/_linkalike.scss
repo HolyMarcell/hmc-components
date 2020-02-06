@@ -1,0 +1,10 @@
+.link-alike {
+  cursor: pointer;
+  color: #1675e0;
+  white-space: nowrap;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+}

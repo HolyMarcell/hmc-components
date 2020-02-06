@@ -14,7 +14,7 @@ export interface ReactClickable {
   onClick?: () => any;
 }
 
-export type Sizes = 'xs' | 'sm' | 'nm' | 'md' | 'lg' | 'xl' | 'xxl' | string;
+export type Sizes = 'xs' | 'sm' | 'nm' | 'md' | 'lg' | 'xl' | string;
 
 
 export type BoxPlacement =

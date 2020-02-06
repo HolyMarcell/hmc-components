@@ -74,10 +74,12 @@ var T = function () {
  *      const greet = R.replace('{name}', R.__, 'Hello, {name}!');
  *      greet('Alice'); //=> 'Hello, Alice!'
  */
-var __ = { '@@functional/placeholder': true };
+var __ = {
+  '@@functional/placeholder': true
+};
 
 function _isPlaceholder(a) {
-       return a != null && typeof a === 'object' && a['@@functional/placeholder'] === true;
+  return a != null && typeof a === 'object' && a['@@functional/placeholder'] === true;
 }
 
 /**
@@ -88,6 +90,7 @@ function _isPlaceholder(a) {
  * @param {Function} fn The function to curry.
  * @return {Function} The curried function.
  */
+
 function _curry1(fn) {
   return function f1(a) {
     if (arguments.length === 0 || _isPlaceholder(a)) {
@@ -106,15 +109,18 @@ function _curry1(fn) {
  * @param {Function} fn The function to curry.
  * @return {Function} The curried function.
  */
+
 function _curry2(fn) {
   return function f2(a, b) {
     switch (arguments.length) {
       case 0:
         return f2;
+
       case 1:
         return _isPlaceholder(a) ? f2 : _curry1(function (_b) {
           return fn(a, _b);
         });
+
       default:
         return _isPlaceholder(a) && _isPlaceholder(b) ? f2 : _isPlaceholder(a) ? _curry1(function (_a) {
           return fn(_a, b);
@@ -142,7 +148,10 @@ function _curry2(fn) {
  *      R.add(2, 3);       //=>  5
  *      R.add(7)(10);      //=> 17
  */
-var add = /*#__PURE__*/_curry2(function add(a, b) {
+
+var add =
+/*#__PURE__*/
+_curry2(function add(a, b) {
   return Number(a) + Number(b);
 });
 
@@ -164,17 +173,20 @@ function _concat(set1, set2) {
   var len1 = set1.length;
   var len2 = set2.length;
   var result = [];
-
   idx = 0;
+
   while (idx < len1) {
     result[result.length] = set1[idx];
     idx += 1;
   }
+
   idx = 0;
+
   while (idx < len2) {
     result[result.length] = set2[idx];
     idx += 1;
   }
+
   return result;
 }
 
@@ -185,46 +197,57 @@ function _arity(n, fn) {
       return function () {
         return fn.apply(this, arguments);
       };
+
     case 1:
       return function (a0) {
         return fn.apply(this, arguments);
       };
+
     case 2:
       return function (a0, a1) {
         return fn.apply(this, arguments);
       };
+
     case 3:
       return function (a0, a1, a2) {
         return fn.apply(this, arguments);
       };
+
     case 4:
       return function (a0, a1, a2, a3) {
         return fn.apply(this, arguments);
       };
+
     case 5:
       return function (a0, a1, a2, a3, a4) {
         return fn.apply(this, arguments);
       };
+
     case 6:
       return function (a0, a1, a2, a3, a4, a5) {
         return fn.apply(this, arguments);
       };
+
     case 7:
       return function (a0, a1, a2, a3, a4, a5, a6) {
         return fn.apply(this, arguments);
       };
+
     case 8:
       return function (a0, a1, a2, a3, a4, a5, a6, a7) {
         return fn.apply(this, arguments);
       };
+
     case 9:
       return function (a0, a1, a2, a3, a4, a5, a6, a7, a8) {
         return fn.apply(this, arguments);
       };
+
     case 10:
       return function (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
         return fn.apply(this, arguments);
       };
+
     default:
       throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
   }
@@ -240,26 +263,33 @@ function _arity(n, fn) {
  * @param {Function} fn The function to curry.
  * @return {Function} The curried function.
  */
+
 function _curryN(length, received, fn) {
   return function () {
     var combined = [];
     var argsIdx = 0;
     var left = length;
     var combinedIdx = 0;
+
     while (combinedIdx < received.length || argsIdx < arguments.length) {
       var result;
+
       if (combinedIdx < received.length && (!_isPlaceholder(received[combinedIdx]) || argsIdx >= arguments.length)) {
         result = received[combinedIdx];
       } else {
         result = arguments[argsIdx];
         argsIdx += 1;
       }
+
       combined[combinedIdx] = result;
+
       if (!_isPlaceholder(result)) {
         left -= 1;
       }
+
       combinedIdx += 1;
     }
+
     return left <= 0 ? fn.apply(this, combined) : _arity(left, _curryN(length, combined, fn));
   };
 }
@@ -306,10 +336,14 @@ function _curryN(length, received, fn) {
  *      const g = f(3);
  *      g(4); //=> 10
  */
-var curryN = /*#__PURE__*/_curry2(function curryN(length, fn) {
+
+var curryN =
+/*#__PURE__*/
+_curry2(function curryN(length, fn) {
   if (length === 1) {
     return _curry1(fn);
   }
+
   return _arity(length, _curryN(length, [], fn));
 });
 
@@ -337,17 +371,22 @@ var curryN = /*#__PURE__*/_curry2(function curryN(length, fn) {
  *      mapIndexed((val, idx) => idx + '-' + val, ['f', 'o', 'o', 'b', 'a', 'r']);
  *      //=> ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
  */
-var addIndex = /*#__PURE__*/_curry1(function addIndex(fn) {
+
+var addIndex =
+/*#__PURE__*/
+_curry1(function addIndex(fn) {
   return curryN(fn.length, function () {
     var idx = 0;
     var origFn = arguments[0];
     var list = arguments[arguments.length - 1];
     var args = Array.prototype.slice.call(arguments, 0);
+
     args[0] = function () {
       var result = origFn.apply(this, _concat(arguments, [idx, list]));
       idx += 1;
       return result;
     };
+
     return fn.apply(this, args);
   });
 });
@@ -360,15 +399,18 @@ var addIndex = /*#__PURE__*/_curry1(function addIndex(fn) {
  * @param {Function} fn The function to curry.
  * @return {Function} The curried function.
  */
+
 function _curry3(fn) {
   return function f3(a, b, c) {
     switch (arguments.length) {
       case 0:
         return f3;
+
       case 1:
         return _isPlaceholder(a) ? f3 : _curry2(function (_b, _c) {
           return fn(a, _b, _c);
         });
+
       case 2:
         return _isPlaceholder(a) && _isPlaceholder(b) ? f3 : _isPlaceholder(a) ? _curry2(function (_a, _c) {
           return fn(_a, b, _c);
@@ -377,6 +419,7 @@ function _curry3(fn) {
         }) : _curry1(function (_c) {
           return fn(a, b, _c);
         });
+
       default:
         return _isPlaceholder(a) && _isPlaceholder(b) && _isPlaceholder(c) ? f3 : _isPlaceholder(a) && _isPlaceholder(b) ? _curry2(function (_a, _b) {
           return fn(_a, _b, c);
@@ -420,13 +463,20 @@ function _curry3(fn) {
  * @symb R.adjust(-1, f, [a, b]) = [a, f(b)]
  * @symb R.adjust(0, f, [a, b]) = [f(a), b]
  */
-var adjust = /*#__PURE__*/_curry3(function adjust(idx, fn, list) {
+
+var adjust =
+/*#__PURE__*/
+_curry3(function adjust(idx, fn, list) {
   if (idx >= list.length || idx < -list.length) {
     return list;
   }
+
   var start = idx < 0 ? list.length : 0;
+
   var _idx = start + idx;
+
   var _list = _concat(list);
+
   _list[_idx] = fn(list[_idx]);
   return _list;
 });
@@ -465,26 +515,33 @@ function _isTransformer(obj) {
  * @param {Function} fn default ramda implementation
  * @return {Function} A function that dispatches on object in list position
  */
+
 function _dispatchable(methodNames, xf, fn) {
   return function () {
     if (arguments.length === 0) {
       return fn();
     }
+
     var args = Array.prototype.slice.call(arguments, 0);
     var obj = args.pop();
+
     if (!_isArray(obj)) {
       var idx = 0;
+
       while (idx < methodNames.length) {
         if (typeof obj[methodNames[idx]] === 'function') {
           return obj[methodNames[idx]].apply(obj, args);
         }
+
         idx += 1;
       }
+
       if (_isTransformer(obj)) {
         var transducer = xf.apply(null, args);
         return transducer(obj);
       }
     }
+
     return fn.apply(this, arguments);
   };
 }
@@ -505,31 +562,40 @@ var _xfBase = {
   }
 };
 
-var XAll = /*#__PURE__*/function () {
+var XAll =
+/*#__PURE__*/
+function () {
   function XAll(f, xf) {
     this.xf = xf;
     this.f = f;
     this.all = true;
   }
+
   XAll.prototype['@@transducer/init'] = _xfBase.init;
+
   XAll.prototype['@@transducer/result'] = function (result) {
     if (this.all) {
       result = this.xf['@@transducer/step'](result, true);
     }
+
     return this.xf['@@transducer/result'](result);
   };
+
   XAll.prototype['@@transducer/step'] = function (result, input) {
     if (!this.f(input)) {
       this.all = false;
       result = _reduced(this.xf['@@transducer/step'](result, false));
     }
+
     return result;
   };
 
   return XAll;
 }();
 
-var _xall = /*#__PURE__*/_curry2(function _xall(f, xf) {
+var _xall =
+/*#__PURE__*/
+_curry2(function _xall(f, xf) {
   return new XAll(f, xf);
 });
 
@@ -557,14 +623,22 @@ var _xall = /*#__PURE__*/_curry2(function _xall(f, xf) {
  *      R.all(equals3)([3, 3, 3, 3]); //=> true
  *      R.all(equals3)([3, 3, 1, 3]); //=> false
  */
-var all = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['all'], _xall, function all(fn, list) {
+
+var all =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['all'], _xall, function all(fn, list) {
   var idx = 0;
+
   while (idx < list.length) {
     if (!fn(list[idx])) {
       return false;
     }
+
     idx += 1;
   }
+
   return true;
 }));
 
@@ -585,7 +659,10 @@ var all = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['all'], _xall, funct
  *      R.max(789, 123); //=> 789
  *      R.max('a', 'b'); //=> 'b'
  */
-var max = /*#__PURE__*/_curry2(function max(a, b) {
+
+var max =
+/*#__PURE__*/
+_curry2(function max(a, b) {
   return b > a ? b : a;
 });
 
@@ -593,10 +670,12 @@ function _map(fn, functor) {
   var idx = 0;
   var len = functor.length;
   var result = Array(len);
+
   while (idx < len) {
     result[idx] = fn(functor[idx]);
     idx += 1;
   }
+
   return result;
 }
 
@@ -621,41 +700,56 @@ function _isString(x) {
  *      _isArrayLike({length: 10}); //=> false
  *      _isArrayLike({0: 'zero', 9: 'nine', length: 10}); //=> true
  */
-var _isArrayLike = /*#__PURE__*/_curry1(function isArrayLike(x) {
+
+var _isArrayLike =
+/*#__PURE__*/
+_curry1(function isArrayLike(x) {
   if (_isArray(x)) {
     return true;
   }
+
   if (!x) {
     return false;
   }
+
   if (typeof x !== 'object') {
     return false;
   }
+
   if (_isString(x)) {
     return false;
   }
+
   if (x.nodeType === 1) {
     return !!x.length;
   }
+
   if (x.length === 0) {
     return true;
   }
+
   if (x.length > 0) {
     return x.hasOwnProperty(0) && x.hasOwnProperty(x.length - 1);
   }
+
   return false;
 });
 
-var XWrap = /*#__PURE__*/function () {
+var XWrap =
+/*#__PURE__*/
+function () {
   function XWrap(fn) {
     this.f = fn;
   }
+
   XWrap.prototype['@@transducer/init'] = function () {
     throw new Error('init not implemented on XWrap');
   };
+
   XWrap.prototype['@@transducer/result'] = function (acc) {
     return acc;
   };
+
   XWrap.prototype['@@transducer/step'] = function (acc, x) {
     return this.f(acc, x);
   };
@@ -689,7 +783,10 @@ function _xwrap(fn) {
  *      // logs {a: 2}
  * @symb R.bind(f, o)(a, b) = f.call(o, a, b)
  */
-var bind = /*#__PURE__*/_curry2(function bind(fn, thisObj) {
+
+var bind =
+/*#__PURE__*/
+_curry2(function bind(fn, thisObj) {
   return _arity(fn.length, function () {
     return fn.apply(thisObj, arguments);
   });
@@ -698,27 +795,35 @@ var bind = /*#__PURE__*/_curry2(function bind(fn, thisObj) {
 function _arrayReduce(xf, acc, list) {
   var idx = 0;
   var len = list.length;
+
   while (idx < len) {
     acc = xf['@@transducer/step'](acc, list[idx]);
+
     if (acc && acc['@@transducer/reduced']) {
       acc = acc['@@transducer/value'];
       break;
     }
+
     idx += 1;
   }
+
   return xf['@@transducer/result'](acc);
 }
 
 function _iterableReduce(xf, acc, iter) {
   var step = iter.next();
+
   while (!step.done) {
     acc = xf['@@transducer/step'](acc, step.value);
+
     if (acc && acc['@@transducer/reduced']) {
       acc = acc['@@transducer/value'];
       break;
     }
+
     step = iter.next();
   }
+
   return xf['@@transducer/result'](acc);
 }
 
@@ -727,23 +832,27 @@ function _methodReduce(xf, acc, obj, methodName) {
 }
 
 var symIterator = typeof Symbol !== 'undefined' ? Symbol.iterator : '@@iterator';
-
 function _reduce(fn, acc, list) {
   if (typeof fn === 'function') {
     fn = _xwrap(fn);
   }
+
   if (_isArrayLike(list)) {
     return _arrayReduce(fn, acc, list);
   }
+
   if (typeof list['fantasy-land/reduce'] === 'function') {
     return _methodReduce(fn, acc, list, 'fantasy-land/reduce');
   }
+
   if (list[symIterator] != null) {
     return _iterableReduce(fn, acc, list[symIterator]());
   }
+
   if (typeof list.next === 'function') {
     return _iterableReduce(fn, acc, list);
   }
+
   if (typeof list.reduce === 'function') {
     return _methodReduce(fn, acc, list, 'reduce');
   }
@@ -751,13 +860,17 @@ function _reduce(fn, acc, list) {
   throw new TypeError('reduce: list must be array or iterable');
 }
 
-var XMap = /*#__PURE__*/function () {
+var XMap =
+/*#__PURE__*/
+function () {
   function XMap(f, xf) {
     this.xf = xf;
     this.f = f;
   }
+
   XMap.prototype['@@transducer/init'] = _xfBase.init;
   XMap.prototype['@@transducer/result'] = _xfBase.result;
+
   XMap.prototype['@@transducer/step'] = function (result, input) {
     return this.xf['@@transducer/step'](result, this.f(input));
   };
@@ -765,7 +878,9 @@ var XMap = /*#__PURE__*/function () {
   return XMap;
 }();
 
-var _xmap = /*#__PURE__*/_curry2(function _xmap(f, xf) {
+var _xmap =
+/*#__PURE__*/
+_curry2(function _xmap(f, xf) {
   return new XMap(f, xf);
 });
 
@@ -774,7 +889,10 @@ function _has(prop, obj) {
 }
 
 var toString = Object.prototype.toString;
-var _isArguments = /*#__PURE__*/function () {
+
+var _isArguments =
+/*#__PURE__*/
+function () {
   return toString.call(arguments) === '[object Arguments]' ? function _isArguments(x) {
     return toString.call(x) === '[object Arguments]';
   } : function _isArguments(x) {
@@ -782,26 +900,33 @@ var _isArguments = /*#__PURE__*/function () {
   };
 }();
 
-// cover IE < 9 keys issues
-var hasEnumBug = ! /*#__PURE__*/{ toString: null }.propertyIsEnumerable('toString');
-var nonEnumerableProps = ['constructor', 'valueOf', 'isPrototypeOf', 'toString', 'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
-// Safari bug
-var hasArgsEnumBug = /*#__PURE__*/function () {
+var hasEnumBug = !
+/*#__PURE__*/
+{
+  toString: null
+}.propertyIsEnumerable('toString');
+var nonEnumerableProps = ['constructor', 'valueOf', 'isPrototypeOf', 'toString', 'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString']; // Safari bug
+
+var hasArgsEnumBug =
+/*#__PURE__*/
+function () {
 
   return arguments.propertyIsEnumerable('length');
 }();
 
 var contains = function contains(list, item) {
   var idx = 0;
+
   while (idx < list.length) {
     if (list[idx] === item) {
       return true;
     }
+
     idx += 1;
   }
+
   return false;
 };
-
 /**
  * Returns a list containing the names of all the enumerable own properties of
  * the supplied object.
@@ -820,30 +945,44 @@ var contains = function contains(list, item) {
  *
  *      R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
  */
-var keys = typeof Object.keys === 'function' && !hasArgsEnumBug ? /*#__PURE__*/_curry1(function keys(obj) {
+
+
+var keys = typeof Object.keys === 'function' && !hasArgsEnumBug ?
+/*#__PURE__*/
+_curry1(function keys(obj) {
   return Object(obj) !== obj ? [] : Object.keys(obj);
-}) : /*#__PURE__*/_curry1(function keys(obj) {
+}) :
+/*#__PURE__*/
+_curry1(function keys(obj) {
   if (Object(obj) !== obj) {
     return [];
   }
+
   var prop, nIdx;
   var ks = [];
+
   var checkArgsLength = hasArgsEnumBug && _isArguments(obj);
+
   for (prop in obj) {
     if (_has(prop, obj) && (!checkArgsLength || prop !== 'length')) {
       ks[ks.length] = prop;
     }
   }
+
   if (hasEnumBug) {
     nIdx = nonEnumerableProps.length - 1;
+
     while (nIdx >= 0) {
       prop = nonEnumerableProps[nIdx];
+
       if (_has(prop, obj) && !contains(ks, prop)) {
         ks[ks.length] = prop;
       }
+
       nIdx -= 1;
     }
   }
+
   return ks;
 });
 
@@ -882,21 +1021,115 @@ var keys = typeof Object.keys === 'function' && !hasArgsEnumBug ? /*#__PURE__*/_
  * @symb R.map(f, { x: a, y: b }) = { x: f(a), y: f(b) }
  * @symb R.map(f, functor_o) = functor_o.map(f)
  */
-var map = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['fantasy-land/map', 'map'], _xmap, function map(fn, functor) {
+
+var map =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['fantasy-land/map', 'map'], _xmap, function map(fn, functor) {
   switch (Object.prototype.toString.call(functor)) {
     case '[object Function]':
       return curryN(functor.length, function () {
         return fn.call(this, functor.apply(this, arguments));
       });
+
     case '[object Object]':
       return _reduce(function (acc, key) {
         acc[key] = fn(functor[key]);
         return acc;
       }, {}, keys(functor));
+
     default:
       return _map(fn, functor);
   }
 }));
+
+/**
+ * Determine if the passed argument is an integer.
+ *
+ * @private
+ * @param {*} n
+ * @category Type
+ * @return {Boolean}
+ */
+var _isInteger = Number.isInteger || function _isInteger(n) {
+  return n << 0 === n;
+};
+
+/**
+ * Returns the nth element of the given list or string. If n is negative the
+ * element at index length + n is returned.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig Number -> [a] -> a | Undefined
+ * @sig Number -> String -> String
+ * @param {Number} offset
+ * @param {*} list
+ * @return {*}
+ * @example
+ *
+ *      const list = ['foo', 'bar', 'baz', 'quux'];
+ *      R.nth(1, list); //=> 'bar'
+ *      R.nth(-1, list); //=> 'quux'
+ *      R.nth(-99, list); //=> undefined
+ *
+ *      R.nth(2, 'abc'); //=> 'c'
+ *      R.nth(3, 'abc'); //=> ''
+ * @symb R.nth(-1, [a, b, c]) = c
+ * @symb R.nth(0, [a, b, c]) = a
+ * @symb R.nth(1, [a, b, c]) = b
+ */
+
+var nth =
+/*#__PURE__*/
+_curry2(function nth(offset, list) {
+  var idx = offset < 0 ? list.length + offset : offset;
+  return _isString(list) ? list.charAt(idx) : list[idx];
+});
+
+/**
+ * Retrieves the values at given paths of an object.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.27.0
+ * @category Object
+ * @typedefn Idx = [String | Int]
+ * @sig [Idx] -> {a} -> [a | Undefined]
+ * @param {Array} pathsArray The array of paths to be fetched.
+ * @param {Object} obj The object to retrieve the nested properties from.
+ * @return {Array} A list consisting of values at paths specified by "pathsArray".
+ * @see R.path
+ * @example
+ *
+ *      R.paths([['a', 'b'], ['p', 0, 'q']], {a: {b: 2}, p: [{q: 3}]}); //=> [2, 3]
+ *      R.paths([['a', 'b'], ['p', 'r']], {a: {b: 2}, p: [{q: 3}]}); //=> [2, undefined]
+ */
+
+var paths =
+/*#__PURE__*/
+_curry2(function paths(pathsArray, obj) {
+  return pathsArray.map(function (paths) {
+    var val = obj;
+    var idx = 0;
+    var p;
+
+    while (idx < paths.length) {
+      if (val == null) {
+        return;
+      }
+
+      p = paths[idx];
+      val = _isInteger(p) ? nth(p, val) : val[p];
+      idx += 1;
+    }
+
+    return val;
+  });
+});
 
 /**
  * Retrieve the value at a given path.
@@ -910,23 +1143,19 @@ var map = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['fantasy-land/map', 
  * @param {Array} path The path to use.
  * @param {Object} obj The object to retrieve the nested property from.
  * @return {*} The data at `path`.
- * @see R.prop
+ * @see R.prop, R.nth
  * @example
  *
  *      R.path(['a', 'b'], {a: {b: 2}}); //=> 2
  *      R.path(['a', 'b'], {c: {b: 2}}); //=> undefined
+ *      R.path(['a', 'b', 0], {a: {b: [1, 2, 3]}}); //=> 1
+ *      R.path(['a', 'b', -2], {a: {b: [1, 2, 3]}}); //=> 2
  */
-var path = /*#__PURE__*/_curry2(function path(paths, obj) {
-  var val = obj;
-  var idx = 0;
-  while (idx < paths.length) {
-    if (val == null) {
-      return;
-    }
-    val = val[paths[idx]];
-    idx += 1;
-  }
-  return val;
+
+var path =
+/*#__PURE__*/
+_curry2(function path(pathAr, obj) {
+  return paths([pathAr], obj)[0];
 });
 
 /**
@@ -937,19 +1166,23 @@ var path = /*#__PURE__*/_curry2(function path(paths, obj) {
  * @memberOf R
  * @since v0.1.0
  * @category Object
- * @sig s -> {s: a} -> a | Undefined
- * @param {String} p The property name
+ * @typedefn Idx = String | Int
+ * @sig Idx -> {s: a} -> a | Undefined
+ * @param {String|Number} p The property name or array index
  * @param {Object} obj The object to query
  * @return {*} The value at `obj.p`.
- * @see R.path
+ * @see R.path, R.nth
  * @example
  *
  *      R.prop('x', {x: 100}); //=> 100
  *      R.prop('x', {}); //=> undefined
+ *      R.prop(0, [100]); //=> 100
  *      R.compose(R.inc, R.prop('x'))({ x: 3 }) //=> 4
  */
 
-var prop = /*#__PURE__*/_curry2(function prop(p, obj) {
+var prop =
+/*#__PURE__*/
+_curry2(function prop(p, obj) {
   return path([p], obj);
 });
 
@@ -980,7 +1213,10 @@ var prop = /*#__PURE__*/_curry2(function prop(p, obj) {
  * @symb R.pluck('x', [{x: 1, y: 2}, {x: 3, y: 4}, {x: 5, y: 6}]) = [1, 3, 5]
  * @symb R.pluck(0, [[1, 2], [3, 4], [5, 6]]) = [1, 3, 5]
  */
-var pluck = /*#__PURE__*/_curry2(function pluck(p, list) {
+
+var pluck =
+/*#__PURE__*/
+_curry2(function pluck(p, list) {
   return map(prop(p), list);
 });
 
@@ -1030,7 +1266,10 @@ var pluck = /*#__PURE__*/_curry2(function pluck(p, list) {
  *
  * @symb R.reduce(f, a, [b, c, d]) = f(f(f(a, b), c), d)
  */
-var reduce = /*#__PURE__*/_curry3(_reduce);
+
+var reduce =
+/*#__PURE__*/
+_curry3(_reduce);
 
 /**
  * Takes a list of predicates and returns a predicate that returns true for a
@@ -1057,16 +1296,22 @@ var reduce = /*#__PURE__*/_curry3(_reduce);
  *      isQueenOfSpades({rank: 'Q', suit: '♣︎'}); //=> false
  *      isQueenOfSpades({rank: 'Q', suit: '♠︎'}); //=> true
  */
-var allPass = /*#__PURE__*/_curry1(function allPass(preds) {
+
+var allPass =
+/*#__PURE__*/
+_curry1(function allPass(preds) {
   return curryN(reduce(max, 0, pluck('length', preds)), function () {
     var idx = 0;
     var len = preds.length;
+
     while (idx < len) {
       if (!preds[idx].apply(this, arguments)) {
         return false;
       }
+
       idx += 1;
     }
+
     return true;
   });
 });
@@ -1090,7 +1335,10 @@ var allPass = /*#__PURE__*/_curry1(function allPass(preds) {
  *      const t = R.always('Tee');
  *      t(); //=> 'Tee'
  */
-var always = /*#__PURE__*/_curry1(function always(val) {
+
+var always =
+/*#__PURE__*/
+_curry1(function always(val) {
   return function () {
     return val;
   };
@@ -1107,7 +1355,7 @@ var always = /*#__PURE__*/_curry1(function always(val) {
  * @param {Any} a
  * @param {Any} b
  * @return {Any} the first argument if it is falsy, otherwise the second argument.
- * @see R.both
+ * @see R.both, R.xor
  * @example
  *
  *      R.and(true, true); //=> true
@@ -1115,35 +1363,47 @@ var always = /*#__PURE__*/_curry1(function always(val) {
  *      R.and(false, true); //=> false
  *      R.and(false, false); //=> false
  */
-var and = /*#__PURE__*/_curry2(function and(a, b) {
+
+var and =
+/*#__PURE__*/
+_curry2(function and(a, b) {
   return a && b;
 });
 
-var XAny = /*#__PURE__*/function () {
+var XAny =
+/*#__PURE__*/
+function () {
   function XAny(f, xf) {
     this.xf = xf;
     this.f = f;
     this.any = false;
   }
+
   XAny.prototype['@@transducer/init'] = _xfBase.init;
+
   XAny.prototype['@@transducer/result'] = function (result) {
     if (!this.any) {
       result = this.xf['@@transducer/step'](result, false);
     }
+
     return this.xf['@@transducer/result'](result);
   };
+
   XAny.prototype['@@transducer/step'] = function (result, input) {
     if (this.f(input)) {
       this.any = true;
       result = _reduced(this.xf['@@transducer/step'](result, true));
     }
+
     return result;
   };
 
   return XAny;
 }();
 
-var _xany = /*#__PURE__*/_curry2(function _xany(f, xf) {
+var _xany =
+/*#__PURE__*/
+_curry2(function _xany(f, xf) {
   return new XAny(f, xf);
 });
 
@@ -1172,14 +1432,22 @@ var _xany = /*#__PURE__*/_curry2(function _xany(f, xf) {
  *      R.any(lessThan0)([1, 2]); //=> false
  *      R.any(lessThan2)([1, 2]); //=> true
  */
-var any = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['any'], _xany, function any(fn, list) {
+
+var any =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['any'], _xany, function any(fn, list) {
   var idx = 0;
+
   while (idx < list.length) {
     if (fn(list[idx])) {
       return true;
     }
+
     idx += 1;
   }
+
   return false;
 }));
 
@@ -1209,16 +1477,22 @@ var any = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['any'], _xany, funct
  *      isBlackCard({rank: 'Q', suit: '♠'}); //=> true
  *      isBlackCard({rank: 'Q', suit: '♦'}); //=> false
  */
-var anyPass = /*#__PURE__*/_curry1(function anyPass(preds) {
+
+var anyPass =
+/*#__PURE__*/
+_curry1(function anyPass(preds) {
   return curryN(reduce(max, 0, pluck('length', preds)), function () {
     var idx = 0;
     var len = preds.length;
+
     while (idx < len) {
       if (preds[idx].apply(this, arguments)) {
         return true;
       }
+
       idx += 1;
     }
+
     return false;
   });
 });
@@ -1249,7 +1523,10 @@ var anyPass = /*#__PURE__*/_curry1(function anyPass(preds) {
  *      R.ap(R.concat, R.toUpper)('Ramda') //=> 'RamdaRAMDA'
  * @symb R.ap([f, g], [a, b]) = [f(a), f(b), g(a), g(b)]
  */
-var ap = /*#__PURE__*/_curry2(function ap(applyF, applyX) {
+
+var ap =
+/*#__PURE__*/
+_curry2(function ap(applyF, applyX) {
   return typeof applyX['fantasy-land/ap'] === 'function' ? applyX['fantasy-land/ap'](applyF) : typeof applyF.ap === 'function' ? applyF.ap(applyX) : typeof applyF === 'function' ? function (x) {
     return applyF(x)(applyX(x));
   } : _reduce(function (acc, f) {
@@ -1261,37 +1538,47 @@ function _aperture(n, list) {
   var idx = 0;
   var limit = list.length - (n - 1);
   var acc = new Array(limit >= 0 ? limit : 0);
+
   while (idx < limit) {
     acc[idx] = Array.prototype.slice.call(list, idx, idx + n);
     idx += 1;
   }
+
   return acc;
 }
 
-var XAperture = /*#__PURE__*/function () {
+var XAperture =
+/*#__PURE__*/
+function () {
   function XAperture(n, xf) {
     this.xf = xf;
     this.pos = 0;
     this.full = false;
     this.acc = new Array(n);
   }
+
   XAperture.prototype['@@transducer/init'] = _xfBase.init;
+
   XAperture.prototype['@@transducer/result'] = function (result) {
     this.acc = null;
     return this.xf['@@transducer/result'](result);
   };
+
   XAperture.prototype['@@transducer/step'] = function (result, input) {
     this.store(input);
     return this.full ? this.xf['@@transducer/step'](result, this.getCopy()) : result;
   };
+
   XAperture.prototype.store = function (input) {
     this.acc[this.pos] = input;
     this.pos += 1;
+
     if (this.pos === this.acc.length) {
       this.pos = 0;
       this.full = true;
     }
   };
+
   XAperture.prototype.getCopy = function () {
     return _concat(Array.prototype.slice.call(this.acc, this.pos), Array.prototype.slice.call(this.acc, 0, this.pos));
   };
@@ -1299,7 +1586,9 @@ var XAperture = /*#__PURE__*/function () {
   return XAperture;
 }();
 
-var _xaperture = /*#__PURE__*/_curry2(function _xaperture(n, xf) {
+var _xaperture =
+/*#__PURE__*/
+_curry2(function _xaperture(n, xf) {
   return new XAperture(n, xf);
 });
 
@@ -1324,7 +1613,12 @@ var _xaperture = /*#__PURE__*/_curry2(function _xaperture(n, xf) {
  *      R.aperture(3, [1, 2, 3, 4, 5]); //=> [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
  *      R.aperture(7, [1, 2, 3, 4, 5]); //=> []
  */
-var aperture = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xaperture, _aperture));
+
+var aperture =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable([], _xaperture, _aperture));
 
 /**
  * Returns a new list containing the contents of the given list, followed by
@@ -1346,7 +1640,10 @@ var aperture = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xaperture, 
  *      R.append('tests', []); //=> ['tests']
  *      R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
  */
-var append = /*#__PURE__*/_curry2(function append(el, list) {
+
+var append =
+/*#__PURE__*/
+_curry2(function append(el, list) {
   return _concat(list, [el]);
 });
 
@@ -1370,7 +1667,10 @@ var append = /*#__PURE__*/_curry2(function append(el, list) {
  *      R.apply(Math.max, nums); //=> 42
  * @symb R.apply(f, [a, b, c]) = f(a, b, c)
  */
-var apply = /*#__PURE__*/_curry2(function apply(fn, args) {
+
+var apply =
+/*#__PURE__*/
+_curry2(function apply(fn, args) {
   return fn.apply(this, args);
 });
 
@@ -1391,27 +1691,31 @@ var apply = /*#__PURE__*/_curry2(function apply(fn, args) {
  *
  *      R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
  */
-var values = /*#__PURE__*/_curry1(function values(obj) {
+
+var values =
+/*#__PURE__*/
+_curry1(function values(obj) {
   var props = keys(obj);
   var len = props.length;
   var vals = [];
   var idx = 0;
+
   while (idx < len) {
     vals[idx] = obj[props[idx]];
     idx += 1;
   }
+
   return vals;
 });
 
-// Use custom mapValues function to avoid issues with specs that include a "map" key and R.map
 // delegating calls to .map
+
 function mapValues(fn, obj) {
   return keys(obj).reduce(function (acc, key) {
     acc[key] = fn(obj[key]);
     return acc;
   }, {});
 }
-
 /**
  * Given a spec object recursively mapping properties to functions, creates a
  * function producing an object of the same structure, by mapping each property
@@ -1437,11 +1741,14 @@ function mapValues(fn, obj) {
  *      getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
  * @symb R.applySpec({ x: f, y: { z: g } })(a, b) = { x: f(a, b), y: { z: g(a, b) } }
  */
-var applySpec = /*#__PURE__*/_curry1(function applySpec(spec) {
+
+
+var applySpec =
+/*#__PURE__*/
+_curry1(function applySpec(spec) {
   spec = mapValues(function (v) {
     return typeof v == 'function' ? v : applySpec(v);
   }, spec);
-
   return curryN(reduce(max, 0, pluck('length', values(spec))), function () {
     var args = arguments;
     return mapValues(function (f) {
@@ -1469,7 +1776,10 @@ var applySpec = /*#__PURE__*/_curry1(function applySpec(spec) {
  *      t42(R.identity); //=> 42
  *      t42(R.add(1)); //=> 43
  */
-var applyTo = /*#__PURE__*/_curry2(function applyTo(x, f) {
+
+var applyTo =
+/*#__PURE__*/
+_curry2(function applyTo(x, f) {
   return f(x);
 });
 
@@ -1498,7 +1808,10 @@ var applyTo = /*#__PURE__*/_curry2(function applyTo(x, f) {
  *      const peopleByYoungestFirst = R.sort(byAge, people);
  *        //=> [{ name: 'Mikhail', age: 62 },{ name: 'Emma', age: 70 }, { name: 'Peter', age: 78 }]
  */
-var ascend = /*#__PURE__*/_curry3(function ascend(fn, a, b) {
+
+var ascend =
+/*#__PURE__*/
+_curry3(function ascend(fn, a, b) {
   var aa = fn(a);
   var bb = fn(b);
   return aa < bb ? -1 : aa > bb ? 1 : 0;
@@ -1524,26 +1837,19 @@ var ascend = /*#__PURE__*/_curry3(function ascend(fn, a, b) {
  *
  *      R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
  */
-var assoc = /*#__PURE__*/_curry3(function assoc(prop, val, obj) {
+
+var assoc =
+/*#__PURE__*/
+_curry3(function assoc(prop, val, obj) {
   var result = {};
+
   for (var p in obj) {
     result[p] = obj[p];
   }
+
   result[prop] = val;
   return result;
 });
-
-/**
- * Determine if the passed argument is an integer.
- *
- * @private
- * @param {*} n
- * @category Type
- * @return {Boolean}
- */
-var _isInteger = Number.isInteger || function _isInteger(n) {
-  return n << 0 === n;
-};
 
 /**
  * Checks if the input value is `null` or `undefined`.
@@ -1562,7 +1868,10 @@ var _isInteger = Number.isInteger || function _isInteger(n) {
  *      R.isNil(0); //=> false
  *      R.isNil([]); //=> false
  */
-var isNil = /*#__PURE__*/_curry1(function isNil(x) {
+
+var isNil =
+/*#__PURE__*/
+_curry1(function isNil(x) {
   return x == null;
 });
 
@@ -1590,15 +1899,21 @@ var isNil = /*#__PURE__*/_curry1(function isNil(x) {
  *      // Any missing or non-object keys in path will be overridden
  *      R.assocPath(['a', 'b', 'c'], 42, {a: 5}); //=> {a: {b: {c: 42}}}
  */
-var assocPath = /*#__PURE__*/_curry3(function assocPath(path, val, obj) {
+
+var assocPath =
+/*#__PURE__*/
+_curry3(function assocPath(path, val, obj) {
   if (path.length === 0) {
     return val;
   }
+
   var idx = path[0];
+
   if (path.length > 1) {
     var nextObj = !isNil(obj) && _has(idx, obj) ? obj[idx] : _isInteger(path[1]) ? [] : {};
     val = assocPath(Array.prototype.slice.call(path, 1), val, nextObj);
   }
+
   if (_isInteger(idx) && _isArray(obj)) {
     var arr = [].concat(obj);
     arr[idx] = val;
@@ -1638,52 +1953,66 @@ var assocPath = /*#__PURE__*/_curry3(function assocPath(path, val, obj) {
  * @symb R.nAry(1, f)(a, b) = f(a)
  * @symb R.nAry(2, f)(a, b) = f(a, b)
  */
-var nAry = /*#__PURE__*/_curry2(function nAry(n, fn) {
+
+var nAry =
+/*#__PURE__*/
+_curry2(function nAry(n, fn) {
   switch (n) {
     case 0:
       return function () {
         return fn.call(this);
       };
+
     case 1:
       return function (a0) {
         return fn.call(this, a0);
       };
+
     case 2:
       return function (a0, a1) {
         return fn.call(this, a0, a1);
       };
+
     case 3:
       return function (a0, a1, a2) {
         return fn.call(this, a0, a1, a2);
       };
+
     case 4:
       return function (a0, a1, a2, a3) {
         return fn.call(this, a0, a1, a2, a3);
       };
+
     case 5:
       return function (a0, a1, a2, a3, a4) {
         return fn.call(this, a0, a1, a2, a3, a4);
       };
+
     case 6:
       return function (a0, a1, a2, a3, a4, a5) {
         return fn.call(this, a0, a1, a2, a3, a4, a5);
       };
+
     case 7:
       return function (a0, a1, a2, a3, a4, a5, a6) {
         return fn.call(this, a0, a1, a2, a3, a4, a5, a6);
       };
+
     case 8:
       return function (a0, a1, a2, a3, a4, a5, a6, a7) {
         return fn.call(this, a0, a1, a2, a3, a4, a5, a6, a7);
       };
+
     case 9:
       return function (a0, a1, a2, a3, a4, a5, a6, a7, a8) {
         return fn.call(this, a0, a1, a2, a3, a4, a5, a6, a7, a8);
       };
+
     case 10:
       return function (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
         return fn.call(this, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
       };
+
     default:
       throw new Error('First argument to nAry must be a non-negative integer no greater than ten');
   }
@@ -1717,12 +2046,16 @@ var nAry = /*#__PURE__*/_curry2(function nAry(n, fn) {
  *      takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
  * @symb R.binary(f)(a, b, c) = f(a, b)
  */
-var binary = /*#__PURE__*/_curry1(function binary(fn) {
+
+var binary =
+/*#__PURE__*/
+_curry1(function binary(fn) {
   return nAry(2, fn);
 });
 
 function _isFunction(x) {
-  return Object.prototype.toString.call(x) === '[object Function]';
+  var type = Object.prototype.toString.call(x);
+  return type === '[object Function]' || type === '[object AsyncFunction]' || type === '[object GeneratorFunction]' || type === '[object AsyncGeneratorFunction]';
 }
 
 /**
@@ -1742,7 +2075,10 @@ function _isFunction(x) {
  *      const madd3 = R.liftN(3, (...args) => R.sum(args));
  *      madd3([1,2,3], [1,2,3], [1]); //=> [3, 4, 5, 4, 5, 6, 5, 6, 7]
  */
-var liftN = /*#__PURE__*/_curry2(function liftN(arity, fn) {
+
+var liftN =
+/*#__PURE__*/
+_curry2(function liftN(arity, fn) {
   var lifted = curryN(arity, fn);
   return curryN(arity, function () {
     return _reduce(ap, map(lifted, arguments[0]), Array.prototype.slice.call(arguments, 1));
@@ -1771,7 +2107,10 @@ var liftN = /*#__PURE__*/_curry2(function liftN(arity, fn) {
  *
  *      madd5([1,2], [3], [4, 5], [6], [7, 8]); //=> [21, 22, 22, 23, 22, 23, 23, 24]
  */
-var lift = /*#__PURE__*/_curry1(function lift(fn) {
+
+var lift =
+/*#__PURE__*/
+_curry1(function lift(fn) {
   return liftN(fn.length, fn);
 });
 
@@ -1806,7 +2145,10 @@ var lift = /*#__PURE__*/_curry1(function lift(fn) {
  *      R.both(Maybe.Just(false), Maybe.Just(55)); // => Maybe.Just(false)
  *      R.both([false, false, 'a'], [11]); //=> [false, false, 11]
  */
-var both = /*#__PURE__*/_curry2(function both(f, g) {
+
+var both =
+/*#__PURE__*/
+_curry2(function both(f, g) {
   return _isFunction(f) ? function _both() {
     return f.apply(this, arguments) && g.apply(this, arguments);
   } : lift(and)(f, g);
@@ -1853,7 +2195,10 @@ var both = /*#__PURE__*/_curry2(function both(f, g) {
  *      const g = f(3);
  *      g(4); //=> 10
  */
-var curry = /*#__PURE__*/_curry1(function curry(fn) {
+
+var curry =
+/*#__PURE__*/
+_curry1(function curry(fn) {
   return curryN(fn.length, fn);
 });
 
@@ -1889,7 +2234,10 @@ var curry = /*#__PURE__*/_curry1(function curry(fn) {
  *      format({indent: 2, value: 'foo\nbar\nbaz\n'}); //=> '  foo\n  bar\n  baz\n'
  * @symb R.call(f, a, b) = f(a, b)
  */
-var call = /*#__PURE__*/curry(function call(fn) {
+
+var call =
+/*#__PURE__*/
+curry(function call(fn) {
   return fn.apply(this, Array.prototype.slice.call(arguments, 1));
 });
 
@@ -1899,6 +2247,7 @@ var call = /*#__PURE__*/curry(function call(fn) {
  *
  * @private
  */
+
 function _makeFlat(recursive) {
   return function flatt(list) {
     var value, jlen, j;
@@ -1911,6 +2260,7 @@ function _makeFlat(recursive) {
         value = recursive ? flatt(list[idx]) : list[idx];
         j = 0;
         jlen = value.length;
+
         while (j < jlen) {
           result[result.length] = value[j];
           j += 1;
@@ -1918,8 +2268,10 @@ function _makeFlat(recursive) {
       } else {
         result[result.length] = list[idx];
       }
+
       idx += 1;
     }
+
     return result;
   };
 }
@@ -1957,7 +2309,9 @@ var _flatCat = function _xcat(xf) {
   };
 };
 
-var _xchain = /*#__PURE__*/_curry2(function _xchain(f, xf) {
+var _xchain =
+/*#__PURE__*/
+_curry2(function _xchain(f, xf) {
   return map(f, _flatCat(xf));
 });
 
@@ -1987,12 +2341,18 @@ var _xchain = /*#__PURE__*/_curry2(function _xchain(f, xf) {
  *
  *      R.chain(R.append, R.head)([1, 2, 3]); //=> [1, 2, 3, 1]
  */
-var chain = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['fantasy-land/chain', 'chain'], _xchain, function chain(fn, monad) {
+
+var chain =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['fantasy-land/chain', 'chain'], _xchain, function chain(fn, monad) {
   if (typeof monad === 'function') {
     return function (x) {
       return fn(monad(x))(x);
     };
   }
+
   return _makeFlat(false)(map(fn, monad));
 }));
 
@@ -2016,15 +2376,19 @@ var chain = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['fantasy-land/chai
  *      R.clamp(1, 10, 15) // => 10
  *      R.clamp(1, 10, 4)  // => 4
  */
-var clamp = /*#__PURE__*/_curry3(function clamp(min, max, value) {
+
+var clamp =
+/*#__PURE__*/
+_curry3(function clamp(min, max, value) {
   if (min > max) {
     throw new Error('min must not be greater than max in clamp(min, max, value)');
   }
+
   return value < min ? min : value > max ? max : value;
 });
 
 function _cloneRegExp(pattern) {
-                                  return new RegExp(pattern.source, (pattern.global ? 'g' : '') + (pattern.ignoreCase ? 'i' : '') + (pattern.multiline ? 'm' : '') + (pattern.sticky ? 'y' : '') + (pattern.unicode ? 'u' : ''));
+  return new RegExp(pattern.source, (pattern.global ? 'g' : '') + (pattern.ignoreCase ? 'i' : '') + (pattern.multiline ? 'm' : '') + (pattern.sticky ? 'y' : '') + (pattern.unicode ? 'u' : ''));
 }
 
 /**
@@ -2052,7 +2416,10 @@ function _cloneRegExp(pattern) {
  *      R.type(() => {}); //=> "Function"
  *      R.type(undefined); //=> "Undefined"
  */
-var type = /*#__PURE__*/_curry1(function type(val) {
+
+var type =
+/*#__PURE__*/
+_curry1(function type(val) {
   return val === null ? 'Null' : val === undefined ? 'Undefined' : Object.prototype.toString.call(val).slice(8, -1);
 });
 
@@ -2066,32 +2433,43 @@ var type = /*#__PURE__*/_curry1(function type(val) {
  * @param {Boolean} deep Whether or not to perform deep cloning.
  * @return {*} The copied value.
  */
+
 function _clone(value, refFrom, refTo, deep) {
   var copy = function copy(copiedValue) {
     var len = refFrom.length;
     var idx = 0;
+
     while (idx < len) {
       if (value === refFrom[idx]) {
         return refTo[idx];
       }
+
       idx += 1;
     }
+
     refFrom[idx + 1] = value;
     refTo[idx + 1] = copiedValue;
+
     for (var key in value) {
       copiedValue[key] = deep ? _clone(value[key], refFrom, refTo, true) : value[key];
     }
+
     return copiedValue;
   };
+
   switch (type(value)) {
     case 'Object':
       return copy({});
+
     case 'Array':
       return copy([]);
+
     case 'Date':
       return new Date(value.valueOf());
+
     case 'RegExp':
       return _cloneRegExp(value);
+
     default:
       return value;
   }
@@ -2118,7 +2496,10 @@ function _clone(value, refFrom, refTo, deep) {
  *      objects === objectsClone; //=> false
  *      objects[0] === objectsClone[0]; //=> false
  */
-var clone = /*#__PURE__*/_curry1(function clone(value) {
+
+var clone =
+/*#__PURE__*/
+_curry1(function clone(value) {
   return value != null && typeof value.clone === 'function' ? value.clone() : _clone(value, [], [], true);
 });
 
@@ -2145,7 +2526,10 @@ var clone = /*#__PURE__*/_curry1(function clone(value) {
  *      const peopleByIncreasingAge = R.sort(byAge, people);
  *        //=> [{ name: 'Mikhail', age: 62 },{ name: 'Emma', age: 70 }, { name: 'Peter', age: 78 }]
  */
-var comparator = /*#__PURE__*/_curry1(function comparator(pred) {
+
+var comparator =
+/*#__PURE__*/
+_curry1(function comparator(pred) {
   return function (a, b) {
     return pred(a, b) ? -1 : pred(b, a) ? 1 : 0;
   };
@@ -2170,7 +2554,10 @@ var comparator = /*#__PURE__*/_curry1(function comparator(pred) {
  *      R.not(0); //=> true
  *      R.not(1); //=> false
  */
-var not = /*#__PURE__*/_curry1(function not(a) {
+
+var not =
+/*#__PURE__*/
+_curry1(function not(a) {
   return !a;
 });
 
@@ -2196,7 +2583,10 @@ var not = /*#__PURE__*/_curry1(function not(a) {
  *      isNil(7); //=> false
  *      isNotNil(7); //=> true
  */
-var complement = /*#__PURE__*/lift(not);
+
+var complement =
+/*#__PURE__*/
+lift(not);
 
 function _pipe(f, g) {
   return function () {
@@ -2214,12 +2604,15 @@ function _pipe(f, g) {
  * @param {String} methodname property to check for a custom implementation
  * @return {Object} Whatever the return value of the method is.
  */
+
 function _checkForMethod(methodname, fn) {
   return function () {
     var length = arguments.length;
+
     if (length === 0) {
       return fn();
     }
+
     var obj = arguments[length - 1];
     return _isArray(obj) || typeof obj[methodname] !== 'function' ? fn.apply(this, arguments) : obj[methodname].apply(obj, Array.prototype.slice.call(arguments, 0, length - 1));
   };
@@ -2249,7 +2642,12 @@ function _checkForMethod(methodname, fn) {
  *      R.slice(-3, -1, ['a', 'b', 'c', 'd']);      //=> ['b', 'c']
  *      R.slice(0, 3, 'ramda');                     //=> 'ram'
  */
-var slice = /*#__PURE__*/_curry3( /*#__PURE__*/_checkForMethod('slice', function slice(fromIndex, toIndex, list) {
+
+var slice =
+/*#__PURE__*/
+_curry3(
+/*#__PURE__*/
+_checkForMethod('slice', function slice(fromIndex, toIndex, list) {
   return Array.prototype.slice.call(list, fromIndex, toIndex);
 }));
 
@@ -2280,11 +2678,18 @@ var slice = /*#__PURE__*/_curry3( /*#__PURE__*/_checkForMethod('slice', function
  *      R.tail('a');    //=> ''
  *      R.tail('');     //=> ''
  */
-var tail = /*#__PURE__*/_curry1( /*#__PURE__*/_checkForMethod('tail', /*#__PURE__*/slice(1, Infinity)));
+
+var tail =
+/*#__PURE__*/
+_curry1(
+/*#__PURE__*/
+_checkForMethod('tail',
+/*#__PURE__*/
+slice(1, Infinity)));
 
 /**
- * Performs left-to-right function composition. The leftmost function may have
- * any arity; the remaining functions must be unary.
+ * Performs left-to-right function composition. The first argument may have
+ * any arity; the remaining arguments must be unary.
  *
  * In some libraries this function is named `sequence`.
  *
@@ -2305,10 +2710,12 @@ var tail = /*#__PURE__*/_curry1( /*#__PURE__*/_checkForMethod('tail', /*#__PURE_
  *      f(3, 4); // -(3^4) + 1
  * @symb R.pipe(f, g, h)(a, b) = h(g(f(a, b)))
  */
+
 function pipe() {
   if (arguments.length === 0) {
     throw new Error('pipe requires at least one argument');
   }
+
   return _arity(arguments[0].length, reduce(_pipe, arguments[0], tail(arguments)));
 }
 
@@ -2336,13 +2743,16 @@ function pipe() {
  *      R.reverse('a');        //=> 'a'
  *      R.reverse('');         //=> ''
  */
-var reverse = /*#__PURE__*/_curry1(function reverse(list) {
+
+var reverse =
+/*#__PURE__*/
+_curry1(function reverse(list) {
   return _isString(list) ? list.split('').reverse().join('') : Array.prototype.slice.call(list, 0).reverse();
 });
 
 /**
- * Performs right-to-left function composition. The rightmost function may have
- * any arity; the remaining functions must be unary.
+ * Performs right-to-left function composition. The last argument may have
+ * any arity; the remaining arguments must be unary.
  *
  * **Note:** The result of compose is not automatically curried.
  *
@@ -2364,10 +2774,12 @@ var reverse = /*#__PURE__*/_curry1(function reverse(list) {
  *
  * @symb R.compose(f, g, h)(a, b) = f(g(h(a, b)))
  */
+
 function compose() {
   if (arguments.length === 0) {
     throw new Error('compose requires at least one argument');
   }
+
   return pipe.apply(this, reverse(arguments));
 }
 
@@ -2402,10 +2814,12 @@ function compose() {
  *       getStateCode({}); //=> Maybe.Nothing()
  * @symb R.composeK(f, g, h)(a) = R.chain(f, R.chain(g, h(a)))
  */
+
 function composeK() {
   if (arguments.length === 0) {
     throw new Error('composeK requires at least one argument');
   }
+
   var init = Array.prototype.slice.call(arguments);
   var last = init.pop();
   return compose(compose.apply(this, map(chain, init)), last);
@@ -2422,7 +2836,7 @@ function _pipeP(f, g) {
 
 /**
  * Performs left-to-right composition of one or more Promise-returning
- * functions. The leftmost function may have any arity; the remaining functions
+ * functions. The first argument may have any arity; the remaining arguments
  * must be unary.
  *
  * @func
@@ -2439,17 +2853,19 @@ function _pipeP(f, g) {
  *      //  followersForUser :: String -> Promise [User]
  *      const followersForUser = R.pipeP(db.getUserById, db.getFollowers);
  */
+
 function pipeP() {
   if (arguments.length === 0) {
     throw new Error('pipeP requires at least one argument');
   }
+
   return _arity(arguments[0].length, reduce(_pipeP, arguments[0], tail(arguments)));
 }
 
 /**
  * Performs right-to-left composition of one or more Promise-returning
- * functions. The rightmost function may have any arity; the remaining
- * functions must be unary.
+ * functions. The last arguments may have any arity; the remaining
+ * arguments must be unary.
  *
  * @func
  * @memberOf R
@@ -2481,43 +2897,14 @@ function pipeP() {
  *      followersForUser('JOE').then(followers => console.log('Followers:', followers))
  *      // Followers: ["STEVE","SUZY"]
  */
+
 function composeP() {
   if (arguments.length === 0) {
     throw new Error('composeP requires at least one argument');
   }
+
   return pipeP.apply(this, reverse(arguments));
 }
-
-/**
- * Returns the nth element of the given list or string. If n is negative the
- * element at index length + n is returned.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category List
- * @sig Number -> [a] -> a | Undefined
- * @sig Number -> String -> String
- * @param {Number} offset
- * @param {*} list
- * @return {*}
- * @example
- *
- *      const list = ['foo', 'bar', 'baz', 'quux'];
- *      R.nth(1, list); //=> 'bar'
- *      R.nth(-1, list); //=> 'quux'
- *      R.nth(-99, list); //=> undefined
- *
- *      R.nth(2, 'abc'); //=> 'c'
- *      R.nth(3, 'abc'); //=> ''
- * @symb R.nth(-1, [a, b, c]) = c
- * @symb R.nth(0, [a, b, c]) = a
- * @symb R.nth(1, [a, b, c]) = b
- */
-var nth = /*#__PURE__*/_curry2(function nth(offset, list) {
-  var idx = offset < 0 ? list.length + offset : offset;
-  return _isString(list) ? list.charAt(idx) : list[idx];
-});
 
 /**
  * Returns the first element of the given list or string. In some libraries
@@ -2540,7 +2927,10 @@ var nth = /*#__PURE__*/_curry2(function nth(offset, list) {
  *      R.head('abc'); //=> 'a'
  *      R.head(''); //=> ''
  */
-var head = /*#__PURE__*/nth(0);
+
+var head =
+/*#__PURE__*/
+nth(0);
 
 function _identity(x) {
   return x;
@@ -2565,16 +2955,21 @@ function _identity(x) {
  *      R.identity(obj) === obj; //=> true
  * @symb R.identity(a) = a
  */
-var identity = /*#__PURE__*/_curry1(_identity);
+
+var identity =
+/*#__PURE__*/
+_curry1(_identity);
 
 /**
- * Performs left-to-right function composition using transforming function. The leftmost function may have
- * any arity; the remaining functions must be unary.
+ * Performs left-to-right function composition using transforming function. The first argument may have
+ * any arity; the remaining arguments must be unary.
  *
- * **Note:** The result of pipeWith is not automatically curried.
+ * **Note:** The result of pipeWith is not automatically curried. Transforming function is not used on the
+ * first argument.
  *
  * @func
  * @memberOf R
+ * @since v0.26.0
  * @category Function
  * @sig ((* -> *), [((a, b, ..., n) -> o), (o -> p), ..., (x -> y), (y -> z)]) -> ((a, b, ..., n) -> z)
  * @param {...Function} functions
@@ -2586,16 +2981,18 @@ var identity = /*#__PURE__*/_curry1(_identity);
  *      const f = pipeWhileNotNil([Math.pow, R.negate, R.inc])
  *
  *      f(3, 4); // -(3^4) + 1
- * @symb R.pipeWith(f)([g, h, i])(...args) = f(i, f(h, f(g, ...args)))
+ * @symb R.pipeWith(f)([g, h, i])(...args) = f(i, f(h, g(...args)))
  */
-var pipeWith = /*#__PURE__*/_curry2(function pipeWith(xf, list) {
+
+var pipeWith =
+/*#__PURE__*/
+_curry2(function pipeWith(xf, list) {
   if (list.length <= 0) {
     return identity;
   }
 
   var headList = head(list);
   var tailList = tail(list);
-
   return _arity(headList.length, function () {
     return _reduce(function (result, f) {
       return xf.call(this, f, result);
@@ -2604,13 +3001,15 @@ var pipeWith = /*#__PURE__*/_curry2(function pipeWith(xf, list) {
 });
 
 /**
- * Performs right-to-left function composition using transforming function. The rightmost function may have
- * any arity; the remaining functions must be unary.
+ * Performs right-to-left function composition using transforming function. The last argument may have
+ * any arity; the remaining arguments must be unary.
  *
- * **Note:** The result of compose is not automatically curried.
+ * **Note:** The result of compose is not automatically curried. Transforming function is not used on the
+ * last argument.
  *
  * @func
  * @memberOf R
+ * @since v0.26.0
  * @category Function
  * @sig ((* -> *), [(y -> z), (x -> y), ..., (o -> p), ((a, b, ..., n) -> o)]) -> ((a, b, ..., n) -> z)
  * @param {...Function} ...functions The functions to compose
@@ -2623,18 +3022,23 @@ var pipeWith = /*#__PURE__*/_curry2(function pipeWith(xf, list) {
  *      composeWhileNotNil([R.inc, R.prop('age')])({age: 1}) //=> 2
  *      composeWhileNotNil([R.inc, R.prop('age')])({}) //=> undefined
  *
- * @symb R.composeWith(f)([g, h, i])(...args) = f(g, f(h, f(i, ...args)))
+ * @symb R.composeWith(f)([g, h, i])(...args) = f(g, f(h, i(...args)))
  */
-var composeWith = /*#__PURE__*/_curry2(function composeWith(xf, list) {
+
+var composeWith =
+/*#__PURE__*/
+_curry2(function composeWith(xf, list) {
   return pipeWith.apply(this, [xf, reverse(list)]);
 });
 
 function _arrayFromIterator(iter) {
   var list = [];
   var next;
+
   while (!(next = iter.next()).done) {
     list.push(next.value);
   }
+
   return list;
 }
 
@@ -2646,8 +3050,10 @@ function _includesWith(pred, x, list) {
     if (pred(x, list[idx])) {
       return true;
     }
+
     idx += 1;
   }
+
   return false;
 }
 
@@ -2685,13 +3091,14 @@ var _objectIs$1 = typeof Object.is === 'function' ? Object.is : _objectIs;
 
 function _uniqContentEquals(aIterator, bIterator, stackA, stackB) {
   var a = _arrayFromIterator(aIterator);
+
   var b = _arrayFromIterator(bIterator);
 
   function eq(_a, _b) {
     return _equals(_a, _b, stackA.slice(), stackB.slice());
-  }
+  } // if *a* array contains any element that is not included in *b*
 
-  // if *a* array contains any element that is not included in *b*
+
   return !_includesWith(function (b, aItem) {
     return !_includesWith(eq, aItem, b);
   }, b, a);
@@ -2727,33 +3134,43 @@ function _equals(a, b, stackA, stackB) {
       if (typeof a.constructor === 'function' && _functionName(a.constructor) === 'Promise') {
         return a === b;
       }
+
       break;
+
     case 'Boolean':
     case 'Number':
     case 'String':
       if (!(typeof a === typeof b && _objectIs$1(a.valueOf(), b.valueOf()))) {
         return false;
       }
+
       break;
+
     case 'Date':
       if (!_objectIs$1(a.valueOf(), b.valueOf())) {
         return false;
       }
+
       break;
+
     case 'Error':
       return a.name === b.name && a.message === b.message;
+
     case 'RegExp':
       if (!(a.source === b.source && a.global === b.global && a.ignoreCase === b.ignoreCase && a.multiline === b.multiline && a.sticky === b.sticky && a.unicode === b.unicode)) {
         return false;
       }
+
       break;
   }
 
   var idx = stackA.length - 1;
+
   while (idx >= 0) {
     if (stackA[idx] === a) {
       return stackB[idx] === b;
     }
+
     idx -= 1;
   }
 
@@ -2764,12 +3181,14 @@ function _equals(a, b, stackA, stackB) {
       }
 
       return _uniqContentEquals(a.entries(), b.entries(), stackA.concat([a]), stackB.concat([b]));
+
     case 'Set':
       if (a.size !== b.size) {
         return false;
       }
 
       return _uniqContentEquals(a.values(), b.values(), stackA.concat([a]), stackB.concat([b]));
+
     case 'Arguments':
     case 'Array':
     case 'Object':
@@ -2790,27 +3209,32 @@ function _equals(a, b, stackA, stackB) {
     case 'Float64Array':
     case 'ArrayBuffer':
       break;
+
     default:
       // Values of other types are only equal if identical.
       return false;
   }
 
   var keysA = keys(a);
+
   if (keysA.length !== keys(b).length) {
     return false;
   }
 
   var extendedStackA = stackA.concat([a]);
   var extendedStackB = stackB.concat([b]);
-
   idx = keysA.length - 1;
+
   while (idx >= 0) {
     var key = keysA[idx];
+
     if (!(_has(key, b) && _equals(b[key], a[key], extendedStackA, extendedStackB))) {
       return false;
     }
+
     idx -= 1;
   }
+
   return true;
 }
 
@@ -2839,42 +3263,53 @@ function _equals(a, b, stackA, stackB) {
  *      const b = {}; b.v = b;
  *      R.equals(a, b); //=> true
  */
-var equals = /*#__PURE__*/_curry2(function equals(a, b) {
+
+var equals =
+/*#__PURE__*/
+_curry2(function equals(a, b) {
   return _equals(a, b, [], []);
 });
 
 function _indexOf(list, a, idx) {
-  var inf, item;
-  // Array.prototype.indexOf doesn't exist below IE9
+  var inf, item; // Array.prototype.indexOf doesn't exist below IE9
+
   if (typeof list.indexOf === 'function') {
     switch (typeof a) {
       case 'number':
         if (a === 0) {
           // manually crawl the list to distinguish between +0 and -0
           inf = 1 / a;
+
           while (idx < list.length) {
             item = list[idx];
+
             if (item === 0 && 1 / item === inf) {
               return idx;
             }
+
             idx += 1;
           }
+
           return -1;
         } else if (a !== a) {
           // NaN
           while (idx < list.length) {
             item = list[idx];
+
             if (typeof item === 'number' && item !== item) {
               return idx;
             }
+
             idx += 1;
           }
-          return -1;
-        }
-        // non-zero numbers can utilise Set
-        return list.indexOf(a, idx);
 
+          return -1;
+        } // non-zero numbers can utilise Set
+
+
+        return list.indexOf(a, idx);
       // all these types can utilise Set
+
       case 'string':
       case 'boolean':
       case 'function':
@@ -2886,15 +3321,19 @@ function _indexOf(list, a, idx) {
           // null can utilise Set
           return list.indexOf(a, idx);
         }
+
     }
-  }
-  // anything else not covered above, defer to R.equals
+  } // anything else not covered above, defer to R.equals
+
+
   while (idx < list.length) {
     if (equals(list[idx], a)) {
       return idx;
     }
+
     idx += 1;
   }
+
   return -1;
 }
 
@@ -2905,7 +3344,6 @@ function _includes(a, list) {
 function _quote(s) {
   var escaped = s.replace(/\\/g, '\\\\').replace(/[\b]/g, '\\b') // \b matches word boundary; [\b] matches backspace
   .replace(/\f/g, '\\f').replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\t/g, '\\t').replace(/\v/g, '\\v').replace(/\0/g, '\\0');
-
   return '"' + escaped.replace(/"/g, '\\"') + '"';
 }
 
@@ -2937,8 +3375,10 @@ function _filter(fn, list) {
     if (fn(list[idx])) {
       result[result.length] = list[idx];
     }
+
     idx += 1;
   }
+
   return result;
 }
 
@@ -2946,13 +3386,17 @@ function _isObject(x) {
   return Object.prototype.toString.call(x) === '[object Object]';
 }
 
-var XFilter = /*#__PURE__*/function () {
+var XFilter =
+/*#__PURE__*/
+function () {
   function XFilter(f, xf) {
     this.xf = xf;
     this.f = f;
   }
+
   XFilter.prototype['@@transducer/init'] = _xfBase.init;
   XFilter.prototype['@@transducer/result'] = _xfBase.result;
+
   XFilter.prototype['@@transducer/step'] = function (result, input) {
     return this.f(input) ? this.xf['@@transducer/step'](result, input) : result;
   };
@@ -2960,7 +3404,9 @@ var XFilter = /*#__PURE__*/function () {
   return XFilter;
 }();
 
-var _xfilter = /*#__PURE__*/_curry2(function _xfilter(f, xf) {
+var _xfilter =
+/*#__PURE__*/
+_curry2(function _xfilter(f, xf) {
   return new XFilter(f, xf);
 });
 
@@ -2991,14 +3437,19 @@ var _xfilter = /*#__PURE__*/_curry2(function _xfilter(f, xf) {
  *
  *      R.filter(isEven, {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, d: 4}
  */
-var filter = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['filter'], _xfilter, function (pred, filterable) {
+
+var filter =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['filter'], _xfilter, function (pred, filterable) {
   return _isObject(filterable) ? _reduce(function (acc, key) {
     if (pred(filterable[key])) {
       acc[key] = filterable[key];
     }
+
     return acc;
-  }, {}, keys(filterable)) :
-  // else
+  }, {}, keys(filterable)) : // else
   _filter(pred, filterable);
 }));
 
@@ -3026,7 +3477,10 @@ var filter = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['filter'], _xfilt
  *
  *      R.reject(isOdd, {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, d: 4}
  */
-var reject = /*#__PURE__*/_curry2(function reject(pred, filterable) {
+
+var reject =
+/*#__PURE__*/
+_curry2(function reject(pred, filterable) {
   return filter(_complement(pred), filterable);
 });
 
@@ -3034,9 +3488,9 @@ function _toString(x, seen) {
   var recur = function recur(y) {
     var xs = seen.concat([x]);
     return _includes(y, xs) ? '<Circular>' : _toString(y, xs);
-  };
+  }; //  mapPairs :: (Object, [String]) -> [String]
 
-  //  mapPairs :: (Object, [String]) -> [String]
+
   var mapPairs = function (obj, keys) {
     return _map(function (k) {
       return _quote(k) + ': ' + recur(obj[k]);
@@ -3046,30 +3500,39 @@ function _toString(x, seen) {
   switch (Object.prototype.toString.call(x)) {
     case '[object Arguments]':
       return '(function() { return arguments; }(' + _map(recur, x).join(', ') + '))';
+
     case '[object Array]':
       return '[' + _map(recur, x).concat(mapPairs(x, reject(function (k) {
-        return (/^\d+$/.test(k)
-        );
+        return /^\d+$/.test(k);
       }, keys(x)))).join(', ') + ']';
+
     case '[object Boolean]':
       return typeof x === 'object' ? 'new Boolean(' + recur(x.valueOf()) + ')' : x.toString();
+
     case '[object Date]':
       return 'new Date(' + (isNaN(x.valueOf()) ? recur(NaN) : _quote(_toISOString(x))) + ')';
+
     case '[object Null]':
       return 'null';
+
     case '[object Number]':
       return typeof x === 'object' ? 'new Number(' + recur(x.valueOf()) + ')' : 1 / x === -Infinity ? '-0' : x.toString(10);
+
     case '[object String]':
       return typeof x === 'object' ? 'new String(' + recur(x.valueOf()) + ')' : _quote(x);
+
     case '[object Undefined]':
       return 'undefined';
+
     default:
       if (typeof x.toString === 'function') {
         var repr = x.toString();
+
         if (repr !== '[object Object]') {
           return repr;
         }
       }
+
       return '{' + mapPairs(x, keys(x)).join(', ') + '}';
   }
 }
@@ -3110,7 +3573,10 @@ function _toString(x, seen) {
  *      R.toString({foo: 1, bar: 2, baz: 3}); //=> '{"bar": 2, "baz": 3, "foo": 1}'
  *      R.toString(new Date('2001-02-03T04:05:06Z')); //=> 'new Date("2001-02-03T04:05:06.000Z")'
  */
-var toString$1 = /*#__PURE__*/_curry1(function toString(val) {
+
+var toString$1 =
+/*#__PURE__*/
+_curry1(function toString(val) {
   return _toString(val, []);
 });
 
@@ -3142,25 +3608,34 @@ var toString$1 = /*#__PURE__*/_curry1(function toString(val) {
  *      R.concat([4, 5, 6], [1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
  *      R.concat([], []); //=> []
  */
-var concat = /*#__PURE__*/_curry2(function concat(a, b) {
+
+var concat =
+/*#__PURE__*/
+_curry2(function concat(a, b) {
   if (_isArray(a)) {
     if (_isArray(b)) {
       return a.concat(b);
     }
+
     throw new TypeError(toString$1(b) + ' is not an array');
   }
+
   if (_isString(a)) {
     if (_isString(b)) {
       return a + b;
     }
+
     throw new TypeError(toString$1(b) + ' is not a string');
   }
+
   if (a != null && _isFunction(a['fantasy-land/concat'])) {
     return a['fantasy-land/concat'](b);
   }
+
   if (a != null && _isFunction(a.concat)) {
     return a.concat(b);
   }
+
   throw new TypeError(toString$1(a) + ' does not have a method named "concat" or "fantasy-land/concat"');
 });
 
@@ -3191,16 +3666,21 @@ var concat = /*#__PURE__*/_curry2(function concat(a, b) {
  *      fn(50); //=> 'nothing special happens at 50°C'
  *      fn(100); //=> 'water boils at 100°C'
  */
-var cond = /*#__PURE__*/_curry1(function cond(pairs) {
+
+var cond =
+/*#__PURE__*/
+_curry1(function cond(pairs) {
   var arity = reduce(max, 0, map(function (pair) {
     return pair[0].length;
   }, pairs));
   return _arity(arity, function () {
     var idx = 0;
+
     while (idx < pairs.length) {
       if (pairs[idx][0].apply(this, arguments)) {
         return pairs[idx][1].apply(this, arguments);
       }
+
       idx += 1;
     }
   });
@@ -3241,35 +3721,49 @@ var cond = /*#__PURE__*/_curry1(function cond(pairs) {
  *      // Add a dollop of Potato Chips
  *      // Add a dollop of Ketchup
  */
-var constructN = /*#__PURE__*/_curry2(function constructN(n, Fn) {
+
+var constructN =
+/*#__PURE__*/
+_curry2(function constructN(n, Fn) {
   if (n > 10) {
     throw new Error('Constructor with greater than ten arguments');
   }
+
   if (n === 0) {
     return function () {
       return new Fn();
     };
   }
+
   return curry(nAry(n, function ($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) {
     switch (arguments.length) {
       case 1:
         return new Fn($0);
+
       case 2:
         return new Fn($0, $1);
+
       case 3:
         return new Fn($0, $1, $2);
+
       case 4:
         return new Fn($0, $1, $2, $3);
+
       case 5:
         return new Fn($0, $1, $2, $3, $4);
+
       case 6:
         return new Fn($0, $1, $2, $3, $4, $5);
+
       case 7:
         return new Fn($0, $1, $2, $3, $4, $5, $6);
+
       case 8:
         return new Fn($0, $1, $2, $3, $4, $5, $6, $7);
+
       case 9:
         return new Fn($0, $1, $2, $3, $4, $5, $6, $7, $8);
+
       case 10:
         return new Fn($0, $1, $2, $3, $4, $5, $6, $7, $8, $9);
     }
@@ -3308,7 +3802,10 @@ var constructN = /*#__PURE__*/_curry2(function constructN(n, Fn) {
  *      const sightNewAnimal = R.compose(animalSighting, AnimalConstructor);
  *      R.map(sightNewAnimal, animalTypes); //=> ["It's a Lion!", "It's a Tiger!", "It's a Bear!"]
  */
-var construct = /*#__PURE__*/_curry1(function construct(Fn) {
+
+var construct =
+/*#__PURE__*/
+_curry1(function construct(Fn) {
   return constructN(Fn.length, Fn);
 });
 
@@ -3335,7 +3832,10 @@ var construct = /*#__PURE__*/_curry1(function construct(Fn) {
  *      R.contains([42], [[42]]); //=> true
  *      R.contains('ba', 'banana'); //=>true
  */
-var contains$1 = /*#__PURE__*/_curry2(_includes);
+
+var contains$1 =
+/*#__PURE__*/
+_curry2(_includes);
 
 /**
  * Accepts a converging function and a list of branching functions and returns
@@ -3365,7 +3865,10 @@ var contains$1 = /*#__PURE__*/_curry2(_includes);
  *
  * @symb R.converge(f, [g, h])(a, b) = f(g(a, b), h(a, b))
  */
-var converge = /*#__PURE__*/_curry2(function converge(after, fns) {
+
+var converge =
+/*#__PURE__*/
+_curry2(function converge(after, fns) {
   return curryN(reduce(max, 0, pluck('length', fns)), function () {
     var args = arguments;
     var context = this;
@@ -3375,7 +3878,9 @@ var converge = /*#__PURE__*/_curry2(function converge(after, fns) {
   });
 });
 
-var XReduceBy = /*#__PURE__*/function () {
+var XReduceBy =
+/*#__PURE__*/
+function () {
   function XReduceBy(valueFn, valueAcc, keyFn, xf) {
     this.valueFn = valueFn;
     this.valueAcc = valueAcc;
@@ -3383,21 +3888,27 @@ var XReduceBy = /*#__PURE__*/function () {
     this.xf = xf;
     this.inputs = {};
   }
+
   XReduceBy.prototype['@@transducer/init'] = _xfBase.init;
+
   XReduceBy.prototype['@@transducer/result'] = function (result) {
     var key;
+
     for (key in this.inputs) {
       if (_has(key, this.inputs)) {
         result = this.xf['@@transducer/step'](result, this.inputs[key]);
+
         if (result['@@transducer/reduced']) {
           result = result['@@transducer/value'];
           break;
         }
       }
     }
+
     this.inputs = null;
     return this.xf['@@transducer/result'](result);
   };
+
   XReduceBy.prototype['@@transducer/step'] = function (result, input) {
     var key = this.keyFn(input);
     this.inputs[key] = this.inputs[key] || [key, this.valueAcc];
@@ -3408,7 +3919,9 @@ var XReduceBy = /*#__PURE__*/function () {
   return XReduceBy;
 }();
 
-var _xreduceBy = /*#__PURE__*/_curryN(4, [], function _xreduceBy(valueFn, valueAcc, keyFn, xf) {
+var _xreduceBy =
+/*#__PURE__*/
+_curryN(4, [], function _xreduceBy(valueFn, valueAcc, keyFn, xf) {
   return new XReduceBy(valueFn, valueAcc, keyFn, xf);
 });
 
@@ -3453,10 +3966,15 @@ var _xreduceBy = /*#__PURE__*/_curryN(4, [], function _xreduceBy(valueFn, valueA
  *      reduceBy(groupNames, [], toGrade, students)
  *      //=> {"A": ["Dora"], "B": ["Abby", "Curt"], "F": ["Bart"]}
  */
-var reduceBy = /*#__PURE__*/_curryN(4, [], /*#__PURE__*/_dispatchable([], _xreduceBy, function reduceBy(valueFn, valueAcc, keyFn, list) {
+
+var reduceBy =
+/*#__PURE__*/
+_curryN(4, [],
+/*#__PURE__*/
+_dispatchable([], _xreduceBy, function reduceBy(valueFn, valueAcc, keyFn, list) {
   return _reduce(function (acc, elt) {
     var key = keyFn(elt);
-    acc[key] = valueFn(_has(key, acc) ? acc[key] : valueAcc, elt);
+    acc[key] = valueFn(_has(key, acc) ? acc[key] : _clone(valueAcc, [], [], false), elt);
     return acc;
   }, {}, list);
 }));
@@ -3485,7 +4003,10 @@ var reduceBy = /*#__PURE__*/_curryN(4, [], /*#__PURE__*/_dispatchable([], _xredu
  *      const letters = ['a', 'b', 'A', 'a', 'B', 'c'];
  *      R.countBy(R.toLower)(letters);   //=> {'a': 3, 'b': 2, 'c': 1}
  */
-var countBy = /*#__PURE__*/reduceBy(function (acc, elem) {
+
+var countBy =
+/*#__PURE__*/
+reduceBy(function (acc, elem) {
   return acc + 1;
 }, 0);
 
@@ -3504,7 +4025,10 @@ var countBy = /*#__PURE__*/reduceBy(function (acc, elem) {
  *
  *      R.dec(42); //=> 41
  */
-var dec = /*#__PURE__*/add(-1);
+
+var dec =
+/*#__PURE__*/
+add(-1);
 
 /**
  * Returns the second argument if it is not `null`, `undefined` or `NaN`;
@@ -3529,7 +4053,10 @@ var dec = /*#__PURE__*/add(-1);
  *      // parseInt('string') results in NaN
  *      defaultTo42(parseInt('string')); //=> 42
  */
-var defaultTo = /*#__PURE__*/_curry2(function defaultTo(d, v) {
+
+var defaultTo =
+/*#__PURE__*/
+_curry2(function defaultTo(d, v) {
   return v == null || v !== v ? d : v;
 });
 
@@ -3558,13 +4085,18 @@ var defaultTo = /*#__PURE__*/_curry2(function defaultTo(d, v) {
  *      const peopleByOldestFirst = R.sort(byAge, people);
  *        //=> [{ name: 'Peter', age: 78 }, { name: 'Emma', age: 70 }, { name: 'Mikhail', age: 62 }]
  */
-var descend = /*#__PURE__*/_curry3(function descend(fn, a, b) {
+
+var descend =
+/*#__PURE__*/
+_curry3(function descend(fn, a, b) {
   var aa = fn(a);
   var bb = fn(b);
   return aa > bb ? -1 : aa < bb ? 1 : 0;
 });
 
-var _Set = /*#__PURE__*/function () {
+var _Set =
+/*#__PURE__*/
+function () {
   function _Set() {
     /* globals Set */
     this._nativeSet = typeof Set === 'function' ? new Set() : null;
@@ -3577,17 +4109,15 @@ var _Set = /*#__PURE__*/function () {
   //
   _Set.prototype.add = function (item) {
     return !hasOrAdd(item, true, this);
-  };
-
-  //
+  }; //
   // @param item The item to check for existence in the Set
   // @returns {boolean} true if the item exists in the Set, otherwise false
   //
+
+
   _Set.prototype.has = function (item) {
     return hasOrAdd(item, false, this);
-  };
-
-  //
+  }; //
   // Combines the logic for checking whether an item is a member of the set and
   // for adding a new item to the set.
   //
@@ -3597,12 +4127,15 @@ var _Set = /*#__PURE__*/function () {
   // @param set        The set instance to check or add to.
   // @return {boolean} true if the item already existed, otherwise false.
   //
+
+
   return _Set;
 }();
 
 function hasOrAdd(item, shouldAdd, set) {
   var type = typeof item;
   var prevSize, newSize;
+
   switch (type) {
     case 'string':
     case 'number':
@@ -3614,14 +4147,18 @@ function hasOrAdd(item, shouldAdd, set) {
           if (shouldAdd) {
             set._items['-0'] = true;
           }
+
           return false;
         }
-      }
-      // these types can all utilise the native Set
+      } // these types can all utilise the native Set
+
+
       if (set._nativeSet !== null) {
         if (shouldAdd) {
           prevSize = set._nativeSet.size;
+
           set._nativeSet.add(item);
+
           newSize = set._nativeSet.size;
           return newSize === prevSize;
         } else {
@@ -3633,6 +4170,7 @@ function hasOrAdd(item, shouldAdd, set) {
             set._items[type] = {};
             set._items[type][item] = true;
           }
+
           return false;
         } else if (item in set._items[type]) {
           return true;
@@ -3640,6 +4178,7 @@ function hasOrAdd(item, shouldAdd, set) {
           if (shouldAdd) {
             set._items[type][item] = true;
           }
+
           return false;
         }
       }
@@ -3649,18 +4188,21 @@ function hasOrAdd(item, shouldAdd, set) {
       // representing [ falseExists, trueExists ]
       if (type in set._items) {
         var bIdx = item ? 1 : 0;
+
         if (set._items[type][bIdx]) {
           return true;
         } else {
           if (shouldAdd) {
             set._items[type][bIdx] = true;
           }
+
           return false;
         }
       } else {
         if (shouldAdd) {
           set._items[type] = item ? [false, true] : [true, false];
         }
+
         return false;
       }
 
@@ -3669,7 +4211,9 @@ function hasOrAdd(item, shouldAdd, set) {
       if (set._nativeSet !== null) {
         if (shouldAdd) {
           prevSize = set._nativeSet.size;
+
           set._nativeSet.add(item);
+
           newSize = set._nativeSet.size;
           return newSize === prevSize;
         } else {
@@ -3680,14 +4224,18 @@ function hasOrAdd(item, shouldAdd, set) {
           if (shouldAdd) {
             set._items[type] = [item];
           }
+
           return false;
         }
+
         if (!_includes(item, set._items[type])) {
           if (shouldAdd) {
             set._items[type].push(item);
           }
+
           return false;
         }
+
         return true;
       }
 
@@ -3698,6 +4246,7 @@ function hasOrAdd(item, shouldAdd, set) {
         if (shouldAdd) {
           set._items[type] = true;
         }
+
         return false;
       }
 
@@ -3707,31 +4256,40 @@ function hasOrAdd(item, shouldAdd, set) {
           if (shouldAdd) {
             set._items['null'] = true;
           }
+
           return false;
         }
+
         return true;
       }
+
     /* falls through */
+
     default:
       // reduce the search size of heterogeneous sets by creating buckets
       // for each type.
       type = Object.prototype.toString.call(item);
+
       if (!(type in set._items)) {
         if (shouldAdd) {
           set._items[type] = [item];
         }
+
         return false;
-      }
-      // scan through all previously applied items
+      } // scan through all previously applied items
+
+
       if (!_includes(item, set._items[type])) {
         if (shouldAdd) {
           set._items[type].push(item);
         }
+
         return false;
       }
+
       return true;
   }
-}
+} // A simple Set type that honours R.equals semantics
 
 /**
  * Finds the set (i.e. no duplicates) of all elements in the first list not
@@ -3753,7 +4311,10 @@ function hasOrAdd(item, shouldAdd, set) {
  *      R.difference([7,6,5,4,3], [1,2,3,4]); //=> [7,6,5]
  *      R.difference([{a: 1}, {b: 2}], [{a: 1}, {c: 3}]) //=> [{b: 2}]
  */
-var difference = /*#__PURE__*/_curry2(function difference(first, second) {
+
+var difference =
+/*#__PURE__*/
+_curry2(function difference(first, second) {
   var out = [];
   var idx = 0;
   var firstLen = first.length;
@@ -3768,8 +4329,10 @@ var difference = /*#__PURE__*/_curry2(function difference(first, second) {
     if (toFilterOut.add(first[idx])) {
       out[out.length] = first[idx];
     }
+
     idx += 1;
   }
+
   return out;
 });
 
@@ -3795,16 +4358,22 @@ var difference = /*#__PURE__*/_curry2(function difference(first, second) {
  *      const l2 = [{a: 3}, {a: 4}];
  *      R.differenceWith(cmp, l1, l2); //=> [{a: 1}, {a: 2}]
  */
-var differenceWith = /*#__PURE__*/_curry3(function differenceWith(pred, first, second) {
+
+var differenceWith =
+/*#__PURE__*/
+_curry3(function differenceWith(pred, first, second) {
   var out = [];
   var idx = 0;
   var firstLen = first.length;
+
   while (idx < firstLen) {
     if (!_includesWith(pred, first[idx], second) && !_includesWith(pred, first[idx], out)) {
       out.push(first[idx]);
     }
+
     idx += 1;
   }
+
   return out;
 });
 
@@ -3824,11 +4393,16 @@ var differenceWith = /*#__PURE__*/_curry3(function differenceWith(pred, first, s
  *
  *      R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
  */
-var dissoc = /*#__PURE__*/_curry2(function dissoc(prop, obj) {
+
+var dissoc =
+/*#__PURE__*/
+_curry2(function dissoc(prop, obj) {
   var result = {};
+
   for (var p in obj) {
     result[p] = obj[p];
   }
+
   delete result[prop];
   return result;
 });
@@ -3853,7 +4427,10 @@ var dissoc = /*#__PURE__*/_curry2(function dissoc(prop, obj) {
  *
  *      R.remove(2, 3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
  */
-var remove = /*#__PURE__*/_curry3(function remove(start, count, list) {
+
+var remove =
+/*#__PURE__*/
+_curry3(function remove(start, count, list) {
   var result = Array.prototype.slice.call(list, 0);
   result.splice(start, count);
   return result;
@@ -3881,7 +4458,10 @@ var remove = /*#__PURE__*/_curry3(function remove(start, count, list) {
  * @symb R.update(0, a, [b, c]) = [a, c]
  * @symb R.update(1, a, [b, c]) = [b, a]
  */
-var update = /*#__PURE__*/_curry3(function update(idx, x, list) {
+
+var update =
+/*#__PURE__*/
+_curry3(function update(idx, x, list) {
   return adjust(idx, always(x), list);
 });
 
@@ -3904,15 +4484,21 @@ var update = /*#__PURE__*/_curry3(function update(idx, x, list) {
  *
  *      R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
  */
-var dissocPath = /*#__PURE__*/_curry2(function dissocPath(path, obj) {
+
+var dissocPath =
+/*#__PURE__*/
+_curry2(function dissocPath(path, obj) {
   switch (path.length) {
     case 0:
       return obj;
+
     case 1:
       return _isInteger(path[0]) && _isArray(obj) ? remove(path[0], 1, obj) : dissoc(path[0], obj);
+
     default:
       var head = path[0];
       var tail = Array.prototype.slice.call(path, 1);
+
       if (obj[head] == null) {
         return obj;
       } else if (_isInteger(head) && _isArray(obj)) {
@@ -3920,6 +4506,7 @@ var dissocPath = /*#__PURE__*/_curry2(function dissocPath(path, obj) {
       } else {
         return assoc(head, dissocPath(tail, obj[head]), obj);
       }
+
   }
 });
 
@@ -3945,29 +4532,39 @@ var dissocPath = /*#__PURE__*/_curry2(function dissocPath(path, obj) {
  *      const reciprocal = R.divide(1);
  *      reciprocal(4);   //=> 0.25
  */
-var divide = /*#__PURE__*/_curry2(function divide(a, b) {
+
+var divide =
+/*#__PURE__*/
+_curry2(function divide(a, b) {
   return a / b;
 });
 
-var XDrop = /*#__PURE__*/function () {
+var XDrop =
+/*#__PURE__*/
+function () {
   function XDrop(n, xf) {
     this.xf = xf;
     this.n = n;
   }
+
   XDrop.prototype['@@transducer/init'] = _xfBase.init;
   XDrop.prototype['@@transducer/result'] = _xfBase.result;
+
   XDrop.prototype['@@transducer/step'] = function (result, input) {
     if (this.n > 0) {
       this.n -= 1;
       return result;
     }
+
     return this.xf['@@transducer/step'](result, input);
   };
 
   return XDrop;
 }();
 
-var _xdrop = /*#__PURE__*/_curry2(function _xdrop(n, xf) {
+var _xdrop =
+/*#__PURE__*/
+_curry2(function _xdrop(n, xf) {
   return new XDrop(n, xf);
 });
 
@@ -3995,18 +4592,27 @@ var _xdrop = /*#__PURE__*/_curry2(function _xdrop(n, xf) {
  *      R.drop(4, ['foo', 'bar', 'baz']); //=> []
  *      R.drop(3, 'ramda');               //=> 'da'
  */
-var drop = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['drop'], _xdrop, function drop(n, xs) {
+
+var drop =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['drop'], _xdrop, function drop(n, xs) {
   return slice(Math.max(0, n), Infinity, xs);
 }));
 
-var XTake = /*#__PURE__*/function () {
+var XTake =
+/*#__PURE__*/
+function () {
   function XTake(n, xf) {
     this.xf = xf;
     this.n = n;
     this.i = 0;
   }
+
   XTake.prototype['@@transducer/init'] = _xfBase.init;
   XTake.prototype['@@transducer/result'] = _xfBase.result;
+
   XTake.prototype['@@transducer/step'] = function (result, input) {
     this.i += 1;
     var ret = this.n === 0 ? result : this.xf['@@transducer/step'](result, input);
@@ -4016,7 +4622,9 @@ var XTake = /*#__PURE__*/function () {
   return XTake;
 }();
 
-var _xtake = /*#__PURE__*/_curry2(function _xtake(n, xf) {
+var _xtake =
+/*#__PURE__*/
+_curry2(function _xtake(n, xf) {
   return new XTake(n, xf);
 });
 
@@ -4063,7 +4671,12 @@ var _xtake = /*#__PURE__*/_curry2(function _xtake(n, xf) {
  * @symb R.take(1, [a, b]) = [a]
  * @symb R.take(2, [a, b]) = [a, b]
  */
-var take = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['take'], _xtake, function take(n, xs) {
+
+var take =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['take'], _xtake, function take(n, xs) {
   return slice(0, n < 0 ? Infinity : n, xs);
 }));
 
@@ -4071,28 +4684,36 @@ function dropLast(n, xs) {
   return take(n < xs.length ? xs.length - n : 0, xs);
 }
 
-var XDropLast = /*#__PURE__*/function () {
+var XDropLast =
+/*#__PURE__*/
+function () {
   function XDropLast(n, xf) {
     this.xf = xf;
     this.pos = 0;
     this.full = false;
     this.acc = new Array(n);
   }
+
   XDropLast.prototype['@@transducer/init'] = _xfBase.init;
+
   XDropLast.prototype['@@transducer/result'] = function (result) {
     this.acc = null;
     return this.xf['@@transducer/result'](result);
   };
+
   XDropLast.prototype['@@transducer/step'] = function (result, input) {
     if (this.full) {
       result = this.xf['@@transducer/step'](result, this.acc[this.pos]);
     }
+
     this.store(input);
     return result;
   };
+
   XDropLast.prototype.store = function (input) {
     this.acc[this.pos] = input;
     this.pos += 1;
+
     if (this.pos === this.acc.length) {
       this.pos = 0;
       this.full = true;
@@ -4102,7 +4723,9 @@ var XDropLast = /*#__PURE__*/function () {
   return XDropLast;
 }();
 
-var _xdropLast = /*#__PURE__*/_curry2(function _xdropLast(n, xf) {
+var _xdropLast =
+/*#__PURE__*/
+_curry2(function _xdropLast(n, xf) {
   return new XDropLast(n, xf);
 });
 
@@ -4129,35 +4752,49 @@ var _xdropLast = /*#__PURE__*/_curry2(function _xdropLast(n, xf) {
  *      R.dropLast(4, ['foo', 'bar', 'baz']); //=> []
  *      R.dropLast(3, 'ramda');               //=> 'ra'
  */
-var dropLast$1 = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xdropLast, dropLast));
+
+var dropLast$1 =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable([], _xdropLast, dropLast));
 
 function dropLastWhile(pred, xs) {
   var idx = xs.length - 1;
+
   while (idx >= 0 && pred(xs[idx])) {
     idx -= 1;
   }
+
   return slice(0, idx + 1, xs);
 }
 
-var XDropLastWhile = /*#__PURE__*/function () {
+var XDropLastWhile =
+/*#__PURE__*/
+function () {
   function XDropLastWhile(fn, xf) {
     this.f = fn;
     this.retained = [];
     this.xf = xf;
   }
+
   XDropLastWhile.prototype['@@transducer/init'] = _xfBase.init;
+
   XDropLastWhile.prototype['@@transducer/result'] = function (result) {
     this.retained = null;
     return this.xf['@@transducer/result'](result);
   };
+
   XDropLastWhile.prototype['@@transducer/step'] = function (result, input) {
     return this.f(input) ? this.retain(result, input) : this.flush(result, input);
   };
+
   XDropLastWhile.prototype.flush = function (result, input) {
     result = _reduce(this.xf['@@transducer/step'], result, this.retained);
     this.retained = [];
     return this.xf['@@transducer/step'](result, input);
   };
+
   XDropLastWhile.prototype.retain = function (result, input) {
     this.retained.push(input);
     return result;
@@ -4166,7 +4803,9 @@ var XDropLastWhile = /*#__PURE__*/function () {
   return XDropLastWhile;
 }();
 
-var _xdropLastWhile = /*#__PURE__*/_curry2(function _xdropLastWhile(fn, xf) {
+var _xdropLastWhile =
+/*#__PURE__*/
+_curry2(function _xdropLastWhile(fn, xf) {
   return new XDropLastWhile(fn, xf);
 });
 
@@ -4197,9 +4836,16 @@ var _xdropLastWhile = /*#__PURE__*/_curry2(function _xdropLastWhile(fn, xf) {
  *
  *      R.dropLastWhile(x => x !== 'd' , 'Ramda'); //=> 'Ramd'
  */
-var dropLastWhile$1 = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xdropLastWhile, dropLastWhile));
 
-var XDropRepeatsWith = /*#__PURE__*/function () {
+var dropLastWhile$1 =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable([], _xdropLastWhile, dropLastWhile));
+
+var XDropRepeatsWith =
+/*#__PURE__*/
+function () {
   function XDropRepeatsWith(pred, xf) {
     this.xf = xf;
     this.pred = pred;
@@ -4209,13 +4855,16 @@ var XDropRepeatsWith = /*#__PURE__*/function () {
 
   XDropRepeatsWith.prototype['@@transducer/init'] = _xfBase.init;
   XDropRepeatsWith.prototype['@@transducer/result'] = _xfBase.result;
+
   XDropRepeatsWith.prototype['@@transducer/step'] = function (result, input) {
     var sameAsLast = false;
+
     if (!this.seenFirstValue) {
       this.seenFirstValue = true;
     } else if (this.pred(this.lastValue, input)) {
       sameAsLast = true;
     }
+
     this.lastValue = input;
     return sameAsLast ? result : this.xf['@@transducer/step'](result, input);
   };
@@ -4223,7 +4872,9 @@ var XDropRepeatsWith = /*#__PURE__*/function () {
   return XDropRepeatsWith;
 }();
 
-var _xdropRepeatsWith = /*#__PURE__*/_curry2(function _xdropRepeatsWith(pred, xf) {
+var _xdropRepeatsWith =
+/*#__PURE__*/
+_curry2(function _xdropRepeatsWith(pred, xf) {
   return new XDropRepeatsWith(pred, xf);
 });
 
@@ -4247,7 +4898,10 @@ var _xdropRepeatsWith = /*#__PURE__*/_curry2(function _xdropRepeatsWith(pred, xf
  *      R.last('abc'); //=> 'c'
  *      R.last(''); //=> ''
  */
-var last = /*#__PURE__*/nth(-1);
+
+var last =
+/*#__PURE__*/
+nth(-1);
 
 /**
  * Returns a new list without any consecutively repeating elements. Equality is
@@ -4270,19 +4924,28 @@ var last = /*#__PURE__*/nth(-1);
  *      const l = [1, -1, 1, 3, 4, -4, -4, -5, 5, 3, 3];
  *      R.dropRepeatsWith(R.eqBy(Math.abs), l); //=> [1, 3, 4, -5, 3]
  */
-var dropRepeatsWith = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xdropRepeatsWith, function dropRepeatsWith(pred, list) {
+
+var dropRepeatsWith =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable([], _xdropRepeatsWith, function dropRepeatsWith(pred, list) {
   var result = [];
   var idx = 1;
   var len = list.length;
+
   if (len !== 0) {
     result[0] = list[0];
+
     while (idx < len) {
       if (!pred(last(result), list[idx])) {
         result[result.length] = list[idx];
       }
+
       idx += 1;
     }
   }
+
   return result;
 }));
 
@@ -4304,29 +4967,46 @@ var dropRepeatsWith = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xdro
  *
  *     R.dropRepeats([1, 1, 1, 2, 3, 4, 4, 2, 2]); //=> [1, 2, 3, 4, 2]
  */
-var dropRepeats = /*#__PURE__*/_curry1( /*#__PURE__*/_dispatchable([], /*#__PURE__*/_xdropRepeatsWith(equals), /*#__PURE__*/dropRepeatsWith(equals)));
 
-var XDropWhile = /*#__PURE__*/function () {
+var dropRepeats =
+/*#__PURE__*/
+_curry1(
+/*#__PURE__*/
+_dispatchable([],
+/*#__PURE__*/
+_xdropRepeatsWith(equals),
+/*#__PURE__*/
+dropRepeatsWith(equals)));
+
+var XDropWhile =
+/*#__PURE__*/
+function () {
   function XDropWhile(f, xf) {
     this.xf = xf;
     this.f = f;
   }
+
   XDropWhile.prototype['@@transducer/init'] = _xfBase.init;
   XDropWhile.prototype['@@transducer/result'] = _xfBase.result;
+
   XDropWhile.prototype['@@transducer/step'] = function (result, input) {
     if (this.f) {
       if (this.f(input)) {
         return result;
       }
+
       this.f = null;
     }
+
     return this.xf['@@transducer/step'](result, input);
   };
 
   return XDropWhile;
 }();
 
-var _xdropWhile = /*#__PURE__*/_curry2(function _xdropWhile(f, xf) {
+var _xdropWhile =
+/*#__PURE__*/
+_curry2(function _xdropWhile(f, xf) {
   return new XDropWhile(f, xf);
 });
 
@@ -4358,12 +5038,19 @@ var _xdropWhile = /*#__PURE__*/_curry2(function _xdropWhile(f, xf) {
  *
  *      R.dropWhile(x => x !== 'd' , 'Ramda'); //=> 'da'
  */
-var dropWhile = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['dropWhile'], _xdropWhile, function dropWhile(pred, xs) {
+
+var dropWhile =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['dropWhile'], _xdropWhile, function dropWhile(pred, xs) {
   var idx = 0;
   var len = xs.length;
+
   while (idx < len && pred(xs[idx])) {
     idx += 1;
   }
+
   return slice(idx, Infinity, xs);
 }));
 
@@ -4379,7 +5066,7 @@ var dropWhile = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['dropWhile'], 
  * @param {Any} a
  * @param {Any} b
  * @return {Any} the first argument if truthy, otherwise the second argument.
- * @see R.either
+ * @see R.either, R.xor
  * @example
  *
  *      R.or(true, true); //=> true
@@ -4387,7 +5074,10 @@ var dropWhile = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['dropWhile'], 
  *      R.or(false, true); //=> true
  *      R.or(false, false); //=> false
  */
-var or = /*#__PURE__*/_curry2(function or(a, b) {
+
+var or =
+/*#__PURE__*/
+_curry2(function or(a, b) {
   return a || b;
 });
 
@@ -4421,7 +5111,10 @@ var or = /*#__PURE__*/_curry2(function or(a, b) {
  *      R.either(Maybe.Just(false), Maybe.Just(55)); // => Maybe.Just(55)
  *      R.either([false, false, 'a'], [11]) // => [11, 11, "a"]
  */
-var either = /*#__PURE__*/_curry2(function either(f, g) {
+
+var either =
+/*#__PURE__*/
+_curry2(function either(f, g) {
   return _isFunction(f) ? function _either() {
     return f.apply(this, arguments) || g.apply(this, arguments);
   } : lift(or)(f, g);
@@ -4450,7 +5143,10 @@ var either = /*#__PURE__*/_curry2(function either(f, g) {
  *      R.empty('unicorns');    //=> ''
  *      R.empty({x: 1, y: 2});  //=> {}
  */
-var empty = /*#__PURE__*/_curry1(function empty(x) {
+
+var empty =
+/*#__PURE__*/
+_curry1(function empty(x) {
   return x != null && typeof x['fantasy-land/empty'] === 'function' ? x['fantasy-land/empty']() : x != null && x.constructor != null && typeof x.constructor['fantasy-land/empty'] === 'function' ? x.constructor['fantasy-land/empty']() : x != null && typeof x.empty === 'function' ? x.empty() : x != null && x.constructor != null && typeof x.constructor.empty === 'function' ? x.constructor.empty() : _isArray(x) ? [] : _isString(x) ? '' : _isObject(x) ? {} : _isArguments(x) ? function () {
     return arguments;
   }() : void 0 // else
@@ -4479,7 +5175,10 @@ var empty = /*#__PURE__*/_curry1(function empty(x) {
  *      R.takeLast(4, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
  *      R.takeLast(3, 'ramda');               //=> 'mda'
  */
-var takeLast = /*#__PURE__*/_curry2(function takeLast(n, xs) {
+
+var takeLast =
+/*#__PURE__*/
+_curry2(function takeLast(n, xs) {
   return drop(n >= 0 ? xs.length - n : 0, xs);
 });
 
@@ -4505,7 +5204,10 @@ var takeLast = /*#__PURE__*/_curry2(function takeLast(n, xs) {
  *      R.endsWith(['c'], ['a', 'b', 'c'])    //=> true
  *      R.endsWith(['b'], ['a', 'b', 'c'])    //=> false
  */
-var endsWith = /*#__PURE__*/_curry2(function (suffix, list) {
+
+var endsWith =
+/*#__PURE__*/
+_curry2(function (suffix, list) {
   return equals(takeLast(suffix.length, list), suffix);
 });
 
@@ -4526,7 +5228,10 @@ var endsWith = /*#__PURE__*/_curry2(function (suffix, list) {
  *
  *      R.eqBy(Math.abs, 5, -5); //=> true
  */
-var eqBy = /*#__PURE__*/_curry3(function eqBy(f, x, y) {
+
+var eqBy =
+/*#__PURE__*/
+_curry3(function eqBy(f, x, y) {
   return equals(f(x), f(y));
 });
 
@@ -4551,7 +5256,10 @@ var eqBy = /*#__PURE__*/_curry3(function eqBy(f, x, y) {
  *      R.eqProps('a', o1, o2); //=> false
  *      R.eqProps('c', o1, o2); //=> true
  */
-var eqProps = /*#__PURE__*/_curry3(function eqProps(prop, obj1, obj2) {
+
+var eqProps =
+/*#__PURE__*/
+_curry3(function eqProps(prop, obj1, obj2) {
   return equals(obj1[prop], obj2[prop]);
 });
 
@@ -4582,42 +5290,56 @@ var eqProps = /*#__PURE__*/_curry3(function eqProps(prop, obj1, obj2) {
  *      };
  *      R.evolve(transformations, tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
  */
-var evolve = /*#__PURE__*/_curry2(function evolve(transformations, object) {
+
+var evolve =
+/*#__PURE__*/
+_curry2(function evolve(transformations, object) {
   var result = object instanceof Array ? [] : {};
   var transformation, key, type;
+
   for (key in object) {
     transformation = transformations[key];
     type = typeof transformation;
     result[key] = type === 'function' ? transformation(object[key]) : transformation && type === 'object' ? evolve(transformation, object[key]) : object[key];
   }
+
   return result;
 });
 
-var XFind = /*#__PURE__*/function () {
+var XFind =
+/*#__PURE__*/
+function () {
   function XFind(f, xf) {
     this.xf = xf;
     this.f = f;
     this.found = false;
   }
+
   XFind.prototype['@@transducer/init'] = _xfBase.init;
+
   XFind.prototype['@@transducer/result'] = function (result) {
     if (!this.found) {
       result = this.xf['@@transducer/step'](result, void 0);
     }
+
     return this.xf['@@transducer/result'](result);
   };
+
   XFind.prototype['@@transducer/step'] = function (result, input) {
     if (this.f(input)) {
       this.found = true;
       result = _reduced(this.xf['@@transducer/step'](result, input));
     }
+
     return result;
   };
 
   return XFind;
 }();
 
-var _xfind = /*#__PURE__*/_curry2(function _xfind(f, xf) {
+var _xfind =
+/*#__PURE__*/
+_curry2(function _xfind(f, xf) {
   return new XFind(f, xf);
 });
 
@@ -4645,44 +5367,61 @@ var _xfind = /*#__PURE__*/_curry2(function _xfind(f, xf) {
  *      R.find(R.propEq('a', 2))(xs); //=> {a: 2}
  *      R.find(R.propEq('a', 4))(xs); //=> undefined
  */
-var find = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['find'], _xfind, function find(fn, list) {
+
+var find =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['find'], _xfind, function find(fn, list) {
   var idx = 0;
   var len = list.length;
+
   while (idx < len) {
     if (fn(list[idx])) {
       return list[idx];
     }
+
     idx += 1;
   }
 }));
 
-var XFindIndex = /*#__PURE__*/function () {
+var XFindIndex =
+/*#__PURE__*/
+function () {
   function XFindIndex(f, xf) {
     this.xf = xf;
     this.f = f;
     this.idx = -1;
     this.found = false;
   }
+
   XFindIndex.prototype['@@transducer/init'] = _xfBase.init;
+
   XFindIndex.prototype['@@transducer/result'] = function (result) {
     if (!this.found) {
       result = this.xf['@@transducer/step'](result, -1);
     }
+
     return this.xf['@@transducer/result'](result);
   };
+
   XFindIndex.prototype['@@transducer/step'] = function (result, input) {
     this.idx += 1;
+
     if (this.f(input)) {
       this.found = true;
       result = _reduced(this.xf['@@transducer/step'](result, this.idx));
     }
+
     return result;
   };
 
   return XFindIndex;
 }();
 
-var _xfindIndex = /*#__PURE__*/_curry2(function _xfindIndex(f, xf) {
+var _xfindIndex =
+/*#__PURE__*/
+_curry2(function _xfindIndex(f, xf) {
   return new XFindIndex(f, xf);
 });
 
@@ -4708,38 +5447,54 @@ var _xfindIndex = /*#__PURE__*/_curry2(function _xfindIndex(f, xf) {
  *      R.findIndex(R.propEq('a', 2))(xs); //=> 1
  *      R.findIndex(R.propEq('a', 4))(xs); //=> -1
  */
-var findIndex = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xfindIndex, function findIndex(fn, list) {
+
+var findIndex =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable([], _xfindIndex, function findIndex(fn, list) {
   var idx = 0;
   var len = list.length;
+
   while (idx < len) {
     if (fn(list[idx])) {
       return idx;
     }
+
     idx += 1;
   }
+
   return -1;
 }));
 
-var XFindLast = /*#__PURE__*/function () {
+var XFindLast =
+/*#__PURE__*/
+function () {
   function XFindLast(f, xf) {
     this.xf = xf;
     this.f = f;
   }
+
   XFindLast.prototype['@@transducer/init'] = _xfBase.init;
+
   XFindLast.prototype['@@transducer/result'] = function (result) {
     return this.xf['@@transducer/result'](this.xf['@@transducer/step'](result, this.last));
   };
+
   XFindLast.prototype['@@transducer/step'] = function (result, input) {
     if (this.f(input)) {
       this.last = input;
     }
+
     return result;
   };
 
   return XFindLast;
 }();
 
-var _xfindLast = /*#__PURE__*/_curry2(function _xfindLast(f, xf) {
+var _xfindLast =
+/*#__PURE__*/
+_curry2(function _xfindLast(f, xf) {
   return new XFindLast(f, xf);
 });
 
@@ -4765,39 +5520,55 @@ var _xfindLast = /*#__PURE__*/_curry2(function _xfindLast(f, xf) {
  *      R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
  *      R.findLast(R.propEq('a', 4))(xs); //=> undefined
  */
-var findLast = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xfindLast, function findLast(fn, list) {
+
+var findLast =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable([], _xfindLast, function findLast(fn, list) {
   var idx = list.length - 1;
+
   while (idx >= 0) {
     if (fn(list[idx])) {
       return list[idx];
     }
+
     idx -= 1;
   }
 }));
 
-var XFindLastIndex = /*#__PURE__*/function () {
+var XFindLastIndex =
+/*#__PURE__*/
+function () {
   function XFindLastIndex(f, xf) {
     this.xf = xf;
     this.f = f;
     this.idx = -1;
     this.lastIdx = -1;
   }
+
   XFindLastIndex.prototype['@@transducer/init'] = _xfBase.init;
+
   XFindLastIndex.prototype['@@transducer/result'] = function (result) {
     return this.xf['@@transducer/result'](this.xf['@@transducer/step'](result, this.lastIdx));
   };
+
   XFindLastIndex.prototype['@@transducer/step'] = function (result, input) {
     this.idx += 1;
+
     if (this.f(input)) {
       this.lastIdx = this.idx;
     }
+
     return result;
   };
 
   return XFindLastIndex;
 }();
 
-var _xfindLastIndex = /*#__PURE__*/_curry2(function _xfindLastIndex(f, xf) {
+var _xfindLastIndex =
+/*#__PURE__*/
+_curry2(function _xfindLastIndex(f, xf) {
   return new XFindLastIndex(f, xf);
 });
 
@@ -4823,14 +5594,22 @@ var _xfindLastIndex = /*#__PURE__*/_curry2(function _xfindLastIndex(f, xf) {
  *      R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
  *      R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
  */
-var findLastIndex = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xfindLastIndex, function findLastIndex(fn, list) {
+
+var findLastIndex =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable([], _xfindLastIndex, function findLastIndex(fn, list) {
   var idx = list.length - 1;
+
   while (idx >= 0) {
     if (fn(list[idx])) {
       return idx;
     }
+
     idx -= 1;
   }
+
   return -1;
 }));
 
@@ -4851,7 +5630,12 @@ var findLastIndex = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xfindL
  *      R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
  *      //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
  */
-var flatten = /*#__PURE__*/_curry1( /*#__PURE__*/_makeFlat(true));
+
+var flatten =
+/*#__PURE__*/
+_curry1(
+/*#__PURE__*/
+_makeFlat(true));
 
 /**
  * Returns a new function much like the supplied one, except that the first two
@@ -4873,7 +5657,10 @@ var flatten = /*#__PURE__*/_curry1( /*#__PURE__*/_makeFlat(true));
  *      R.flip(mergeThree)(1, 2, 3); //=> [2, 1, 3]
  * @symb R.flip(f)(a, b, c) = f(b, a, c)
  */
-var flip = /*#__PURE__*/_curry1(function flip(fn) {
+
+var flip =
+/*#__PURE__*/
+_curry1(function flip(fn) {
   return curryN(fn.length, function (a, b) {
     var args = Array.prototype.slice.call(arguments, 0);
     args[0] = b;
@@ -4916,13 +5703,20 @@ var flip = /*#__PURE__*/_curry1(function flip(fn) {
  *      // logs 8
  * @symb R.forEach(f, [a, b, c]) = [a, b, c]
  */
-var forEach = /*#__PURE__*/_curry2( /*#__PURE__*/_checkForMethod('forEach', function forEach(fn, list) {
+
+var forEach =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_checkForMethod('forEach', function forEach(fn, list) {
   var len = list.length;
   var idx = 0;
+
   while (idx < len) {
     fn(list[idx]);
     idx += 1;
   }
+
   return list;
 }));
 
@@ -4948,14 +5742,19 @@ var forEach = /*#__PURE__*/_curry2( /*#__PURE__*/_checkForMethod('forEach', func
  *      // logs y:2
  * @symb R.forEachObjIndexed(f, {x: a, y: b}) = {x: a, y: b}
  */
-var forEachObjIndexed = /*#__PURE__*/_curry2(function forEachObjIndexed(fn, obj) {
+
+var forEachObjIndexed =
+/*#__PURE__*/
+_curry2(function forEachObjIndexed(fn, obj) {
   var keyList = keys(obj);
   var idx = 0;
+
   while (idx < keyList.length) {
     var key = keyList[idx];
     fn(obj[key], key, obj);
     idx += 1;
   }
+
   return obj;
 });
 
@@ -4975,13 +5774,18 @@ var forEachObjIndexed = /*#__PURE__*/_curry2(function forEachObjIndexed(fn, obj)
  *
  *      R.fromPairs([['a', 1], ['b', 2], ['c', 3]]); //=> {a: 1, b: 2, c: 3}
  */
-var fromPairs = /*#__PURE__*/_curry1(function fromPairs(pairs) {
+
+var fromPairs =
+/*#__PURE__*/
+_curry1(function fromPairs(pairs) {
   var result = {};
   var idx = 0;
+
   while (idx < pairs.length) {
     result[pairs[idx][0]] = pairs[idx][1];
     idx += 1;
   }
+
   return result;
 });
 
@@ -5025,10 +5829,18 @@ var fromPairs = /*#__PURE__*/_curry1(function fromPairs(pairs) {
  *      //   'F': [{name: 'Eddy', score: 58}]
  *      // }
  */
-var groupBy = /*#__PURE__*/_curry2( /*#__PURE__*/_checkForMethod('groupBy', /*#__PURE__*/reduceBy(function (acc, item) {
+
+var groupBy =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_checkForMethod('groupBy',
+/*#__PURE__*/
+reduceBy(function (acc, item) {
   if (acc == null) {
     acc = [];
   }
+
   acc.push(item);
   return acc;
 }, null)));
@@ -5063,18 +5875,25 @@ var groupBy = /*#__PURE__*/_curry2( /*#__PURE__*/_checkForMethod('groupBy', /*#_
  * R.groupWith(R.eqBy(isVowel), 'aestiou')
  * //=> ['ae', 'st', 'iou']
  */
-var groupWith = /*#__PURE__*/_curry2(function (fn, list) {
+
+var groupWith =
+/*#__PURE__*/
+_curry2(function (fn, list) {
   var res = [];
   var idx = 0;
   var len = list.length;
+
   while (idx < len) {
     var nextidx = idx + 1;
+
     while (nextidx < len && fn(list[nextidx - 1], list[nextidx])) {
       nextidx += 1;
     }
+
     res.push(list.slice(idx, nextidx));
     idx = nextidx;
   }
+
   return res;
 });
 
@@ -5099,7 +5918,10 @@ var groupWith = /*#__PURE__*/_curry2(function (fn, list) {
  *      R.gt('a', 'z'); //=> false
  *      R.gt('z', 'a'); //=> true
  */
-var gt = /*#__PURE__*/_curry2(function gt(a, b) {
+
+var gt =
+/*#__PURE__*/
+_curry2(function gt(a, b) {
   return a > b;
 });
 
@@ -5124,7 +5946,10 @@ var gt = /*#__PURE__*/_curry2(function gt(a, b) {
  *      R.gte('a', 'z'); //=> false
  *      R.gte('z', 'a'); //=> true
  */
-var gte = /*#__PURE__*/_curry2(function gte(a, b) {
+
+var gte =
+/*#__PURE__*/
+_curry2(function gte(a, b) {
   return a >= b;
 });
 
@@ -5149,20 +5974,26 @@ var gte = /*#__PURE__*/_curry2(function gte(a, b) {
  *      R.hasPath(['a', 'b'], {a: {c: 2}});         // => false
  *      R.hasPath(['a', 'b'], {});                  // => false
  */
-var hasPath = /*#__PURE__*/_curry2(function hasPath(_path, obj) {
-  if (_path.length === 0) {
+
+var hasPath =
+/*#__PURE__*/
+_curry2(function hasPath(_path, obj) {
+  if (_path.length === 0 || isNil(obj)) {
     return false;
   }
+
   var val = obj;
   var idx = 0;
+
   while (idx < _path.length) {
-    if (_has(_path[idx], val)) {
+    if (!isNil(val) && _has(_path[idx], val)) {
       val = val[_path[idx]];
       idx += 1;
     } else {
       return false;
     }
   }
+
   return true;
 });
 
@@ -5190,7 +6021,10 @@ var hasPath = /*#__PURE__*/_curry2(function hasPath(_path, obj) {
  *      pointHas('y');  //=> true
  *      pointHas('z');  //=> false
  */
-var has = /*#__PURE__*/_curry2(function has(prop, obj) {
+
+var has =
+/*#__PURE__*/
+_curry2(function has(prop, obj) {
   return hasPath([prop], obj);
 });
 
@@ -5220,7 +6054,10 @@ var has = /*#__PURE__*/_curry2(function has(prop, obj) {
  *      R.hasIn('width', square);  //=> true
  *      R.hasIn('area', square);  //=> true
  */
-var hasIn = /*#__PURE__*/_curry2(function hasIn(prop, obj) {
+
+var hasIn =
+/*#__PURE__*/
+_curry2(function hasIn(prop, obj) {
   return prop in obj;
 });
 
@@ -5249,7 +6086,10 @@ var hasIn = /*#__PURE__*/_curry2(function hasIn(prop, obj) {
  *      R.identical(0, -0); //=> false
  *      R.identical(NaN, NaN); //=> true
  */
-var identical = /*#__PURE__*/_curry2(_objectIs$1);
+
+var identical =
+/*#__PURE__*/
+_curry2(_objectIs$1);
 
 /**
  * Creates a function that will process either the `onTrue` or the `onFalse`
@@ -5276,7 +6116,10 @@ var identical = /*#__PURE__*/_curry2(_objectIs$1);
  *      incCount({});           //=> { count: 1 }
  *      incCount({ count: 1 }); //=> { count: 2 }
  */
-var ifElse = /*#__PURE__*/_curry3(function ifElse(condition, onTrue, onFalse) {
+
+var ifElse =
+/*#__PURE__*/
+_curry3(function ifElse(condition, onTrue, onFalse) {
   return curryN(Math.max(condition.length, onTrue.length, onFalse.length), function _ifElse() {
     return condition.apply(this, arguments) ? onTrue.apply(this, arguments) : onFalse.apply(this, arguments);
   });
@@ -5297,7 +6140,10 @@ var ifElse = /*#__PURE__*/_curry3(function ifElse(condition, onTrue, onFalse) {
  *
  *      R.inc(42); //=> 43
  */
-var inc = /*#__PURE__*/add(1);
+
+var inc =
+/*#__PURE__*/
+add(1);
 
 /**
  * Returns `true` if the specified value is equal, in [`R.equals`](#equals)
@@ -5306,7 +6152,7 @@ var inc = /*#__PURE__*/add(1);
  *
  * @func
  * @memberOf R
- * @since v0.1.0
+ * @since v0.26.0
  * @category List
  * @sig a -> [a] -> Boolean
  * @param {Object} a The item to compare against.
@@ -5321,7 +6167,10 @@ var inc = /*#__PURE__*/add(1);
  *      R.includes([42], [[42]]); //=> true
  *      R.includes('ba', 'banana'); //=>true
  */
-var includes = /*#__PURE__*/_curry2(_includes);
+
+var includes =
+/*#__PURE__*/
+_curry2(_includes);
 
 /**
  * Given a function that generates a key, turns a list of objects into an
@@ -5345,7 +6194,10 @@ var includes = /*#__PURE__*/_curry2(_includes);
  *      R.indexBy(R.prop('id'), list);
  *      //=> {abc: {id: 'abc', title: 'B'}, xyz: {id: 'xyz', title: 'A'}}
  */
-var indexBy = /*#__PURE__*/reduceBy(function (acc, elem) {
+
+var indexBy =
+/*#__PURE__*/
+reduceBy(function (acc, elem) {
   return elem;
 }, null);
 
@@ -5368,7 +6220,10 @@ var indexBy = /*#__PURE__*/reduceBy(function (acc, elem) {
  *      R.indexOf(3, [1,2,3,4]); //=> 2
  *      R.indexOf(10, [1,2,3,4]); //=> -1
  */
-var indexOf = /*#__PURE__*/_curry2(function indexOf(target, xs) {
+
+var indexOf =
+/*#__PURE__*/
+_curry2(function indexOf(target, xs) {
   return typeof xs.indexOf === 'function' && !_isArray(xs) ? xs.indexOf(target) : _indexOf(xs, target, 0);
 });
 
@@ -5396,7 +6251,10 @@ var indexOf = /*#__PURE__*/_curry2(function indexOf(target, xs) {
  *      R.init('a');    //=> ''
  *      R.init('');     //=> ''
  */
-var init = /*#__PURE__*/slice(0, -1);
+
+var init =
+/*#__PURE__*/
+slice(0, -1);
 
 /**
  * Takes a predicate `pred`, a list `xs`, and a list `ys`, and returns a list
@@ -5433,7 +6291,10 @@ var init = /*#__PURE__*/slice(0, -1);
  *      );
  *      //=> [{id: 456, name: 'Stephen Stills'}, {id: 177, name: 'Neil Young'}]
  */
-var innerJoin = /*#__PURE__*/_curry3(function innerJoin(pred, xs, ys) {
+
+var innerJoin =
+/*#__PURE__*/
+_curry3(function innerJoin(pred, xs, ys) {
   return _filter(function (x) {
     return _includesWith(pred, x, ys);
   }, xs);
@@ -5458,7 +6319,10 @@ var innerJoin = /*#__PURE__*/_curry3(function innerJoin(pred, xs, ys) {
  *
  *      R.insert(2, 'x', [1,2,3,4]); //=> [1,2,'x',3,4]
  */
-var insert = /*#__PURE__*/_curry3(function insert(idx, elt, list) {
+
+var insert =
+/*#__PURE__*/
+_curry3(function insert(idx, elt, list) {
   idx = idx < list.length && idx >= 0 ? idx : list.length;
   var result = Array.prototype.slice.call(list, 0);
   result.splice(idx, 0, elt);
@@ -5483,7 +6347,10 @@ var insert = /*#__PURE__*/_curry3(function insert(idx, elt, list) {
  *
  *      R.insertAll(2, ['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
  */
-var insertAll = /*#__PURE__*/_curry3(function insertAll(idx, elts, list) {
+
+var insertAll =
+/*#__PURE__*/
+_curry3(function insertAll(idx, elts, list) {
   idx = idx < list.length && idx >= 0 ? idx : list.length;
   return [].concat(Array.prototype.slice.call(list, 0, idx), elts, Array.prototype.slice.call(list, idx));
 });
@@ -5506,7 +6373,10 @@ var insertAll = /*#__PURE__*/_curry3(function insertAll(idx, elts, list) {
  *
  *      R.uniqBy(Math.abs, [-1, -5, 2, 10, 1, 2]); //=> [-1, -5, 2, 10]
  */
-var uniqBy = /*#__PURE__*/_curry2(function uniqBy(fn, list) {
+
+var uniqBy =
+/*#__PURE__*/
+_curry2(function uniqBy(fn, list) {
   var set = new _Set();
   var result = [];
   var idx = 0;
@@ -5515,11 +6385,14 @@ var uniqBy = /*#__PURE__*/_curry2(function uniqBy(fn, list) {
   while (idx < list.length) {
     item = list[idx];
     appliedItem = fn(item);
+
     if (set.add(appliedItem)) {
       result.push(item);
     }
+
     idx += 1;
   }
+
   return result;
 });
 
@@ -5540,7 +6413,10 @@ var uniqBy = /*#__PURE__*/_curry2(function uniqBy(fn, list) {
  *      R.uniq([1, '1']);     //=> [1, '1']
  *      R.uniq([[42], [42]]); //=> [[42]]
  */
-var uniq = /*#__PURE__*/uniqBy(identity);
+
+var uniq =
+/*#__PURE__*/
+uniqBy(identity);
 
 /**
  * Combines two lists into a set (i.e. no duplicates) composed of those
@@ -5559,8 +6435,12 @@ var uniq = /*#__PURE__*/uniqBy(identity);
  *
  *      R.intersection([1,2,3,4], [7,6,5,4,3]); //=> [4, 3]
  */
-var intersection = /*#__PURE__*/_curry2(function intersection(list1, list2) {
+
+var intersection =
+/*#__PURE__*/
+_curry2(function intersection(list1, list2) {
   var lookupList, filteredList;
+
   if (list1.length > list2.length) {
     lookupList = list1;
     filteredList = list2;
@@ -5568,6 +6448,7 @@ var intersection = /*#__PURE__*/_curry2(function intersection(list1, list2) {
     lookupList = list2;
     filteredList = list1;
   }
+
   return uniq(_filter(flip(_includes)(lookupList), filteredList));
 });
 
@@ -5588,22 +6469,29 @@ var intersection = /*#__PURE__*/_curry2(function intersection(list1, list2) {
  *
  *      R.intersperse('a', ['b', 'n', 'n', 's']); //=> ['b', 'a', 'n', 'a', 'n', 'a', 's']
  */
-var intersperse = /*#__PURE__*/_curry2( /*#__PURE__*/_checkForMethod('intersperse', function intersperse(separator, list) {
+
+var intersperse =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_checkForMethod('intersperse', function intersperse(separator, list) {
   var out = [];
   var idx = 0;
   var length = list.length;
+
   while (idx < length) {
     if (idx === length - 1) {
       out.push(list[idx]);
     } else {
       out.push(list[idx], separator);
     }
+
     idx += 1;
   }
+
   return out;
 }));
 
-// Based on https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 function _objectAssign(target) {
   if (target == null) {
     throw new TypeError('Cannot convert undefined or null to object');
@@ -5612,8 +6500,10 @@ function _objectAssign(target) {
   var output = Object(target);
   var idx = 1;
   var length = arguments.length;
+
   while (idx < length) {
     var source = arguments[idx];
+
     if (source != null) {
       for (var nextKey in source) {
         if (_has(nextKey, source)) {
@@ -5621,8 +6511,10 @@ function _objectAssign(target) {
         }
       }
     }
+
     idx += 1;
   }
+
   return output;
 }
 
@@ -5648,7 +6540,10 @@ var _objectAssign$1 = typeof Object.assign === 'function' ? Object.assign : _obj
  *      );
  *      matchPhrases(['foo', 'bar', 'baz']); //=> {must: [{match_phrase: 'foo'}, {match_phrase: 'bar'}, {match_phrase: 'baz'}]}
  */
-var objOf = /*#__PURE__*/_curry2(function objOf(key, val) {
+
+var objOf =
+/*#__PURE__*/
+_curry2(function objOf(key, val) {
   var obj = {};
   obj[key] = val;
   return obj;
@@ -5676,20 +6571,23 @@ var _stepCatObject = {
   },
   '@@transducer/result': _identity
 };
-
 function _stepCat(obj) {
   if (_isTransformer(obj)) {
     return obj;
   }
+
   if (_isArrayLike(obj)) {
     return _stepCatArray;
   }
+
   if (typeof obj === 'string') {
     return _stepCatString;
   }
+
   if (typeof obj === 'object') {
     return _stepCatObject;
   }
+
   throw new Error('Cannot create transformer for ' + obj);
 }
 
@@ -5732,7 +6630,10 @@ function _stepCat(obj) {
  *      const intoArray = R.into([]);
  *      intoArray(transducer, numbers); //=> [2, 3]
  */
-var into = /*#__PURE__*/_curry3(function into(acc, xf, list) {
+
+var into =
+/*#__PURE__*/
+_curry3(function into(acc, xf, list) {
   return _isTransformer(acc) ? _reduce(xf(acc), acc['@@transducer/init'](), list) : _reduce(xf(_stepCat(acc)), _clone(acc, [], [], false), list);
 });
 
@@ -5758,7 +6659,10 @@ var into = /*#__PURE__*/_curry3(function into(acc, xf, list) {
  *      R.invert(raceResultsByFirstName);
  *      //=> { 'alice': ['first', 'third'], 'jake':['second'] }
  */
-var invert = /*#__PURE__*/_curry1(function invert(obj) {
+
+var invert =
+/*#__PURE__*/
+_curry1(function invert(obj) {
   var props = keys(obj);
   var len = props.length;
   var idx = 0;
@@ -5771,6 +6675,7 @@ var invert = /*#__PURE__*/_curry1(function invert(obj) {
     list[list.length] = key;
     idx += 1;
   }
+
   return out;
 });
 
@@ -5801,7 +6706,10 @@ var invert = /*#__PURE__*/_curry1(function invert(obj) {
  *      R.invertObj(raceResults);
  *      //=> { 'alice': '0', 'jake':'1' }
  */
-var invertObj = /*#__PURE__*/_curry1(function invertObj(obj) {
+
+var invertObj =
+/*#__PURE__*/
+_curry1(function invertObj(obj) {
   var props = keys(obj);
   var len = props.length;
   var idx = 0;
@@ -5812,6 +6720,7 @@ var invertObj = /*#__PURE__*/_curry1(function invertObj(obj) {
     out[obj[key]] = key;
     idx += 1;
   }
+
   return out;
 });
 
@@ -5829,7 +6738,7 @@ var invertObj = /*#__PURE__*/_curry1(function invertObj(obj) {
  * @sig Number -> String -> (a -> b -> ... -> n -> Object -> *)
  * @param {Number} arity Number of arguments the returned function should take
  *        before the target object.
- * @param {String} method Name of the method to call.
+ * @param {String} method Name of any of the target object's methods to call.
  * @return {Function} A new curried function.
  * @see R.construct
  * @example
@@ -5838,16 +6747,28 @@ var invertObj = /*#__PURE__*/_curry1(function invertObj(obj) {
  *      sliceFrom(6, 'abcdefghijklm'); //=> 'ghijklm'
  *      const sliceFrom6 = R.invoker(2, 'slice')(6);
  *      sliceFrom6(8, 'abcdefghijklm'); //=> 'gh'
+ *
+ *      const dog = {
+ *        speak: async () => 'Woof!'
+ *      };
+ *      const speak = R.invoker(0, 'speak');
+ *      speak(dog).then(console.log) //~> 'Woof!'
+ *
  * @symb R.invoker(0, 'method')(o) = o['method']()
  * @symb R.invoker(1, 'method')(a, o) = o['method'](a)
  * @symb R.invoker(2, 'method')(a, b, o) = o['method'](a, b)
  */
-var invoker = /*#__PURE__*/_curry2(function invoker(arity, method) {
+
+var invoker =
+/*#__PURE__*/
+_curry2(function invoker(arity, method) {
   return curryN(arity + 1, function () {
     var target = arguments[arity];
+
     if (target != null && _isFunction(target[method])) {
       return target[method].apply(target, Array.prototype.slice.call(arguments, 0, arity));
     }
+
     throw new TypeError(toString$1(target) + ' does not have a method named "' + method + '"');
   });
 });
@@ -5875,7 +6796,10 @@ var invoker = /*#__PURE__*/_curry2(function invoker(arity, method) {
  *      R.is(Object, 's'); //=> false
  *      R.is(Number, {}); //=> false
  */
-var is = /*#__PURE__*/_curry2(function is(Ctor, val) {
+
+var is =
+/*#__PURE__*/
+_curry2(function is(Ctor, val) {
   return val != null && val.constructor === Ctor || val instanceof Ctor;
 });
 
@@ -5900,7 +6824,10 @@ var is = /*#__PURE__*/_curry2(function is(Ctor, val) {
  *      R.isEmpty({});          //=> true
  *      R.isEmpty({length: 0}); //=> false
  */
-var isEmpty = /*#__PURE__*/_curry1(function isEmpty(x) {
+
+var isEmpty =
+/*#__PURE__*/
+_curry1(function isEmpty(x) {
   return x != null && equals(x, empty(x));
 });
 
@@ -5923,7 +6850,10 @@ var isEmpty = /*#__PURE__*/_curry1(function isEmpty(x) {
  *      spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
  *      R.join('|', [1, 2, 3]);    //=> '1|2|3'
  */
-var join = /*#__PURE__*/invoker(1, 'join');
+
+var join =
+/*#__PURE__*/
+invoker(1, 'join');
 
 /**
  * juxt applies a list of functions to a list of values.
@@ -5942,7 +6872,10 @@ var join = /*#__PURE__*/invoker(1, 'join');
  *      getRange(3, 4, 9, -3); //=> [-3, 9]
  * @symb R.juxt([f, g, h])(a, b) = [f(a, b), g(a, b), h(a, b)]
  */
-var juxt = /*#__PURE__*/_curry1(function juxt(fns) {
+
+var juxt =
+/*#__PURE__*/
+_curry1(function juxt(fns) {
   return converge(function () {
     return Array.prototype.slice.call(arguments, 0);
   }, fns);
@@ -5969,12 +6902,17 @@ var juxt = /*#__PURE__*/_curry1(function juxt(fns) {
  *      const f = new F();
  *      R.keysIn(f); //=> ['x', 'y']
  */
-var keysIn = /*#__PURE__*/_curry1(function keysIn(obj) {
+
+var keysIn =
+/*#__PURE__*/
+_curry1(function keysIn(obj) {
   var prop;
   var ks = [];
+
   for (prop in obj) {
     ks[ks.length] = prop;
   }
+
   return ks;
 });
 
@@ -5997,17 +6935,23 @@ var keysIn = /*#__PURE__*/_curry1(function keysIn(obj) {
  *      R.lastIndexOf(3, [-1,3,3,0,1,2,3,4]); //=> 6
  *      R.lastIndexOf(10, [1,2,3,4]); //=> -1
  */
-var lastIndexOf = /*#__PURE__*/_curry2(function lastIndexOf(target, xs) {
+
+var lastIndexOf =
+/*#__PURE__*/
+_curry2(function lastIndexOf(target, xs) {
   if (typeof xs.lastIndexOf === 'function' && !_isArray(xs)) {
     return xs.lastIndexOf(target);
   } else {
     var idx = xs.length - 1;
+
     while (idx >= 0) {
       if (equals(xs[idx], target)) {
         return idx;
       }
+
       idx -= 1;
     }
+
     return -1;
   }
 });
@@ -6031,7 +6975,10 @@ function _isNumber(x) {
  *      R.length([]); //=> 0
  *      R.length([1, 2, 3]); //=> 3
  */
-var length = /*#__PURE__*/_curry1(function length(list) {
+
+var length =
+/*#__PURE__*/
+_curry1(function length(list) {
   return list != null && _isNumber(list.length) ? list.length : NaN;
 });
 
@@ -6058,7 +7005,10 @@ var length = /*#__PURE__*/_curry1(function length(list) {
  *      R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
  *      R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
  */
-var lens = /*#__PURE__*/_curry2(function lens(getter, setter) {
+
+var lens =
+/*#__PURE__*/
+_curry2(function lens(getter, setter) {
   return function (toFunctorFn) {
     return function (target) {
       return map(function (focus) {
@@ -6079,7 +7029,7 @@ var lens = /*#__PURE__*/_curry2(function lens(getter, setter) {
  * @sig Number -> Lens s a
  * @param {Number} n
  * @return {Lens}
- * @see R.view, R.set, R.over
+ * @see R.view, R.set, R.over, R.nth
  * @example
  *
  *      const headLens = R.lensIndex(0);
@@ -6088,7 +7038,10 @@ var lens = /*#__PURE__*/_curry2(function lens(getter, setter) {
  *      R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
  *      R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
  */
-var lensIndex = /*#__PURE__*/_curry1(function lensIndex(n) {
+
+var lensIndex =
+/*#__PURE__*/
+_curry1(function lensIndex(n) {
   return lens(nth(n), update(n));
 });
 
@@ -6116,7 +7069,10 @@ var lensIndex = /*#__PURE__*/_curry1(function lensIndex(n) {
  *      R.over(xHeadYLens, R.negate, {x: [{y: 2, z: 3}, {y: 4, z: 5}]});
  *      //=> {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
  */
-var lensPath = /*#__PURE__*/_curry1(function lensPath(p) {
+
+var lensPath =
+/*#__PURE__*/
+_curry1(function lensPath(p) {
   return lens(path(p), assocPath(p));
 });
 
@@ -6140,7 +7096,10 @@ var lensPath = /*#__PURE__*/_curry1(function lensPath(p) {
  *      R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
  *      R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
  */
-var lensProp = /*#__PURE__*/_curry1(function lensProp(k) {
+
+var lensProp =
+/*#__PURE__*/
+_curry1(function lensProp(k) {
   return lens(prop(k), assoc(k));
 });
 
@@ -6165,7 +7124,10 @@ var lensProp = /*#__PURE__*/_curry1(function lensProp(k) {
  *      R.lt('a', 'z'); //=> true
  *      R.lt('z', 'a'); //=> false
  */
-var lt = /*#__PURE__*/_curry2(function lt(a, b) {
+
+var lt =
+/*#__PURE__*/
+_curry2(function lt(a, b) {
   return a < b;
 });
 
@@ -6190,7 +7152,10 @@ var lt = /*#__PURE__*/_curry2(function lt(a, b) {
  *      R.lte('a', 'z'); //=> true
  *      R.lte('z', 'a'); //=> false
  */
-var lte = /*#__PURE__*/_curry2(function lte(a, b) {
+
+var lte =
+/*#__PURE__*/
+_curry2(function lte(a, b) {
   return a <= b;
 });
 
@@ -6228,16 +7193,21 @@ var lte = /*#__PURE__*/_curry2(function lte(a, b) {
  *   ]
  * ]
  */
-var mapAccum = /*#__PURE__*/_curry3(function mapAccum(fn, acc, list) {
+
+var mapAccum =
+/*#__PURE__*/
+_curry3(function mapAccum(fn, acc, list) {
   var idx = 0;
   var len = list.length;
   var result = [];
   var tuple = [acc];
+
   while (idx < len) {
     tuple = fn(tuple[0], list[idx]);
     result[idx] = tuple[1];
     idx += 1;
   }
+
   return [tuple[0], result];
 });
 
@@ -6278,15 +7248,20 @@ var mapAccum = /*#__PURE__*/_curry3(function mapAccum(fn, acc, list) {
  *   ]
  * ]
  */
-var mapAccumRight = /*#__PURE__*/_curry3(function mapAccumRight(fn, acc, list) {
+
+var mapAccumRight =
+/*#__PURE__*/
+_curry3(function mapAccumRight(fn, acc, list) {
   var idx = list.length - 1;
   var result = [];
   var tuple = [acc];
+
   while (idx >= 0) {
     tuple = fn(tuple[0], list[idx]);
     result[idx] = tuple[1];
     idx -= 1;
   }
+
   return [tuple[0], result];
 });
 
@@ -6311,7 +7286,10 @@ var mapAccumRight = /*#__PURE__*/_curry3(function mapAccumRight(fn, acc, list) {
  *
  *      R.mapObjIndexed(prependKeyAndDouble, xyz); //=> { x: 'x2', y: 'y4', z: 'z6' }
  */
-var mapObjIndexed = /*#__PURE__*/_curry2(function mapObjIndexed(fn, obj) {
+
+var mapObjIndexed =
+/*#__PURE__*/
+_curry2(function mapObjIndexed(fn, obj) {
   return _reduce(function (acc, key) {
     acc[key] = fn(obj[key], key, obj);
     return acc;
@@ -6339,7 +7317,10 @@ var mapObjIndexed = /*#__PURE__*/_curry2(function mapObjIndexed(fn, obj) {
  *      R.match(/a/, 'b'); //=> []
  *      R.match(/a/, null); //=> TypeError: null does not have a method named "match"
  */
-var match = /*#__PURE__*/_curry2(function match(rx, str) {
+
+var match =
+/*#__PURE__*/
+_curry2(function match(rx, str) {
   return str.match(rx) || [];
 });
 
@@ -6376,13 +7357,18 @@ var match = /*#__PURE__*/_curry2(function match(rx, str) {
  *      seventeenMod(4);  //=> 1
  *      seventeenMod(10); //=> 7
  */
-var mathMod = /*#__PURE__*/_curry2(function mathMod(m, p) {
+
+var mathMod =
+/*#__PURE__*/
+_curry2(function mathMod(m, p) {
   if (!_isInteger(m)) {
     return NaN;
   }
+
   if (!_isInteger(p) || p < 1) {
     return NaN;
   }
+
   return (m % p + p) % p;
 });
 
@@ -6410,7 +7396,10 @@ var mathMod = /*#__PURE__*/_curry2(function mathMod(m, p) {
  *      R.reduce(R.maxBy(square), 0, [3, -5, 4, 1, -2]); //=> -5
  *      R.reduce(R.maxBy(square), 0, []); //=> 0
  */
-var maxBy = /*#__PURE__*/_curry3(function maxBy(f, a, b) {
+
+var maxBy =
+/*#__PURE__*/
+_curry3(function maxBy(f, a, b) {
   return f(b) > f(a) ? b : a;
 });
 
@@ -6429,7 +7418,10 @@ var maxBy = /*#__PURE__*/_curry3(function maxBy(f, a, b) {
  *
  *      R.sum([2,4,6,8,100,1]); //=> 121
  */
-var sum = /*#__PURE__*/reduce(add, 0);
+
+var sum =
+/*#__PURE__*/
+reduce(add, 0);
 
 /**
  * Returns the mean of the given list of numbers.
@@ -6447,7 +7439,10 @@ var sum = /*#__PURE__*/reduce(add, 0);
  *      R.mean([2, 7, 9]); //=> 6
  *      R.mean([]); //=> NaN
  */
-var mean = /*#__PURE__*/_curry1(function mean(list) {
+
+var mean =
+/*#__PURE__*/
+_curry1(function mean(list) {
   return sum(list) / list.length;
 });
 
@@ -6468,11 +7463,16 @@ var mean = /*#__PURE__*/_curry1(function mean(list) {
  *      R.median([7, 2, 10, 9]); //=> 8
  *      R.median([]); //=> NaN
  */
-var median = /*#__PURE__*/_curry1(function median(list) {
+
+var median =
+/*#__PURE__*/
+_curry1(function median(list) {
   var len = list.length;
+
   if (len === 0) {
     return NaN;
   }
+
   var width = 2 - len % 2;
   var idx = (len - width) / 2;
   return mean(Array.prototype.slice.call(list, 0).sort(function (a, b) {
@@ -6508,13 +7508,18 @@ var median = /*#__PURE__*/_curry1(function median(list) {
  *      factorial(5); //=> 120
  *      count; //=> 1
  */
-var memoizeWith = /*#__PURE__*/_curry2(function memoizeWith(mFn, fn) {
+
+var memoizeWith =
+/*#__PURE__*/
+_curry2(function memoizeWith(mFn, fn) {
   var cache = {};
   return _arity(fn.length, function () {
     var key = mFn.apply(this, arguments);
+
     if (!_has(key, cache)) {
       cache[key] = fn.apply(this, arguments);
     }
+
     return cache[key];
   });
 });
@@ -6533,7 +7538,7 @@ var memoizeWith = /*#__PURE__*/_curry2(function memoizeWith(mFn, fn) {
  * @param {Object} r
  * @return {Object}
  * @see R.mergeRight, R.mergeDeepRight, R.mergeWith, R.mergeWithKey
- * @deprecated
+ * @deprecated since v0.26.0
  * @example
  *
  *      R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
@@ -6543,7 +7548,10 @@ var memoizeWith = /*#__PURE__*/_curry2(function memoizeWith(mFn, fn) {
  *      withDefaults({y: 2}); //=> {x: 0, y: 2}
  * @symb R.merge(a, b) = {...a, ...b}
  */
-var merge = /*#__PURE__*/_curry2(function merge(l, r) {
+
+var merge =
+/*#__PURE__*/
+_curry2(function merge(l, r) {
   return _objectAssign$1({}, l, r);
 });
 
@@ -6564,7 +7572,10 @@ var merge = /*#__PURE__*/_curry2(function merge(l, r) {
  *      R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
  * @symb R.mergeAll([{ x: 1 }, { y: 2 }, { z: 3 }]) = { x: 1, y: 2, z: 3 }
  */
-var mergeAll = /*#__PURE__*/_curry1(function mergeAll(list) {
+
+var mergeAll =
+/*#__PURE__*/
+_curry1(function mergeAll(list) {
   return _objectAssign$1.apply(null, [{}].concat(list));
 });
 
@@ -6593,7 +7604,10 @@ var mergeAll = /*#__PURE__*/_curry1(function mergeAll(list) {
  *      //=> { a: true, b: true, thing: 'bar', values: [10, 20, 15, 35] }
  * @symb R.mergeWithKey(f, { x: 1, y: 2 }, { y: 5, z: 3 }) = { x: 1, y: f('y', 2, 5), z: 3 }
  */
-var mergeWithKey = /*#__PURE__*/_curry3(function mergeWithKey(fn, l, r) {
+
+var mergeWithKey =
+/*#__PURE__*/
+_curry3(function mergeWithKey(fn, l, r) {
   var result = {};
   var k;
 
@@ -6640,7 +7654,10 @@ var mergeWithKey = /*#__PURE__*/_curry3(function mergeWithKey(fn, l, r) {
  *                         { b: true, c: { thing: 'bar', values: [15, 35] }});
  *      //=> { a: true, b: true, c: { thing: 'bar', values: [10, 20, 15, 35] }}
  */
-var mergeDeepWithKey = /*#__PURE__*/_curry3(function mergeDeepWithKey(fn, lObj, rObj) {
+
+var mergeDeepWithKey =
+/*#__PURE__*/
+_curry3(function mergeDeepWithKey(fn, lObj, rObj) {
   return mergeWithKey(function (k, lVal, rVal) {
     if (_isObject(lVal) && _isObject(rVal)) {
       return mergeDeepWithKey(fn, lVal, rVal);
@@ -6671,7 +7688,10 @@ var mergeDeepWithKey = /*#__PURE__*/_curry3(function mergeDeepWithKey(fn, lObj, 
  *                      { age: 40, contact: { email: 'baa@example.com' }});
  *      //=> { name: 'fred', age: 10, contact: { email: 'moo@example.com' }}
  */
-var mergeDeepLeft = /*#__PURE__*/_curry2(function mergeDeepLeft(lObj, rObj) {
+
+var mergeDeepLeft =
+/*#__PURE__*/
+_curry2(function mergeDeepLeft(lObj, rObj) {
   return mergeDeepWithKey(function (k, lVal, rVal) {
     return lVal;
   }, lObj, rObj);
@@ -6698,7 +7718,10 @@ var mergeDeepLeft = /*#__PURE__*/_curry2(function mergeDeepLeft(lObj, rObj) {
  *                       { age: 40, contact: { email: 'baa@example.com' }});
  *      //=> { name: 'fred', age: 40, contact: { email: 'baa@example.com' }}
  */
-var mergeDeepRight = /*#__PURE__*/_curry2(function mergeDeepRight(lObj, rObj) {
+
+var mergeDeepRight =
+/*#__PURE__*/
+_curry2(function mergeDeepRight(lObj, rObj) {
   return mergeDeepWithKey(function (k, lVal, rVal) {
     return rVal;
   }, lObj, rObj);
@@ -6731,7 +7754,10 @@ var mergeDeepRight = /*#__PURE__*/_curry2(function mergeDeepRight(lObj, rObj) {
  *                      { b: true, c: { values: [15, 35] }});
  *      //=> { a: true, b: true, c: { values: [10, 20, 15, 35] }}
  */
-var mergeDeepWith = /*#__PURE__*/_curry3(function mergeDeepWith(fn, lObj, rObj) {
+
+var mergeDeepWith =
+/*#__PURE__*/
+_curry3(function mergeDeepWith(fn, lObj, rObj) {
   return mergeDeepWithKey(function (k, lVal, rVal) {
     return fn(lVal, rVal);
   }, lObj, rObj);
@@ -6744,6 +7770,7 @@ var mergeDeepWith = /*#__PURE__*/_curry3(function mergeDeepWith(fn, lObj, rObj) 
  *
  * @func
  * @memberOf R
+ * @since v0.26.0
  * @category Object
  * @sig {k: v} -> {k: v} -> {k: v}
  * @param {Object} l
@@ -6759,7 +7786,10 @@ var mergeDeepWith = /*#__PURE__*/_curry3(function mergeDeepWith(fn, lObj, rObj) 
  *      resetToDefault({x: 5, y: 2}); //=> {x: 0, y: 2}
  * @symb R.mergeLeft(a, b) = {...b, ...a}
  */
-var mergeLeft = /*#__PURE__*/_curry2(function mergeLeft(l, r) {
+
+var mergeLeft =
+/*#__PURE__*/
+_curry2(function mergeLeft(l, r) {
   return _objectAssign$1({}, r, l);
 });
 
@@ -6770,6 +7800,7 @@ var mergeLeft = /*#__PURE__*/_curry2(function mergeLeft(l, r) {
  *
  * @func
  * @memberOf R
+ * @since v0.26.0
  * @category Object
  * @sig {k: v} -> {k: v} -> {k: v}
  * @param {Object} l
@@ -6785,7 +7816,10 @@ var mergeLeft = /*#__PURE__*/_curry2(function mergeLeft(l, r) {
  *      withDefaults({y: 2}); //=> {x: 0, y: 2}
  * @symb R.mergeRight(a, b) = {...a, ...b}
  */
-var mergeRight = /*#__PURE__*/_curry2(function mergeRight(l, r) {
+
+var mergeRight =
+/*#__PURE__*/
+_curry2(function mergeRight(l, r) {
   return _objectAssign$1({}, l, r);
 });
 
@@ -6812,7 +7846,10 @@ var mergeRight = /*#__PURE__*/_curry2(function mergeRight(l, r) {
  *                  { b: true, values: [15, 35] });
  *      //=> { a: true, b: true, values: [10, 20, 15, 35] }
  */
-var mergeWith = /*#__PURE__*/_curry3(function mergeWith(fn, l, r) {
+
+var mergeWith =
+/*#__PURE__*/
+_curry3(function mergeWith(fn, l, r) {
   return mergeWithKey(function (_, _l, _r) {
     return fn(_l, _r);
   }, l, r);
@@ -6835,7 +7872,10 @@ var mergeWith = /*#__PURE__*/_curry3(function mergeWith(fn, l, r) {
  *      R.min(789, 123); //=> 123
  *      R.min('a', 'b'); //=> 'a'
  */
-var min = /*#__PURE__*/_curry2(function min(a, b) {
+
+var min =
+/*#__PURE__*/
+_curry2(function min(a, b) {
   return b < a ? b : a;
 });
 
@@ -6863,7 +7903,10 @@ var min = /*#__PURE__*/_curry2(function min(a, b) {
  *      R.reduce(R.minBy(square), Infinity, [3, -5, 4, 1, -2]); //=> 1
  *      R.reduce(R.minBy(square), Infinity, []); //=> Infinity
  */
-var minBy = /*#__PURE__*/_curry3(function minBy(f, a, b) {
+
+var minBy =
+/*#__PURE__*/
+_curry3(function minBy(f, a, b) {
   return f(b) < f(a) ? b : a;
 });
 
@@ -6892,7 +7935,10 @@ var minBy = /*#__PURE__*/_curry3(function minBy(f, a, b) {
  *      isOdd(42); //=> 0
  *      isOdd(21); //=> 1
  */
-var modulo = /*#__PURE__*/_curry2(function modulo(a, b) {
+
+var modulo =
+/*#__PURE__*/
+_curry2(function modulo(a, b) {
   return a % b;
 });
 
@@ -6902,6 +7948,7 @@ var modulo = /*#__PURE__*/_curry2(function modulo(a, b) {
  *
  * @func
  * @memberOf R
+ * @since v0.27.0
  * @category List
  * @sig Number -> Number -> [a] -> [a]
  * @param {Number} from The source index
@@ -6913,13 +7960,15 @@ var modulo = /*#__PURE__*/_curry2(function modulo(a, b) {
  *      R.move(0, 2, ['a', 'b', 'c', 'd', 'e', 'f']); //=> ['b', 'c', 'a', 'd', 'e', 'f']
  *      R.move(-1, 0, ['a', 'b', 'c', 'd', 'e', 'f']); //=> ['f', 'a', 'b', 'c', 'd', 'e'] list rotation
  */
-var move = /*#__PURE__*/_curry3(function (from, to, list) {
+
+var move =
+/*#__PURE__*/
+_curry3(function (from, to, list) {
   var length = list.length;
   var result = list.slice();
   var positiveFrom = from < 0 ? length + from : from;
   var positiveTo = to < 0 ? length + to : to;
   var item = result.splice(positiveFrom, 1);
-
   return positiveFrom < 0 || positiveFrom >= list.length || positiveTo < 0 || positiveTo >= list.length ? list : [].concat(result.slice(0, positiveTo)).concat(item).concat(result.slice(positiveTo, list.length));
 });
 
@@ -6943,7 +7992,10 @@ var move = /*#__PURE__*/_curry3(function (from, to, list) {
  *      triple(4);       //=> 12
  *      R.multiply(2, 5);  //=> 10
  */
-var multiply = /*#__PURE__*/_curry2(function multiply(a, b) {
+
+var multiply =
+/*#__PURE__*/
+_curry2(function multiply(a, b) {
   return a * b;
 });
 
@@ -6961,7 +8013,10 @@ var multiply = /*#__PURE__*/_curry2(function multiply(a, b) {
  *
  *      R.negate(42); //=> -42
  */
-var negate = /*#__PURE__*/_curry1(function negate(n) {
+
+var negate =
+/*#__PURE__*/
+_curry1(function negate(n) {
   return -n;
 });
 
@@ -6990,7 +8045,10 @@ var negate = /*#__PURE__*/_curry1(function negate(n) {
  *      R.none(isEven, [1, 3, 5, 7, 9, 11]); //=> true
  *      R.none(isOdd, [1, 3, 5, 7, 8, 11]); //=> false
  */
-var none = /*#__PURE__*/_curry2(function none(fn, input) {
+
+var none =
+/*#__PURE__*/
+_curry2(function none(fn, input) {
   return all(_complement(fn), input);
 });
 
@@ -7012,7 +8070,10 @@ var none = /*#__PURE__*/_curry2(function none(fn, input) {
  * @symb R.nthArg(0)(a, b, c) = a
  * @symb R.nthArg(1)(a, b, c) = b
  */
-var nthArg = /*#__PURE__*/_curry1(function nthArg(n) {
+
+var nthArg =
+/*#__PURE__*/
+_curry1(function nthArg(n) {
   var arity = n < 0 ? 1 : n + 1;
   return curryN(arity, function () {
     return nth(n, arguments);
@@ -7046,7 +8107,10 @@ var nthArg = /*#__PURE__*/_curry1(function nthArg(n) {
  *
  * @symb R.o(f, g, x) = f(g(x))
  */
-var o = /*#__PURE__*/_curry3(function o(f, g, x) {
+
+var o =
+/*#__PURE__*/
+_curry3(function o(f, g, x) {
   return f(g(x));
 });
 
@@ -7072,7 +8136,10 @@ function _of(x) {
  *      R.of(null); //=> [null]
  *      R.of([42]); //=> [[42]]
  */
-var of = /*#__PURE__*/_curry1(_of);
+
+var of =
+/*#__PURE__*/
+_curry1(_of);
 
 /**
  * Returns a partial copy of an object omitting the keys specified.
@@ -7090,7 +8157,10 @@ var of = /*#__PURE__*/_curry1(_of);
  *
  *      R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
  */
-var omit = /*#__PURE__*/_curry2(function omit(names, obj) {
+
+var omit =
+/*#__PURE__*/
+_curry2(function omit(names, obj) {
   var result = {};
   var index = {};
   var idx = 0;
@@ -7106,6 +8176,7 @@ var omit = /*#__PURE__*/_curry2(function omit(names, obj) {
       result[prop] = obj[prop];
     }
   }
+
   return result;
 });
 
@@ -7128,13 +8199,17 @@ var omit = /*#__PURE__*/_curry2(function omit(names, obj) {
  *      addOneOnce(10); //=> 11
  *      addOneOnce(addOneOnce(50)); //=> 11
  */
-var once = /*#__PURE__*/_curry1(function once(fn) {
+
+var once =
+/*#__PURE__*/
+_curry1(function once(fn) {
   var called = false;
   var result;
   return _arity(fn.length, function () {
     if (called) {
       return result;
     }
+
     called = true;
     result = fn.apply(this, arguments);
     return result;
@@ -7154,6 +8229,7 @@ function _assertPromise(name, p) {
  *
  * @func
  * @memberOf R
+ * @since v0.26.0
  * @category Function
  * @sig (e -> b) -> (Promise e a) -> (Promise e b)
  * @sig (e -> (Promise f b)) -> (Promise e a) -> (Promise f b)
@@ -7174,20 +8250,25 @@ function _assertPromise(name, p) {
  *      );
  *      recoverFromFailure(12345).then(console.log)
  */
-var otherwise = /*#__PURE__*/_curry2(function otherwise(f, p) {
+
+var otherwise =
+/*#__PURE__*/
+_curry2(function otherwise(f, p) {
   _assertPromise('otherwise', p);
 
   return p.then(null, f);
 });
 
-// `Identity` is a functor that holds a single value, where `map` simply
 // transforms the held value with the provided function.
-var Identity = function (x) {
-  return { value: x, map: function (f) {
-      return Identity(f(x));
-    } };
-};
 
+var Identity = function (x) {
+  return {
+    value: x,
+    map: function (f) {
+      return Identity(f(x));
+    }
+  };
+};
 /**
  * Returns the result of "setting" the portion of the given data structure
  * focused by the given lens to the result of applying the given function to
@@ -7210,7 +8291,11 @@ var Identity = function (x) {
  *
  *      R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']); //=> ['FOO', 'bar', 'baz']
  */
-var over = /*#__PURE__*/_curry3(function over(lens, f, x) {
+
+
+var over =
+/*#__PURE__*/
+_curry3(function over(lens, f, x) {
   // The value returned by the getter function is first transformed with `f`,
   // then set as the value of an `Identity`. This is then mapped over with the
   // setter function of the lens.
@@ -7235,7 +8320,10 @@ var over = /*#__PURE__*/_curry3(function over(lens, f, x) {
  *
  *      R.pair('foo', 'bar'); //=> ['foo', 'bar']
  */
-var pair = /*#__PURE__*/_curry2(function pair(fst, snd) {
+
+var pair =
+/*#__PURE__*/
+_curry2(function pair(fst, snd) {
   return [fst, snd];
 });
 
@@ -7275,7 +8363,10 @@ function _createPartialApplicator(concat) {
  *      sayHelloToMs('Jane', 'Jones'); //=> 'Hello, Ms. Jane Jones!'
  * @symb R.partial(f, [a, b])(c, d) = f(a, b, c, d)
  */
-var partial = /*#__PURE__*/_createPartialApplicator(_concat);
+
+var partial =
+/*#__PURE__*/
+_createPartialApplicator(_concat);
 
 /**
  * Takes a function `f` and a list of arguments, and returns a function `g`.
@@ -7301,7 +8392,12 @@ var partial = /*#__PURE__*/_createPartialApplicator(_concat);
  *      greetMsJaneJones('Hello'); //=> 'Hello, Ms. Jane Jones!'
  * @symb R.partialRight(f, [a, b])(c, d) = f(c, d, a, b)
  */
-var partialRight = /*#__PURE__*/_createPartialApplicator( /*#__PURE__*/flip(_concat));
+
+var partialRight =
+/*#__PURE__*/
+_createPartialApplicator(
+/*#__PURE__*/
+flip(_concat));
 
 /**
  * Takes a predicate and a list or other `Filterable` object and returns the
@@ -7327,7 +8423,10 @@ var partialRight = /*#__PURE__*/_createPartialApplicator( /*#__PURE__*/flip(_con
  *      R.partition(R.includes('s'), { a: 'sss', b: 'ttt', foo: 'bars' });
  *      // => [ { a: 'sss', foo: 'bars' }, { b: 'ttt' }  ]
  */
-var partition = /*#__PURE__*/juxt([filter, reject]);
+
+var partition =
+/*#__PURE__*/
+juxt([filter, reject]);
 
 /**
  * Determines whether a nested path on an object has a specific value, in
@@ -7353,7 +8452,10 @@ var partition = /*#__PURE__*/juxt([filter, reject]);
  *      const isFamous = R.pathEq(['address', 'zipCode'], 90210);
  *      R.filter(isFamous, users); //=> [ user1 ]
  */
-var pathEq = /*#__PURE__*/_curry3(function pathEq(_path, val, obj) {
+
+var pathEq =
+/*#__PURE__*/
+_curry3(function pathEq(_path, val, obj) {
   return equals(path(_path, obj), val);
 });
 
@@ -7376,7 +8478,10 @@ var pathEq = /*#__PURE__*/_curry3(function pathEq(_path, val, obj) {
  *      R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
  *      R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
  */
-var pathOr = /*#__PURE__*/_curry3(function pathOr(d, p, obj) {
+
+var pathOr =
+/*#__PURE__*/
+_curry3(function pathOr(d, p, obj) {
   return defaultTo(d, path(p, obj));
 });
 
@@ -7398,9 +8503,13 @@ var pathOr = /*#__PURE__*/_curry3(function pathOr(d, p, obj) {
  * @example
  *
  *      R.pathSatisfies(y => y > 0, ['x', 'y'], {x: {y: 2}}); //=> true
+ *      R.pathSatisfies(R.is(Object), [], {x: {y: 2}}); //=> true
  */
-var pathSatisfies = /*#__PURE__*/_curry3(function pathSatisfies(pred, propPath, obj) {
-  return propPath.length > 0 && pred(path(propPath, obj));
+
+var pathSatisfies =
+/*#__PURE__*/
+_curry3(function pathSatisfies(pred, propPath, obj) {
+  return pred(path(propPath, obj));
 });
 
 /**
@@ -7421,15 +8530,21 @@ var pathSatisfies = /*#__PURE__*/_curry3(function pathSatisfies(pred, propPath, 
  *      R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
  *      R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
  */
-var pick = /*#__PURE__*/_curry2(function pick(names, obj) {
+
+var pick =
+/*#__PURE__*/
+_curry2(function pick(names, obj) {
   var result = {};
   var idx = 0;
+
   while (idx < names.length) {
     if (names[idx] in obj) {
       result[names[idx]] = obj[names[idx]];
     }
+
     idx += 1;
   }
+
   return result;
 });
 
@@ -7451,15 +8566,20 @@ var pick = /*#__PURE__*/_curry2(function pick(names, obj) {
  *      R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
  *      R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
  */
-var pickAll = /*#__PURE__*/_curry2(function pickAll(names, obj) {
+
+var pickAll =
+/*#__PURE__*/
+_curry2(function pickAll(names, obj) {
   var result = {};
   var idx = 0;
   var len = names.length;
+
   while (idx < len) {
     var name = names[idx];
     result[name] = obj[name];
     idx += 1;
   }
+
   return result;
 });
 
@@ -7483,13 +8603,18 @@ var pickAll = /*#__PURE__*/_curry2(function pickAll(names, obj) {
  *      const isUpperCase = (val, key) => key.toUpperCase() === key;
  *      R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
  */
-var pickBy = /*#__PURE__*/_curry2(function pickBy(test, obj) {
+
+var pickBy =
+/*#__PURE__*/
+_curry2(function pickBy(test, obj) {
   var result = {};
+
   for (var prop in obj) {
     if (test(obj[prop], prop, obj)) {
       result[prop] = obj[prop];
     }
   }
+
   return result;
 });
 
@@ -7528,10 +8653,12 @@ var pickBy = /*#__PURE__*/_curry2(function pickBy(test, obj) {
  *      //=> Nothing()
  * @symb R.pipeK(f, g, h)(a) = R.chain(h, R.chain(g, f(a)))
  */
+
 function pipeK() {
   if (arguments.length === 0) {
     throw new Error('pipeK requires at least one argument');
   }
+
   return composeK.apply(this, reverse(arguments));
 }
 
@@ -7552,7 +8679,10 @@ function pipeK() {
  *
  *      R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
  */
-var prepend = /*#__PURE__*/_curry2(function prepend(el, list) {
+
+var prepend =
+/*#__PURE__*/
+_curry2(function prepend(el, list) {
   return _concat([el], list);
 });
 
@@ -7571,7 +8701,10 @@ var prepend = /*#__PURE__*/_curry2(function prepend(el, list) {
  *
  *      R.product([2,4,6,8,100,1]); //=> 38400
  */
-var product = /*#__PURE__*/reduce(multiply, 1);
+
+var product =
+/*#__PURE__*/
+reduce(multiply, 1);
 
 /**
  * Accepts a function `fn` and a list of transformer functions and returns a
@@ -7602,14 +8735,19 @@ var product = /*#__PURE__*/reduce(multiply, 1);
  *      R.useWith(Math.pow, [R.dec, R.inc])(3)(4); //=> 32
  * @symb R.useWith(f, [g, h])(a, b) = f(g(a), h(b))
  */
-var useWith = /*#__PURE__*/_curry2(function useWith(fn, transformers) {
+
+var useWith =
+/*#__PURE__*/
+_curry2(function useWith(fn, transformers) {
   return curryN(transformers.length, function () {
     var args = [];
     var idx = 0;
+
     while (idx < transformers.length) {
       args.push(transformers[idx].call(this, arguments[idx]));
       idx += 1;
     }
+
     return fn.apply(this, args.concat(Array.prototype.slice.call(arguments, transformers.length)));
   });
 });
@@ -7633,7 +8771,10 @@ var useWith = /*#__PURE__*/_curry2(function useWith(fn, transformers) {
  *      const kids = [abby, fred];
  *      R.project(['name', 'grade'], kids); //=> [{name: 'Abby', grade: 2}, {name: 'Fred', grade: 7}]
  */
-var project = /*#__PURE__*/useWith(_map, [pickAll, identity]); // passing `identity` gives correct arity
+
+var project =
+/*#__PURE__*/
+useWith(_map, [pickAll, identity]); // passing `identity` gives correct arity
 
 /**
  * Returns `true` if the specified object property is equal, in
@@ -7660,7 +8801,10 @@ var project = /*#__PURE__*/useWith(_map, [pickAll, identity]); // passing `ident
  *      const hasBrownHair = R.propEq('hair', 'brown');
  *      R.filter(hasBrownHair, kids); //=> [fred, rusty]
  */
-var propEq = /*#__PURE__*/_curry3(function propEq(name, val, obj) {
+
+var propEq =
+/*#__PURE__*/
+_curry3(function propEq(name, val, obj) {
   return equals(val, obj[name]);
 });
 
@@ -7684,7 +8828,10 @@ var propEq = /*#__PURE__*/_curry3(function propEq(name, val, obj) {
  *      R.propIs(Number, 'x', {x: 'foo'});    //=> false
  *      R.propIs(Number, 'x', {});            //=> false
  */
-var propIs = /*#__PURE__*/_curry3(function propIs(type, name, obj) {
+
+var propIs =
+/*#__PURE__*/
+_curry3(function propIs(type, name, obj) {
   return is(type, obj[name]);
 });
 
@@ -7714,7 +8861,10 @@ var propIs = /*#__PURE__*/_curry3(function propIs(type, name, obj) {
  *      favorite(alice);  //=> undefined
  *      favoriteWithDefault(alice);  //=> 'Ramda'
  */
-var propOr = /*#__PURE__*/_curry3(function propOr(val, p, obj) {
+
+var propOr =
+/*#__PURE__*/
+_curry3(function propOr(val, p, obj) {
   return pathOr(val, [p], obj);
 });
 
@@ -7737,7 +8887,10 @@ var propOr = /*#__PURE__*/_curry3(function propOr(val, p, obj) {
  *
  *      R.propSatisfies(x => x > 0, 'x', {x: 1, y: 2}); //=> true
  */
-var propSatisfies = /*#__PURE__*/_curry3(function propSatisfies(pred, name, obj) {
+
+var propSatisfies =
+/*#__PURE__*/
+_curry3(function propSatisfies(pred, name, obj) {
   return pred(obj[name]);
 });
 
@@ -7761,17 +8914,13 @@ var propSatisfies = /*#__PURE__*/_curry3(function propSatisfies(pred, name, obj)
  *      const fullName = R.compose(R.join(' '), R.props(['first', 'last']));
  *      fullName({last: 'Bullet-Tooth', age: 33, first: 'Tony'}); //=> 'Tony Bullet-Tooth'
  */
-var props = /*#__PURE__*/_curry2(function props(ps, obj) {
-  var len = ps.length;
-  var out = [];
-  var idx = 0;
 
-  while (idx < len) {
-    out[idx] = obj[ps[idx]];
-    idx += 1;
-  }
-
-  return out;
+var props =
+/*#__PURE__*/
+_curry2(function props(ps, obj) {
+  return ps.map(function (p) {
+    return path([p], obj);
+  });
 });
 
 /**
@@ -7790,16 +8939,22 @@ var props = /*#__PURE__*/_curry2(function props(ps, obj) {
  *      R.range(1, 5);    //=> [1, 2, 3, 4]
  *      R.range(50, 53);  //=> [50, 51, 52]
  */
-var range = /*#__PURE__*/_curry2(function range(from, to) {
+
+var range =
+/*#__PURE__*/
+_curry2(function range(from, to) {
   if (!(_isNumber(from) && _isNumber(to))) {
     throw new TypeError('Both arguments to range must be numbers');
   }
+
   var result = [];
   var n = from;
+
   while (n < to) {
     result.push(n);
     n += 1;
   }
+
   return result;
 });
 
@@ -7845,12 +9000,17 @@ var range = /*#__PURE__*/_curry2(function range(from, to) {
  *
  * @symb R.reduceRight(f, a, [b, c, d]) = f(b, f(c, f(d, a)))
  */
-var reduceRight = /*#__PURE__*/_curry3(function reduceRight(fn, acc, list) {
+
+var reduceRight =
+/*#__PURE__*/
+_curry3(function reduceRight(fn, acc, list) {
   var idx = list.length - 1;
+
   while (idx >= 0) {
     acc = fn(list[idx], acc);
     idx -= 1;
   }
+
   return acc;
 });
 
@@ -7883,7 +9043,10 @@ var reduceRight = /*#__PURE__*/_curry3(function reduceRight(fn, acc, list) {
  *      const ys = [2, 4, 6]
  *      R.reduceWhile(isOdd, R.add, 111, ys); //=> 111
  */
-var reduceWhile = /*#__PURE__*/_curryN(4, [], function _reduceWhile(pred, fn, a, list) {
+
+var reduceWhile =
+/*#__PURE__*/
+_curryN(4, [], function _reduceWhile(pred, fn, a, list) {
   return _reduce(function (acc, x) {
     return pred(acc, x) ? fn(acc, x) : _reduced(acc);
   }, a, list);
@@ -7914,7 +9077,10 @@ var reduceWhile = /*#__PURE__*/_curryN(4, [], function _reduceWhile(pred, fn, a,
  *       [],
  *       [1, 2, 3, 4, 5]) // [1, 2, 3]
  */
-var reduced = /*#__PURE__*/_curry1(_reduced);
+
+var reduced =
+/*#__PURE__*/
+_curry1(_reduced);
 
 /**
  * Calls an input function `n` times, returning an array containing the results
@@ -7939,7 +9105,10 @@ var reduced = /*#__PURE__*/_curry1(_reduced);
  * @symb R.times(f, 1) = [f(0)]
  * @symb R.times(f, 2) = [f(0), f(1)]
  */
-var times = /*#__PURE__*/_curry2(function times(fn, n) {
+
+var times =
+/*#__PURE__*/
+_curry2(function times(fn, n) {
   var len = Number(n);
   var idx = 0;
   var list;
@@ -7947,11 +9116,14 @@ var times = /*#__PURE__*/_curry2(function times(fn, n) {
   if (len < 0 || isNaN(len)) {
     throw new RangeError('n must be a non-negative number');
   }
+
   list = new Array(len);
+
   while (idx < len) {
     list[idx] = fn(idx);
     idx += 1;
   }
+
   return list;
 });
 
@@ -7978,7 +9150,10 @@ var times = /*#__PURE__*/_curry2(function times(fn, n) {
  * @symb R.repeat(a, 1) = [a]
  * @symb R.repeat(a, 2) = [a, a]
  */
-var repeat = /*#__PURE__*/_curry2(function repeat(value, n) {
+
+var repeat =
+/*#__PURE__*/
+_curry2(function repeat(value, n) {
   return times(always(value), n);
 });
 
@@ -8006,7 +9181,10 @@ var repeat = /*#__PURE__*/_curry2(function repeat(value, n) {
  *      // Use the "g" (global) flag to replace all occurrences:
  *      R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
  */
-var replace = /*#__PURE__*/_curry3(function replace(regex, replacement, str) {
+
+var replace =
+/*#__PURE__*/
+_curry3(function replace(regex, replacement, str) {
   return str.replace(regex, replacement);
 });
 
@@ -8031,15 +9209,20 @@ var replace = /*#__PURE__*/_curry3(function replace(regex, replacement, str) {
  *      const factorials = R.scan(R.multiply, 1, numbers); //=> [1, 1, 2, 6, 24]
  * @symb R.scan(f, a, [b, c]) = [a, f(a, b), f(f(a, b), c)]
  */
-var scan = /*#__PURE__*/_curry3(function scan(fn, acc, list) {
+
+var scan =
+/*#__PURE__*/
+_curry3(function scan(fn, acc, list) {
   var idx = 0;
   var len = list.length;
   var result = [acc];
+
   while (idx < len) {
     acc = fn(acc, list[idx]);
     result[idx + 1] = acc;
     idx += 1;
   }
+
   return result;
 });
 
@@ -8067,7 +9250,10 @@ var scan = /*#__PURE__*/_curry3(function scan(fn, acc, list) {
  *      R.sequence(R.of, Just([1, 2, 3])); //=> [Just(1), Just(2), Just(3)]
  *      R.sequence(R.of, Nothing());       //=> [Nothing()]
  */
-var sequence = /*#__PURE__*/_curry2(function sequence(of, traversable) {
+
+var sequence =
+/*#__PURE__*/
+_curry2(function sequence(of, traversable) {
   return typeof traversable.sequence === 'function' ? traversable.sequence(of) : reduceRight(function (x, acc) {
     return ap(map(prepend, x), acc);
   }, of([]), traversable);
@@ -8095,7 +9281,10 @@ var sequence = /*#__PURE__*/_curry2(function sequence(of, traversable) {
  *      R.set(xLens, 4, {x: 1, y: 2});  //=> {x: 4, y: 2}
  *      R.set(xLens, 8, {x: 1, y: 2});  //=> {x: 8, y: 2}
  */
-var set = /*#__PURE__*/_curry3(function set(lens, v, x) {
+
+var set =
+/*#__PURE__*/
+_curry3(function set(lens, v, x) {
   return over(lens, always(v), x);
 });
 
@@ -8119,7 +9308,10 @@ var set = /*#__PURE__*/_curry3(function set(lens, v, x) {
  *      const diff = function(a, b) { return a - b; };
  *      R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
  */
-var sort = /*#__PURE__*/_curry2(function sort(comparator, list) {
+
+var sort =
+/*#__PURE__*/
+_curry2(function sort(comparator, list) {
   return Array.prototype.slice.call(list, 0).sort(comparator);
 });
 
@@ -8156,7 +9348,10 @@ var sort = /*#__PURE__*/_curry2(function sort(comparator, list) {
  *      const people = [clara, bob, alice];
  *      sortByNameCaseInsensitive(people); //=> [alice, bob, clara]
  */
-var sortBy = /*#__PURE__*/_curry2(function sortBy(fn, list) {
+
+var sortBy =
+/*#__PURE__*/
+_curry2(function sortBy(fn, list) {
   return Array.prototype.slice.call(list, 0).sort(function (a, b) {
     var aa = fn(a);
     var bb = fn(b);
@@ -8196,14 +9391,19 @@ var sortBy = /*#__PURE__*/_curry2(function sortBy(fn, list) {
  *      ]);
  *      ageNameSort(people); //=> [alice, clara, bob]
  */
-var sortWith = /*#__PURE__*/_curry2(function sortWith(fns, list) {
+
+var sortWith =
+/*#__PURE__*/
+_curry2(function sortWith(fns, list) {
   return Array.prototype.slice.call(list, 0).sort(function (a, b) {
     var result = 0;
     var i = 0;
+
     while (result === 0 && i < fns.length) {
       result = fns[i](a, b);
       i += 1;
     }
+
     return result;
   });
 });
@@ -8219,7 +9419,7 @@ var sortWith = /*#__PURE__*/_curry2(function sortWith(fns, list) {
  * @sig (String | RegExp) -> String -> [String]
  * @param {String|RegExp} sep The pattern.
  * @param {String} str The string to separate into an array.
- * @return {Array} The array of strings from `str` separated by `str`.
+ * @return {Array} The array of strings from `str` separated by `sep`.
  * @see R.join
  * @example
  *
@@ -8228,7 +9428,10 @@ var sortWith = /*#__PURE__*/_curry2(function sortWith(fns, list) {
  *
  *      R.split('.', 'a.b.c.xyz.d'); //=> ['a', 'b', 'c', 'xyz', 'd']
  */
-var split = /*#__PURE__*/invoker(1, 'split');
+
+var split =
+/*#__PURE__*/
+invoker(1, 'split');
 
 /**
  * Splits a given list or string at a given index.
@@ -8248,7 +9451,10 @@ var split = /*#__PURE__*/invoker(1, 'split');
  *      R.splitAt(5, 'hello world');      //=> ['hello', ' world']
  *      R.splitAt(-1, 'foobar');          //=> ['fooba', 'r']
  */
-var splitAt = /*#__PURE__*/_curry2(function splitAt(index, array) {
+
+var splitAt =
+/*#__PURE__*/
+_curry2(function splitAt(index, array) {
   return [slice(0, index, array), slice(index, length(array), array)];
 });
 
@@ -8269,15 +9475,21 @@ var splitAt = /*#__PURE__*/_curry2(function splitAt(index, array) {
  *      R.splitEvery(3, [1, 2, 3, 4, 5, 6, 7]); //=> [[1, 2, 3], [4, 5, 6], [7]]
  *      R.splitEvery(3, 'foobarbaz'); //=> ['foo', 'bar', 'baz']
  */
-var splitEvery = /*#__PURE__*/_curry2(function splitEvery(n, list) {
+
+var splitEvery =
+/*#__PURE__*/
+_curry2(function splitEvery(n, list) {
   if (n <= 0) {
     throw new Error('First argument to splitEvery must be a positive integer');
   }
+
   var result = [];
   var idx = 0;
+
   while (idx < list.length) {
     result.push(slice(idx, idx += n, list));
   }
+
   return result;
 });
 
@@ -8300,7 +9512,10 @@ var splitEvery = /*#__PURE__*/_curry2(function splitEvery(n, list) {
  *
  *      R.splitWhen(R.equals(2), [1, 2, 3, 1, 2, 3]);   //=> [[1], [2, 3, 1, 2, 3]]
  */
-var splitWhen = /*#__PURE__*/_curry2(function splitWhen(pred, list) {
+
+var splitWhen =
+/*#__PURE__*/
+_curry2(function splitWhen(pred, list) {
   var idx = 0;
   var len = list.length;
   var prefix = [];
@@ -8335,7 +9550,10 @@ var splitWhen = /*#__PURE__*/_curry2(function splitWhen(pred, list) {
  *      R.startsWith(['a'], ['a', 'b', 'c'])    //=> true
  *      R.startsWith(['b'], ['a', 'b', 'c'])    //=> false
  */
-var startsWith = /*#__PURE__*/_curry2(function (prefix, list) {
+
+var startsWith =
+/*#__PURE__*/
+_curry2(function (prefix, list) {
   return equals(take(prefix.length, list), prefix);
 });
 
@@ -8362,7 +9580,10 @@ var startsWith = /*#__PURE__*/_curry2(function (prefix, list) {
  *      complementaryAngle(30); //=> 60
  *      complementaryAngle(72); //=> 18
  */
-var subtract = /*#__PURE__*/_curry2(function subtract(a, b) {
+
+var subtract =
+/*#__PURE__*/
+_curry2(function subtract(a, b) {
   return Number(a) - Number(b);
 });
 
@@ -8384,7 +9605,10 @@ var subtract = /*#__PURE__*/_curry2(function subtract(a, b) {
  *      R.symmetricDifference([1,2,3,4], [7,6,5,4,3]); //=> [1,2,7,6,5]
  *      R.symmetricDifference([7,6,5,4,3], [1,2,3,4]); //=> [7,6,5,1,2]
  */
-var symmetricDifference = /*#__PURE__*/_curry2(function symmetricDifference(list1, list2) {
+
+var symmetricDifference =
+/*#__PURE__*/
+_curry2(function symmetricDifference(list1, list2) {
   return concat(difference(list1, list2), difference(list2, list1));
 });
 
@@ -8410,7 +9634,10 @@ var symmetricDifference = /*#__PURE__*/_curry2(function symmetricDifference(list
  *      const l2 = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
  *      R.symmetricDifferenceWith(eqA, l1, l2); //=> [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
  */
-var symmetricDifferenceWith = /*#__PURE__*/_curry3(function symmetricDifferenceWith(pred, list1, list2) {
+
+var symmetricDifferenceWith =
+/*#__PURE__*/
+_curry3(function symmetricDifferenceWith(pred, list1, list2) {
   return concat(differenceWith(pred, list1, list2), differenceWith(pred, list2, list1));
 });
 
@@ -8439,21 +9666,30 @@ var symmetricDifferenceWith = /*#__PURE__*/_curry3(function symmetricDifferenceW
  *
  *      R.takeLastWhile(x => x !== 'R' , 'Ramda'); //=> 'amda'
  */
-var takeLastWhile = /*#__PURE__*/_curry2(function takeLastWhile(fn, xs) {
+
+var takeLastWhile =
+/*#__PURE__*/
+_curry2(function takeLastWhile(fn, xs) {
   var idx = xs.length - 1;
+
   while (idx >= 0 && fn(xs[idx])) {
     idx -= 1;
   }
+
   return slice(idx + 1, Infinity, xs);
 });
 
-var XTakeWhile = /*#__PURE__*/function () {
+var XTakeWhile =
+/*#__PURE__*/
+function () {
   function XTakeWhile(f, xf) {
     this.xf = xf;
     this.f = f;
   }
+
   XTakeWhile.prototype['@@transducer/init'] = _xfBase.init;
   XTakeWhile.prototype['@@transducer/result'] = _xfBase.result;
+
   XTakeWhile.prototype['@@transducer/step'] = function (result, input) {
     return this.f(input) ? this.xf['@@transducer/step'](result, input) : _reduced(result);
   };
@@ -8461,7 +9697,9 @@ var XTakeWhile = /*#__PURE__*/function () {
   return XTakeWhile;
 }();
 
-var _xtakeWhile = /*#__PURE__*/_curry2(function _xtakeWhile(f, xf) {
+var _xtakeWhile =
+/*#__PURE__*/
+_curry2(function _xtakeWhile(f, xf) {
   return new XTakeWhile(f, xf);
 });
 
@@ -8494,22 +9732,33 @@ var _xtakeWhile = /*#__PURE__*/_curry2(function _xtakeWhile(f, xf) {
  *
  *      R.takeWhile(x => x !== 'd' , 'Ramda'); //=> 'Ram'
  */
-var takeWhile = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['takeWhile'], _xtakeWhile, function takeWhile(fn, xs) {
+
+var takeWhile =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['takeWhile'], _xtakeWhile, function takeWhile(fn, xs) {
   var idx = 0;
   var len = xs.length;
+
   while (idx < len && fn(xs[idx])) {
     idx += 1;
   }
+
   return slice(0, idx, xs);
 }));
 
-var XTap = /*#__PURE__*/function () {
+var XTap =
+/*#__PURE__*/
+function () {
   function XTap(f, xf) {
     this.xf = xf;
     this.f = f;
   }
+
   XTap.prototype['@@transducer/init'] = _xfBase.init;
   XTap.prototype['@@transducer/result'] = _xfBase.result;
+
   XTap.prototype['@@transducer/step'] = function (result, input) {
     this.f(input);
     return this.xf['@@transducer/step'](result, input);
@@ -8518,7 +9767,9 @@ var XTap = /*#__PURE__*/function () {
   return XTap;
 }();
 
-var _xtap = /*#__PURE__*/_curry2(function _xtap(f, xf) {
+var _xtap =
+/*#__PURE__*/
+_curry2(function _xtap(f, xf) {
   return new XTap(f, xf);
 });
 
@@ -8542,7 +9793,12 @@ var _xtap = /*#__PURE__*/_curry2(function _xtap(f, xf) {
  *      // logs 'x is 100'
  * @symb R.tap(f, a) = a
  */
-var tap = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable([], _xtap, function tap(fn, x) {
+
+var tap =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable([], _xtap, function tap(fn, x) {
   fn(x);
   return x;
 }));
@@ -8568,10 +9824,14 @@ function _isRegExp(x) {
  *      R.test(/^x/, 'xyz'); //=> true
  *      R.test(/^y/, 'xyz'); //=> false
  */
-var test = /*#__PURE__*/_curry2(function test(pattern, str) {
+
+var test =
+/*#__PURE__*/
+_curry2(function test(pattern, str) {
   if (!_isRegExp(pattern)) {
     throw new TypeError('‘test’ requires a value of type RegExp as its first argument; received ' + toString$1(pattern));
   }
+
   return _cloneRegExp(pattern).test(str);
 });
 
@@ -8582,6 +9842,7 @@ var test = /*#__PURE__*/_curry2(function test(pattern, str) {
  *
  * @func
  * @memberOf R
+ * @since v0.27.0
  * @category Function
  * @sig (a -> b) -> (Promise e a) -> (Promise e b)
  * @sig (a -> (Promise e b)) -> (Promise e a) -> (Promise e b)
@@ -8597,11 +9858,14 @@ var test = /*#__PURE__*/_curry2(function test(pattern, str) {
  *      var getMemberName = R.pipe(
  *        makeQuery,
  *        fetchMember,
- *        R.then(R.pick(['firstName', 'lastName']))
+ *        R.andThen(R.pick(['firstName', 'lastName']))
  *      );
  */
-var then = /*#__PURE__*/_curry2(function then(f, p) {
-  _assertPromise('then', p);
+
+var andThen =
+/*#__PURE__*/
+_curry2(function andThen(f, p) {
+  _assertPromise('andThen', p);
 
   return p.then(f);
 });
@@ -8621,7 +9885,10 @@ var then = /*#__PURE__*/_curry2(function then(f, p) {
  *
  *      R.toLower('XYZ'); //=> 'xyz'
  */
-var toLower = /*#__PURE__*/invoker(0, 'toLowerCase');
+
+var toLower =
+/*#__PURE__*/
+invoker(0, 'toLowerCase');
 
 /**
  * Converts an object into an array of key, value arrays. Only the object's
@@ -8641,13 +9908,18 @@ var toLower = /*#__PURE__*/invoker(0, 'toLowerCase');
  *
  *      R.toPairs({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
  */
-var toPairs = /*#__PURE__*/_curry1(function toPairs(obj) {
+
+var toPairs =
+/*#__PURE__*/
+_curry1(function toPairs(obj) {
   var pairs = [];
+
   for (var prop in obj) {
     if (_has(prop, obj)) {
       pairs[pairs.length] = [prop, obj[prop]];
     }
   }
+
   return pairs;
 });
 
@@ -8672,11 +9944,16 @@ var toPairs = /*#__PURE__*/_curry1(function toPairs(obj) {
  *      const f = new F();
  *      R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
  */
-var toPairsIn = /*#__PURE__*/_curry1(function toPairsIn(obj) {
+
+var toPairsIn =
+/*#__PURE__*/
+_curry1(function toPairsIn(obj) {
   var pairs = [];
+
   for (var prop in obj) {
     pairs[pairs.length] = [prop, obj[prop]];
   }
+
   return pairs;
 });
 
@@ -8695,7 +9972,10 @@ var toPairsIn = /*#__PURE__*/_curry1(function toPairsIn(obj) {
  *
  *      R.toUpper('abc'); //=> 'ABC'
  */
-var toUpper = /*#__PURE__*/invoker(0, 'toUpperCase');
+
+var toUpper =
+/*#__PURE__*/
+invoker(0, 'toUpperCase');
 
 /**
  * Initializes a transducer using supplied iterator function. Returns a single
@@ -8744,7 +10024,10 @@ var toUpper = /*#__PURE__*/invoker(0, 'toUpperCase');
  *      const firstOddTransducer = R.compose(R.filter(isOdd), R.take(1));
  *      R.transduce(firstOddTransducer, R.flip(R.append), [], R.range(0, 100)); //=> [1]
  */
-var transduce = /*#__PURE__*/curryN(4, function transduce(xf, fn, acc, list) {
+
+var transduce =
+/*#__PURE__*/
+curryN(4, function transduce(xf, fn, acc, list) {
   return _reduce(xf(typeof fn === 'function' ? _xwrap(fn) : fn), acc, list);
 });
 
@@ -8772,21 +10055,29 @@ var transduce = /*#__PURE__*/curryN(4, function transduce(xf, fn, acc, list) {
  * @symb R.transpose([[a, b], [c, d]]) = [[a, c], [b, d]]
  * @symb R.transpose([[a, b], [c]]) = [[a, c], [b]]
  */
-var transpose = /*#__PURE__*/_curry1(function transpose(outerlist) {
+
+var transpose =
+/*#__PURE__*/
+_curry1(function transpose(outerlist) {
   var i = 0;
   var result = [];
+
   while (i < outerlist.length) {
     var innerlist = outerlist[i];
     var j = 0;
+
     while (j < innerlist.length) {
       if (typeof result[j] === 'undefined') {
         result[j] = [];
       }
+
       result[j].push(innerlist[j]);
       j += 1;
     }
+
     i += 1;
   }
+
   return result;
 });
 
@@ -8816,7 +10107,10 @@ var transpose = /*#__PURE__*/_curry1(function transpose(outerlist) {
  *      R.traverse(Maybe.of, safeDiv(10), [2, 4, 5]); //=> Maybe.Just([5, 2.5, 2])
  *      R.traverse(Maybe.of, safeDiv(10), [2, 0, 5]); //=> Maybe.Nothing
  */
-var traverse = /*#__PURE__*/_curry3(function traverse(of, f, traversable) {
+
+var traverse =
+/*#__PURE__*/
+_curry3(function traverse(of, f, traversable) {
   return typeof traversable['fantasy-land/traverse'] === 'function' ? traversable['fantasy-land/traverse'](f, of) : sequence(of, map(f, traversable));
 });
 
@@ -8838,11 +10132,20 @@ var hasProtoTrim = typeof String.prototype.trim === 'function';
  *      R.trim('   xyz  '); //=> 'xyz'
  *      R.map(R.trim, R.split(',', 'x, y, z')); //=> ['x', 'y', 'z']
  */
-var trim = !hasProtoTrim || /*#__PURE__*/ws.trim() || ! /*#__PURE__*/zeroWidth.trim() ? /*#__PURE__*/_curry1(function trim(str) {
+
+var trim = !hasProtoTrim ||
+/*#__PURE__*/
+ws.trim() || !
+/*#__PURE__*/
+zeroWidth.trim() ?
+/*#__PURE__*/
+_curry1(function trim(str) {
   var beginRx = new RegExp('^[' + ws + '][' + ws + ']*');
   var endRx = new RegExp('[' + ws + '][' + ws + ']*$');
   return str.replace(beginRx, '').replace(endRx, '');
-}) : /*#__PURE__*/_curry1(function trim(str) {
+}) :
+/*#__PURE__*/
+_curry1(function trim(str) {
   return str.trim();
 });
 
@@ -8867,8 +10170,12 @@ var trim = !hasProtoTrim || /*#__PURE__*/ws.trim() || ! /*#__PURE__*/zeroWidth.t
  *      R.tryCatch(R.prop('x'), R.F)({x: true}); //=> true
  *      R.tryCatch(() => { throw 'foo'}, R.always('catched'))('bar') // => 'catched'
  *      R.tryCatch(R.times(R.identity), R.always([]))('s') // => []
- `` */
-var tryCatch = /*#__PURE__*/_curry2(function _tryCatch(tryer, catcher) {
+ *      R.tryCatch(() => { throw 'this is not a valid value'}, (err, value)=>({error : err,  value }))('bar') // => {'error': 'this is not a valid value', 'value': 'bar'}
+ */
+
+var tryCatch =
+/*#__PURE__*/
+_curry2(function _tryCatch(tryer, catcher) {
   return _arity(tryer.length, function () {
     try {
       return tryer.apply(this, arguments);
@@ -8902,7 +10209,10 @@ var tryCatch = /*#__PURE__*/_curry2(function _tryCatch(tryer, catcher) {
  *      R.unapply(JSON.stringify)(1, 2, 3); //=> '[1,2,3]'
  * @symb R.unapply(f)(a, b) = f([a, b])
  */
-var unapply = /*#__PURE__*/_curry1(function unapply(fn) {
+
+var unapply =
+/*#__PURE__*/
+_curry1(function unapply(fn) {
   return function () {
     return fn(Array.prototype.slice.call(arguments, 0));
   };
@@ -8936,7 +10246,10 @@ var unapply = /*#__PURE__*/_curry1(function unapply(fn) {
  *      takesOneArg(1, 2); //=> [1, undefined]
  * @symb R.unary(f)(a, b, c) = f(a)
  */
-var unary = /*#__PURE__*/_curry1(function unary(fn) {
+
+var unary =
+/*#__PURE__*/
+_curry1(function unary(fn) {
   return nAry(1, fn);
 });
 
@@ -8959,18 +10272,23 @@ var unary = /*#__PURE__*/_curry1(function unary(fn) {
  *      const uncurriedAddFour = R.uncurryN(4, addFour);
  *      uncurriedAddFour(1, 2, 3, 4); //=> 10
  */
-var uncurryN = /*#__PURE__*/_curry2(function uncurryN(depth, fn) {
+
+var uncurryN =
+/*#__PURE__*/
+_curry2(function uncurryN(depth, fn) {
   return curryN(depth, function () {
     var currentDepth = 1;
     var value = fn;
     var idx = 0;
     var endIdx;
+
     while (currentDepth <= depth && typeof value === 'function') {
       endIdx = currentDepth === depth ? arguments.length : idx + value.length;
       value = value.apply(this, Array.prototype.slice.call(arguments, idx, endIdx));
       currentDepth += 1;
       idx = endIdx;
     }
+
     return value;
   });
 });
@@ -9000,13 +10318,18 @@ var uncurryN = /*#__PURE__*/_curry2(function uncurryN(depth, fn) {
  *      R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
  * @symb R.unfold(f, x) = [f(x)[0], f(f(x)[1])[0], f(f(f(x)[1])[1])[0], ...]
  */
-var unfold = /*#__PURE__*/_curry2(function unfold(fn, seed) {
+
+var unfold =
+/*#__PURE__*/
+_curry2(function unfold(fn, seed) {
   var pair = fn(seed);
   var result = [];
+
   while (pair && pair.length) {
     result[result.length] = pair[0];
     pair = fn(pair[1]);
   }
+
   return result;
 });
 
@@ -9027,7 +10350,12 @@ var unfold = /*#__PURE__*/_curry2(function unfold(fn, seed) {
  *
  *      R.union([1, 2, 3], [2, 3, 4]); //=> [1, 2, 3, 4]
  */
-var union = /*#__PURE__*/_curry2( /*#__PURE__*/compose(uniq, _concat));
+
+var union =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+compose(uniq, _concat));
 
 /**
  * Returns a new list containing only one copy of each element in the original
@@ -9051,18 +10379,25 @@ var union = /*#__PURE__*/_curry2( /*#__PURE__*/compose(uniq, _concat));
  *      R.uniqWith(strEq)([1, '1', 1]);    //=> [1]
  *      R.uniqWith(strEq)(['1', 1, 1]);    //=> ['1']
  */
-var uniqWith = /*#__PURE__*/_curry2(function uniqWith(pred, list) {
+
+var uniqWith =
+/*#__PURE__*/
+_curry2(function uniqWith(pred, list) {
   var idx = 0;
   var len = list.length;
   var result = [];
   var item;
+
   while (idx < len) {
     item = list[idx];
+
     if (!_includesWith(pred, item, result)) {
       result[result.length] = item;
     }
+
     idx += 1;
   }
+
   return result;
 });
 
@@ -9088,7 +10423,10 @@ var uniqWith = /*#__PURE__*/_curry2(function uniqWith(pred, list) {
  *      const l2 = [{a: 1}, {a: 4}];
  *      R.unionWith(R.eqBy(R.prop('a')), l1, l2); //=> [{a: 1}, {a: 2}, {a: 4}]
  */
-var unionWith = /*#__PURE__*/_curry3(function unionWith(pred, list1, list2) {
+
+var unionWith =
+/*#__PURE__*/
+_curry3(function unionWith(pred, list1, list2) {
   return uniqWith(pred, _concat(list1, list2));
 });
 
@@ -9116,7 +10454,10 @@ var unionWith = /*#__PURE__*/_curry3(function unionWith(pred, list1, list2) {
  *      safeInc(null); //=> null
  *      safeInc(1); //=> 2
  */
-var unless = /*#__PURE__*/_curry3(function unless(pred, whenFalseFn, x) {
+
+var unless =
+/*#__PURE__*/
+_curry3(function unless(pred, whenFalseFn, x) {
   return pred(x) ? x : whenFalseFn(x);
 });
 
@@ -9137,7 +10478,10 @@ var unless = /*#__PURE__*/_curry3(function unless(pred, whenFalseFn, x) {
  *      R.unnest([1, [2], [[3]]]); //=> [1, 2, [3]]
  *      R.unnest([[1, 2], [3, 4], [5, 6]]); //=> [1, 2, 3, 4, 5, 6]
  */
-var unnest = /*#__PURE__*/chain(_identity);
+
+var unnest =
+/*#__PURE__*/
+chain(_identity);
 
 /**
  * Takes a predicate, a transformation function, and an initial value,
@@ -9158,11 +10502,16 @@ var unnest = /*#__PURE__*/chain(_identity);
  *
  *      R.until(R.gt(R.__, 100), R.multiply(2))(1) // => 128
  */
-var until = /*#__PURE__*/_curry3(function until(pred, fn, init) {
+
+var until =
+/*#__PURE__*/
+_curry3(function until(pred, fn, init) {
   var val = init;
+
   while (!pred(val)) {
     val = fn(val);
   }
+
   return val;
 });
 
@@ -9187,22 +10536,28 @@ var until = /*#__PURE__*/_curry3(function until(pred, fn, init) {
  *      const f = new F();
  *      R.valuesIn(f); //=> ['X', 'Y']
  */
-var valuesIn = /*#__PURE__*/_curry1(function valuesIn(obj) {
+
+var valuesIn =
+/*#__PURE__*/
+_curry1(function valuesIn(obj) {
   var prop;
   var vs = [];
+
   for (prop in obj) {
     vs[vs.length] = obj[prop];
   }
+
   return vs;
 });
 
-// `Const` is a functor that effectively ignores the function given to `map`.
 var Const = function (x) {
-  return { value: x, 'fantasy-land/map': function () {
+  return {
+    value: x,
+    'fantasy-land/map': function () {
       return this;
-    } };
+    }
+  };
 };
-
 /**
  * Returns a "view" of the given data structure, determined by the given lens.
  * The lens's focus determines which portion of the data structure is visible.
@@ -9224,7 +10579,11 @@ var Const = function (x) {
  *      R.view(xLens, {x: 1, y: 2});  //=> 1
  *      R.view(xLens, {x: 4, y: 2});  //=> 4
  */
-var view = /*#__PURE__*/_curry2(function view(lens, x) {
+
+
+var view =
+/*#__PURE__*/
+_curry2(function view(lens, x) {
   // Using `Const` effectively ignores the setter function of the `lens`,
   // leaving the value returned by the getter function unmodified.
   return lens(Const)(x).value;
@@ -9258,7 +10617,10 @@ var view = /*#__PURE__*/_curry2(function view(lens, x) {
  *      truncate('12345');         //=> '12345'
  *      truncate('0123456789ABC'); //=> '0123456789…'
  */
-var when = /*#__PURE__*/_curry3(function when(pred, whenTrueFn, x) {
+
+var when =
+/*#__PURE__*/
+_curry3(function when(pred, whenTrueFn, x) {
   return pred(x) ? whenTrueFn(x) : x;
 });
 
@@ -9297,12 +10659,16 @@ var when = /*#__PURE__*/_curry3(function when(pred, whenTrueFn, x) {
  *      pred({a: 'foo', b: 'xxx', x: 10, y: 19}); //=> false
  *      pred({a: 'foo', b: 'xxx', x: 11, y: 20}); //=> false
  */
-var where = /*#__PURE__*/_curry2(function where(spec, testObj) {
+
+var where =
+/*#__PURE__*/
+_curry2(function where(spec, testObj) {
   for (var prop in spec) {
     if (_has(prop, spec) && !spec[prop](testObj[prop])) {
       return false;
     }
   }
+
   return true;
 });
 
@@ -9334,7 +10700,10 @@ var where = /*#__PURE__*/_curry2(function where(spec, testObj) {
  *      pred({a: 1, b: 2, c: 3});  //=> true
  *      pred({a: 1, b: 1});        //=> false
  */
-var whereEq = /*#__PURE__*/_curry2(function whereEq(spec, testObj) {
+
+var whereEq =
+/*#__PURE__*/
+_curry2(function whereEq(spec, testObj) {
   return where(map(equals, spec), testObj);
 });
 
@@ -9357,8 +10726,39 @@ var whereEq = /*#__PURE__*/_curry2(function whereEq(spec, testObj) {
  *
  *      R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
  */
-var without = /*#__PURE__*/_curry2(function (xs, list) {
+
+var without =
+/*#__PURE__*/
+_curry2(function (xs, list) {
   return reject(flip(_includes)(xs), list);
+});
+
+/**
+ * Exclusive disjunction logical operation.
+ * Returns `true` if one of the arguments is truthy and the other is falsy.
+ * Otherwise, it returns `false`.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.27.0
+ * @category Logic
+ * @sig a -> b -> Boolean
+ * @param {Any} a
+ * @param {Any} b
+ * @return {Boolean} true if one of the arguments is truthy and the other is falsy
+ * @see R.or, R.and
+ * @example
+ *
+ *      R.xor(true, true); //=> false
+ *      R.xor(true, false); //=> true
+ *      R.xor(false, true); //=> true
+ *      R.xor(false, false); //=> false
+ */
+
+var xor =
+/*#__PURE__*/
+_curry2(function xor(a, b) {
+  return Boolean(!a ^ !b);
 });
 
 /**
@@ -9379,21 +10779,28 @@ var without = /*#__PURE__*/_curry2(function (xs, list) {
  *      R.xprod([1, 2], ['a', 'b']); //=> [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
  * @symb R.xprod([a, b], [c, d]) = [[a, c], [a, d], [b, c], [b, d]]
  */
-var xprod = /*#__PURE__*/_curry2(function xprod(a, b) {
+
+var xprod =
+/*#__PURE__*/
+_curry2(function xprod(a, b) {
   // = xprodWith(prepend); (takes about 3 times as long...)
   var idx = 0;
   var ilen = a.length;
   var j;
   var jlen = b.length;
   var result = [];
+
   while (idx < ilen) {
     j = 0;
+
     while (j < jlen) {
       result[result.length] = [a[idx], b[j]];
       j += 1;
     }
+
     idx += 1;
   }
+
   return result;
 });
 
@@ -9416,14 +10823,19 @@ var xprod = /*#__PURE__*/_curry2(function xprod(a, b) {
  *      R.zip([1, 2, 3], ['a', 'b', 'c']); //=> [[1, 'a'], [2, 'b'], [3, 'c']]
  * @symb R.zip([a, b, c], [d, e, f]) = [[a, d], [b, e], [c, f]]
  */
-var zip = /*#__PURE__*/_curry2(function zip(a, b) {
+
+var zip =
+/*#__PURE__*/
+_curry2(function zip(a, b) {
   var rv = [];
   var idx = 0;
   var len = Math.min(a.length, b.length);
+
   while (idx < len) {
     rv[idx] = [a[idx], b[idx]];
     idx += 1;
   }
+
   return rv;
 });
 
@@ -9444,14 +10856,19 @@ var zip = /*#__PURE__*/_curry2(function zip(a, b) {
  *
  *      R.zipObj(['a', 'b', 'c'], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
  */
-var zipObj = /*#__PURE__*/_curry2(function zipObj(keys, values) {
+
+var zipObj =
+/*#__PURE__*/
+_curry2(function zipObj(keys, values) {
   var idx = 0;
   var len = Math.min(keys.length, values.length);
   var out = {};
+
   while (idx < len) {
     out[keys[idx]] = values[idx];
     idx += 1;
   }
+
   return out;
 });
 
@@ -9479,14 +10896,19 @@ var zipObj = /*#__PURE__*/_curry2(function zipObj(keys, values) {
  *      //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
  * @symb R.zipWith(fn, [a, b, c], [d, e, f]) = [fn(a, d), fn(b, e), fn(c, f)]
  */
-var zipWith = /*#__PURE__*/_curry3(function zipWith(fn, a, b) {
+
+var zipWith =
+/*#__PURE__*/
+_curry3(function zipWith(fn, a, b) {
   var rv = [];
   var idx = 0;
   var len = Math.min(a.length, b.length);
+
   while (idx < len) {
     rv[idx] = fn(a[idx], b[idx]);
     idx += 1;
   }
+
   return rv;
 });
 
@@ -9496,6 +10918,7 @@ var zipWith = /*#__PURE__*/_curry3(function zipWith(fn, a, b) {
  *
  * @func
  * @memberOf R
+ * @since v0.26.0
  * @category Function
  * @sig ((a, b, ..., j) -> k) -> (a, b, ..., j) -> (() -> k)
  * @param {Function} fn A function to wrap in a thunk
@@ -9507,7 +10930,10 @@ var zipWith = /*#__PURE__*/_curry3(function zipWith(fn, a, b) {
  *      R.thunkify(R.identity)(42)(); //=> 42
  *      R.thunkify((a, b) => a + b)(25, 17)(); //=> 42
  */
-var thunkify = /*#__PURE__*/_curry1(function thunkify(fn) {
+
+var thunkify =
+/*#__PURE__*/
+_curry1(function thunkify(fn) {
   return curryN(fn.length, function createThunk() {
     var fnArgs = arguments;
     return function invokeThunk() {
@@ -9682,6 +11108,7 @@ var R = /*#__PURE__*/Object.freeze({
   partialRight: partialRight,
   partition: partition,
   path: path,
+  paths: paths,
   pathEq: pathEq,
   pathOr: pathOr,
   pathSatisfies: pathSatisfies,
@@ -9736,7 +11163,7 @@ var R = /*#__PURE__*/Object.freeze({
   takeWhile: takeWhile,
   tap: tap,
   test: test,
-  then: then,
+  andThen: andThen,
   times: times,
   toLower: toLower,
   toPairs: toPairs,
@@ -9770,6 +11197,7 @@ var R = /*#__PURE__*/Object.freeze({
   where: where,
   whereEq: whereEq,
   without: without,
+  xor: xor,
   xprod: xprod,
   zip: zip,
   zipObj: zipObj,
@@ -25417,6 +26845,7 @@ var Field = function (_a) {
     var children = _a.children, style = _a.style, className = _a.className;
     return (React__default.createElement("div", { className: "field " + className, style: style }, children));
 };
+//# sourceMappingURL=Field.js.map
 
 function _objectWithoutProperties$1(source, excluded) {
   if (source == null) return {};
@@ -32212,6 +33641,7 @@ var Select$1 = function (_a) {
     return (React__default.createElement(Field, { style: style, className: "" + className, type: 'select', dirty: dirty, valid: valid, touched: touched },
         React__default.createElement(index, { placeholder: placeholder, isClearable: clearable, options: options, onChange: oc, value: selected })));
 };
+//# sourceMappingURL=Select.js.map
 
 var defaultProps$3 = {
   cacheOptions: false,
@@ -32417,6 +33847,18 @@ var AsyncSelect = function (_a) {
     return (React__default.createElement(Field, { style: style, className: "" + className, type: 'select', dirty: dirty, valid: valid, touched: touched },
         React__default.createElement(Async, { placeholder: placeholder, clearValue: true, isClearable: clearable, loadOptions: asyncOptions, defaultOptions: options, onChange: oc, value: selected })));
 };
+//# sourceMappingURL=AsyncSelect.js.map
+
+var Title = function (_a) {
+    var children = _a.children, _b = _a.size, size = _b === void 0 ? 'nm' : _b, _c = _a.style, style = _c === void 0 ? {} : _c, _d = _a.className, className = _d === void 0 ? '' : _d;
+    return (React__default.createElement("div", { className: "title title-" + size + " " + className, style: style }, children));
+};
+//# sourceMappingURL=Title.js.map
+
+var LinkAlike = function (_a) {
+    var children = _a.children, onClick = _a.onClick, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
+    return (React__default.createElement("span", { className: "link-alike " + className, onClick: onClick, style: style }, children));
+};
 
 var Button$1 = Button;
 var ControlArea$1 = ControlArea;
@@ -32443,6 +33885,9 @@ var TabBar$1 = TabBar;
 // -- Form
 var Select$2 = Select$1;
 var AsyncSelect$1 = AsyncSelect;
+// -- Presentation
+var Title$1 = Title;
+var LinkAlike$1 = LinkAlike;
 
 exports.AsyncSelect = AsyncSelect$1;
 exports.Button = Button$1;
@@ -32460,6 +33905,7 @@ exports.DatePretty = DatePretty$1;
 exports.E = E$1;
 exports.Grid = Grid$1;
 exports.Icon = Icon$1;
+exports.LinkAlike = LinkAlike$1;
 exports.LoadingUntil = LoadingUntil$1;
 exports.PaginationFooter = PaginationFooter$1;
 exports.RelativeTime = RelativeTime$1;
@@ -32467,4 +33913,5 @@ exports.Select = Select$2;
 exports.Spinner = Spinner$1;
 exports.TabBar = TabBar$1;
 exports.TabbedCard = TabbedCard$1;
+exports.Title = Title$1;
 exports.YesNoIcon = YesNoIcon$1;

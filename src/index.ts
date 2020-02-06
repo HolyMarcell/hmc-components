@@ -35,6 +35,9 @@ import TabBarE from "./tabs/TabBar";
 import SelectE from "./form/controls/Select";
 import AsyncSelectE from "./form/controls/AsyncSelect";
 
+// -- Presentation
+import TitleE from "./presentation/Title";
+import LinkAlikeE from "./presentation/LinkAlike";
 
 export const Button = ButtonE;
 export const ControlArea = ControlAreaE;
@@ -72,3 +75,11 @@ export const TabBar = TabBarE;
 
 export const Select = SelectE;
 export const AsyncSelect = AsyncSelectE;
+
+
+// -- Presentation
+
+export const Title = TitleE;
+export const LinkAlike = LinkAlikeE;
+
+
