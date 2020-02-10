@@ -1,14 +1,15 @@
 import React from "react";
 import {FieldProps} from "./types";
+import {isNil} from "../util/ram";
 
 
+const Field: React.FC<FieldProps> = ({valid, dirty, touched, children, style, className}) => {
+  const v = isNil(valid) ? true : valid;
 
-
-const Field: React.FC<FieldProps> = ({children, style, className}) => {
-
+  const c = `field ${v ? 'field--valid' : 'field--invalid'} `;
 
   return  (
-    <div className={`field ${className}`} style={style}>
+    <div className={`${c} ${className}`} style={style}>
       {children}
     </div>
   )

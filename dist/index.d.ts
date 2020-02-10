@@ -24,5 +24,6 @@ export declare const PaginationFooter: import("react").FC<import("./types").Pagi
 export declare const TabBar: import("react").FC<import("./types").TabBarProps>;
 export declare const Select: import("react").FC<import("./form/types").SelectProps>;
 export declare const AsyncSelect: import("react").FC<import("./form/types").AsyncSelectProps>;
+export declare const Input: import("react").FC<import("./form/types").InputProps>;
 export declare const Title: import("react").FC<import("./presentation/types").TitleProps>;
 export declare const LinkAlike: import("react").FC<import("./presentation/types").LinkAlikeProps>;

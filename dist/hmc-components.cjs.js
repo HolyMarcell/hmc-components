@@ -11205,6 +11205,13 @@ var R = /*#__PURE__*/Object.freeze({
   thunkify: thunkify
 });
 
+var pathOr$1 = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    return pathOr.apply(R, args);
+};
 var isNil$1 = function () {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -26819,8 +26826,10 @@ var TabBar = function (_a) {
 };
 
 var Field = function (_a) {
-    var children = _a.children, style = _a.style, className = _a.className;
-    return (React__default.createElement("div", { className: "field " + className, style: style }, children));
+    var valid = _a.valid, dirty = _a.dirty, touched = _a.touched, children = _a.children, style = _a.style, className = _a.className;
+    var v = isNil$1(valid) ? true : valid;
+    var c = "field " + (v ? 'field--valid' : 'field--invalid') + " ";
+    return (React__default.createElement("div", { className: c + " " + className, style: style }, children));
 };
 
 function _objectWithoutProperties$1(source, excluded) {
@@ -33823,6 +33832,21 @@ var AsyncSelect = function (_a) {
         React__default.createElement(Async, { placeholder: placeholder, clearValue: true, isClearable: clearable, loadOptions: asyncOptions, defaultOptions: options, onChange: oc, value: selected })));
 };
 
+var Input$1 = function (props) {
+    var value = props.value, onChange = props.onChange, label = props.label, dirty = props.dirty, touched = props.touched, valid = props.valid, _a = props.required, required = _a === void 0 ? false : _a, _b = props.htmlType, htmlType = _b === void 0 ? 'text' : _b, _c = props.className, className = _c === void 0 ? '' : _c, _d = props.style, style = _d === void 0 ? {} : _d;
+    var oc = function (e) {
+        onChange(pathOr$1('', ['target', 'value'], e));
+    };
+    var cleanValue = isNil$1(value) ? '' : value;
+    var empty = isEmpty$1(cleanValue);
+    return (React__default.createElement(Field, { style: style, className: "input-field " + className, type: 'input', dirty: dirty, valid: valid, touched: touched },
+        React__default.createElement("div", { className: 'wrapper' },
+            React__default.createElement("input", { pattern: htmlType === 'number' ? '/^[0-9]*$/' : undefined, className: 'input', type: htmlType, value: cleanValue, onChange: oc }),
+            React__default.createElement("span", { className: "label " + (empty ? 'label--placeholder' : 'label--top') },
+                label,
+                " ", "" + (required ? '*' : '')))));
+};
+
 var Title = function (_a) {
     var children = _a.children, _b = _a.size, size = _b === void 0 ? 'nm' : _b, _c = _a.style, style = _c === void 0 ? {} : _c, _d = _a.className, className = _d === void 0 ? '' : _d;
     return (React__default.createElement("div", { className: "title title-" + size + " " + className, style: style }, children));
@@ -33858,6 +33882,7 @@ var TabBar$1 = TabBar;
 // -- Form
 var Select$2 = Select$1;
 var AsyncSelect$1 = AsyncSelect;
+var Input$2 = Input$1;
 // -- Presentation
 var Title$1 = Title;
 var LinkAlike$1 = LinkAlike;
@@ -33878,6 +33903,7 @@ exports.DatePretty = DatePretty$1;
 exports.E = E$1;
 exports.Grid = Grid$1;
 exports.Icon = Icon$1;
+exports.Input = Input$2;
 exports.LinkAlike = LinkAlike$1;
 exports.LoadingUntil = LoadingUntil$1;
 exports.PaginationFooter = PaginationFooter$1;
