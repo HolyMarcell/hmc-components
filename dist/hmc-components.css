@@ -310,7 +310,7 @@ body .h\:foo {
 .pd-t-n {
   padding-top: var(--space-null);
 }
-.pd-t-xs {
+.pd-t-xs, .field.input-field .wrapper .input {
   padding-top: var(--space-xs);
 }
 .pd-t-sm {
@@ -355,7 +355,7 @@ body .h\:foo {
 .pd-b-xs {
   padding-bottom: var(--space-xs);
 }
-.pd-b-sm {
+.pd-b-sm, .field.input-field .wrapper .input {
   padding-bottom: var(--space-sm);
 }
 .pd-b-nm {
@@ -529,7 +529,7 @@ body .h\:foo {
 .mg-b-md {
   margin-bottom: var(--space-md);
 }
-.mg-b-lg {
+.mg-b-lg, .field.input-field .wrapper .input {
   margin-bottom: var(--space-lg);
 }
 .mg-b-xl, .card {
@@ -563,7 +563,7 @@ body .h\:foo {
 .txt-nb {
   white-space: nowrap;
 }
-.txt-l-1 {
+.txt-l-1, .field.input-field .wrapper .input:not(:focus) ~ .label.label--placeholder {
   color: var(--c-text-light-1);
 }
 .txt-l-2 {
@@ -575,10 +575,10 @@ body .h\:foo {
 .txt-xs, .btn--xs {
   font-size: var(--text-size-xs);
 }
-.txt-sm, .btn--sm {
+.txt-sm, .field.input-field .wrapper .label.label--top, .field.input-field .wrapper .label, .btn--sm {
   font-size: var(--text-size-sm);
 }
-.txt-nm, .btn--md {
+.txt-nm, .field.input-field .wrapper .input:not(:focus) ~ .label.label--placeholder, .btn--md {
   font-size: var(--text-size-nm);
 }
 .txt-md {
@@ -1150,6 +1150,33 @@ body .h\:foo {
 }
 .link-alike:hover {
   text-decoration: underline;
+}
+
+.field.input-field .wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.field.input-field .wrapper .input {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 0px;
+  border-bottom: 2px solid #ccc;
+}
+.field.input-field .wrapper .input:not(:focus) ~ .label.label--placeholder {
+  margin-top: 20px;
+  margin-bottom: -20px;
+  margin-left: 5px;
+}
+.field.input-field .wrapper .label {
+  line-height: 20px;
+  display: block;
+  z-index: 2;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+}
+.field.input-field.field--invalid .input {
+  border-bottom-color: var(--c-danger-1);
 }
 
 body {

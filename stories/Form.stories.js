@@ -1,5 +1,6 @@
-import React from 'react';
-import {AsyncSelect, Select} from "../src";
+import React, {useState} from 'react';
+import {AsyncSelect, Input, Select} from "../src";
+import {isNil} from "../src/util/ram";
 
 export default {
   title: 'Form Fields',
@@ -7,6 +8,28 @@ export default {
 
 
 const oc = (v) => alert(v);
+
+export const input = () => {
+
+  const [val, setVal] = useState(null);
+  const [val2, setVal2] = useState(null);
+
+
+  return (
+    <div>
+      <Input label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)} placeholder={'Place the holder'} /> <br/> <br/>
+
+      <Input label={'Laibel'} onChange={setVal2} htmlType={'number'} value={val2} valid={true} dirty={!isNil(val)} placeholder={'Place the holder'} /> <br/> <br/>
+
+      <br/>
+
+      <Input label={'Laibel'} onChange={setVal} htmlType={'password'} value={val} valid={true} dirty={!isNil(val)} placeholder={'Place the holder'} /> <br/> <br/>
+
+      <Input label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)} placeholder={'Place the holder'} /> <br/> <br/>
+    </div>
+  )
+};
+
 
 export const select = () => {
   const options = [

@@ -34,6 +34,7 @@ import TabBarE from "./tabs/TabBar";
 // -- Form
 import SelectE from "./form/controls/Select";
 import AsyncSelectE from "./form/controls/AsyncSelect";
+import InputE from "./form/controls/Input";
 
 // -- Presentation
 import TitleE from "./presentation/Title";
@@ -75,6 +76,7 @@ export const TabBar = TabBarE;
 
 export const Select = SelectE;
 export const AsyncSelect = AsyncSelectE;
+export const Input = InputE;
 
 
 // -- Presentation
