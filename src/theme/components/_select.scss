@@ -1,3 +1,17 @@
-
-
 // -- vendor restyling of react-select.com
+
+.field {
+
+  &.select-field {
+
+
+    & .label {
+      @extend .txt-sm;
+      line-height: 20px;
+      display: block;
+      transition: all 0.2s ease-in-out;
+      pointer-events: none;
+    }
+
+  }
+}

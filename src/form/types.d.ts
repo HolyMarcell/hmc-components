@@ -27,6 +27,14 @@ export interface SelectProps extends ReactStyleProps, FieldMetaStateProps, Field
   options: DataItem[];
   clearable?: boolean;
   placeholder?: string;
+  label?: string;
+}
+
+export interface MultiSelectProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
+  options: DataItem[];
+  clearable?: boolean;
+  placeholder?: string;
+  label?: string;
 }
 
 
@@ -42,4 +50,9 @@ export interface AsyncSelectProps extends ReactStyleProps, FieldMetaStateProps, 
 export interface InputProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
   label?: string;
   htmlType?: 'text' | 'number' | 'password' | string;
+}
+
+
+export interface TextareaProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
+  label?: string;
 }

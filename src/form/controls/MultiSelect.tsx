@@ -1,17 +1,17 @@
 import React from "react";
 import Field from "../Field";
-import {SelectProps} from "../types";
+import {MultiSelectProps} from "../types";
 import ReactSelect from 'react-select';
-import {find, prop, propEq} from "../../util/ram";
+import {contains, find, prop, propEq} from "../../util/ram";
 
-const Select: React.FC<SelectProps> = (props) => {
+const MultiSelect: React.FC<MultiSelectProps> = (props) => {
 
   const {value, options = [], label, dirty, valid, touched, required, onChange, clearable = false, placeholder = 'Search...', className, style} = props;
   const oc = (item) => {
-    onChange(prop('value', item));
+    onChange(item.map(({value}) => value));
   };
 
-  const selected = find(propEq('value', value))(options);
+  const selected = options.filter(({value: val}) => contains(val, value));
 
   return (
     <Field
@@ -23,6 +23,7 @@ const Select: React.FC<SelectProps> = (props) => {
       touched={touched}>
       <span className={`label`}>{label} {`${required ? '*' : ''}`}</span>
       <ReactSelect
+        isMulti
         placeholder={placeholder}
         isClearable={clearable}
         options={options}
@@ -32,4 +33,4 @@ const Select: React.FC<SelectProps> = (props) => {
   )
 };
 
-export default Select;
+export default MultiSelect;

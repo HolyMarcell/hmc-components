@@ -236,7 +236,7 @@ body .h\:foo {
 .pd-xs, .tooltip-wrapper .tooltip {
   padding: var(--space-xs);
 }
-.pd-sm, .pagination-footer .ellipsis, .card .actions {
+.pd-sm, .field.textarea-field .wrapper .textarea, .pagination-footer .ellipsis, .card .actions {
   padding: var(--space-sm);
 }
 .pd-nm, .card .body, .card .title-bar .title, .card.tabbed .title-bar .tabs li {
@@ -529,7 +529,7 @@ body .h\:foo {
 .mg-b-md {
   margin-bottom: var(--space-md);
 }
-.mg-b-lg, .field.input-field .wrapper .input {
+.mg-b-lg, .field.textarea-field .wrapper .textarea, .field.input-field .wrapper .input {
   margin-bottom: var(--space-lg);
 }
 .mg-b-xl, .card {
@@ -563,7 +563,7 @@ body .h\:foo {
 .txt-nb {
   white-space: nowrap;
 }
-.txt-l-1, .field.input-field .wrapper .input:not(:focus) ~ .label.label--placeholder {
+.txt-l-1, .field.textarea-field .wrapper .textarea:not(:focus) ~ .label.label--placeholder, .field.input-field .wrapper .input:not(:focus) ~ .label.label--placeholder {
   color: var(--c-text-light-1);
 }
 .txt-l-2 {
@@ -575,10 +575,10 @@ body .h\:foo {
 .txt-xs, .btn--xs {
   font-size: var(--text-size-xs);
 }
-.txt-sm, .field.input-field .wrapper .label.label--top, .field.input-field .wrapper .label, .btn--sm {
+.txt-sm, .field.textarea-field .wrapper .label.label--top, .field.textarea-field .wrapper .label, .field.input-field .wrapper .label.label--top, .field.input-field .wrapper .label, .field.select-field .label, .btn--sm {
   font-size: var(--text-size-sm);
 }
-.txt-nm, .field.input-field .wrapper .input:not(:focus) ~ .label.label--placeholder, .btn--md {
+.txt-nm, .field.textarea-field .wrapper .textarea:not(:focus) ~ .label.label--placeholder, .field.input-field .wrapper .input:not(:focus) ~ .label.label--placeholder, .btn--md {
   font-size: var(--text-size-nm);
 }
 .txt-md {
@@ -1117,6 +1117,13 @@ body .h\:foo {
   z-index: 2;
 }
 
+.field.select-field .label {
+  line-height: 20px;
+  display: block;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+}
+
 .title {
   font-weight: bolder;
 }
@@ -1171,11 +1178,37 @@ body .h\:foo {
 .field.input-field .wrapper .label {
   line-height: 20px;
   display: block;
-  z-index: 2;
   transition: all 0.2s ease-in-out;
   pointer-events: none;
 }
 .field.input-field.field--invalid .input {
+  border-bottom-color: var(--c-danger-1);
+}
+
+.field.textarea-field .wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.field.textarea-field .wrapper .textarea {
+  width: 100%;
+  outline: none;
+  border-radius: 0px;
+  border: 0.4px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  resize: none;
+}
+.field.textarea-field .wrapper .textarea:not(:focus) ~ .label.label--placeholder {
+  margin-top: 20px;
+  margin-bottom: -20px;
+  margin-left: 5px;
+}
+.field.textarea-field .wrapper .label {
+  line-height: 20px;
+  display: block;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+}
+.field.textarea-field.field--invalid .textarea {
   border-bottom-color: var(--c-danger-1);
 }
 

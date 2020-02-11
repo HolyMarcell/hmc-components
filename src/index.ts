@@ -33,8 +33,10 @@ import TabBarE from "./tabs/TabBar";
 
 // -- Form
 import SelectE from "./form/controls/Select";
+import MultiSelectE from "./form/controls/MultiSelect";
 import AsyncSelectE from "./form/controls/AsyncSelect";
 import InputE from "./form/controls/Input";
+import TextareaE from "./form/controls/Textarea";
 
 // -- Presentation
 import TitleE from "./presentation/Title";
@@ -75,8 +77,10 @@ export const TabBar = TabBarE;
 // -- Form
 
 export const Select = SelectE;
+export const MultiSelect = MultiSelectE;
 export const AsyncSelect = AsyncSelectE;
 export const Input = InputE;
+export const Textarea = TextareaE;
 
 
 // -- Presentation

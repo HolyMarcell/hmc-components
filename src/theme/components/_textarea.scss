@@ -1,23 +1,24 @@
 
 .field {
 
-  &.input-field {
+  &.textarea-field {
     & .wrapper {
       display: flex;
       flex-direction: column-reverse;
-      & .input {
+      & .textarea {
+
         width: 100%;
-        border: none;
         outline: none;
         border-radius: 0px;
+        border: 0.4px solid #ccc;
         border-bottom: 2px solid #ccc;
-        @extend .pd-b-sm;
-        @extend .pd-t-xs;
+        @extend .pd-sm;
         @extend .mg-b-lg;
+        resize: none;
 
       }
 
-      & .input:not(:focus) ~ .label.label--placeholder {
+      & .textarea:not(:focus) ~ .label.label--placeholder {
         @extend .txt-nm;
         @extend .txt-l-1;
         margin-top: 20px;
@@ -45,7 +46,7 @@
     }
 
     &.field--invalid {
-      & .input {
+      & .textarea {
         border-bottom-color: var(--c-danger-1);
       }
     }
