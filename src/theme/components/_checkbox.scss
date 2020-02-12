@@ -1,6 +1,6 @@
 
 .field {
-
+  @extend .mg-b-nm;
   &.checkbox-field {
     & .wrapper {
       display: flex;

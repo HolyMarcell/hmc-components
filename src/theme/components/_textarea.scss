@@ -1,6 +1,6 @@
 
 .field {
-
+  @extend .mg-b-nm;
   &.textarea-field {
     & .wrapper {
       display: flex;
@@ -13,7 +13,6 @@
         border: 0.4px solid #ccc;
         border-bottom: 2px solid #ccc;
         @extend .pd-sm;
-        @extend .mg-b-lg;
         resize: none;
 
       }

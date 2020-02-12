@@ -2,7 +2,7 @@ import React from "react";
 import Field from "../Field";
 import {MultiSelectProps} from "../types";
 import ReactSelect from 'react-select';
-import {contains, find, prop, propEq} from "../../util/ram";
+import {contains, isNil} from "../../util/ram";
 
 const MultiSelect: React.FC<MultiSelectProps> = (props) => {
 
@@ -11,7 +11,7 @@ const MultiSelect: React.FC<MultiSelectProps> = (props) => {
     onChange(item.map(({value}) => value));
   };
 
-  const selected = options.filter(({value: val}) => contains(val, value));
+  const selected = isNil(value) ? [] : options.filter(({value: val}) => contains(val, value));
 
   return (
     <Field

@@ -1,7 +1,7 @@
 // -- vendor restyling of react-select.com
 
 .field {
-
+  @extend .mg-b-nm;
   &.select-field {
 
 

@@ -523,13 +523,13 @@ body .h\:foo {
 .mg-b-sm {
   margin-bottom: var(--space-sm);
 }
-.mg-b-nm {
+.mg-b-nm, .field {
   margin-bottom: var(--space-nm);
 }
 .mg-b-md {
   margin-bottom: var(--space-md);
 }
-.mg-b-lg, .field.textarea-field .wrapper .textarea, .field.input-field .wrapper .input {
+.mg-b-lg {
   margin-bottom: var(--space-lg);
 }
 .mg-b-xl, .card {
