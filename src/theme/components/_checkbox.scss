@@ -1,0 +1,33 @@
+
+.field {
+
+  &.checkbox-field {
+    & .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      & .checkbox {
+        display: block;
+        border: none;
+        outline: none;
+        @extend .pd-nm;
+
+      }
+
+
+
+      & .label {
+        display: block;
+        transition: all 0.2s ease-in-out;
+        pointer-events: none;
+
+      }
+    }
+
+    &.field--invalid {
+      & .checkbox {
+      }
+    }
+  }
+
+}

@@ -27,5 +27,6 @@ export declare const MultiSelect: import("react").FC<import("./form/types").Mult
 export declare const AsyncSelect: import("react").FC<import("./form/types").AsyncSelectProps>;
 export declare const Input: import("react").FC<import("./form/types").InputProps>;
 export declare const Textarea: import("react").FC<import("./form/types").TextareaProps>;
+export declare const Checkbox: import("react").FC<import("./form/types").CheckboxProps>;
 export declare const Title: import("react").FC<import("./presentation/types").TitleProps>;
 export declare const LinkAlike: import("react").FC<import("./presentation/types").LinkAlikeProps>;

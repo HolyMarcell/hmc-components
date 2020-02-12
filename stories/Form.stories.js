@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {AsyncSelect, Input, MultiSelect, Select, Textarea} from "../src";
+import {AsyncSelect, Checkbox, Input, MultiSelect, Select, Textarea} from "../src";
 import {isNil} from "../src/util/ram";
 
 export default {
@@ -26,6 +26,25 @@ export const input = () => {
       <Input label={'Laibel'} onChange={setVal} htmlType={'password'} value={val} valid={true} dirty={!isNil(val)} /> <br/> <br/>
 
       <Input label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+    </div>
+  )
+};
+
+export const checkbox = () => {
+
+  const [val, setVal] = useState(null);
+  const [val2, setVal2] = useState(null);
+
+
+
+  return (
+    <div>
+      <Checkbox label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+
+      <Checkbox label={'Laibel'} onChange={setVal2} value={val2} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+
+      <br/>
+
     </div>
   )
 };

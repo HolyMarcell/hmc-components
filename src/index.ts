@@ -37,6 +37,7 @@ import MultiSelectE from "./form/controls/MultiSelect";
 import AsyncSelectE from "./form/controls/AsyncSelect";
 import InputE from "./form/controls/Input";
 import TextareaE from "./form/controls/Textarea";
+import CheckboxE from "./form/controls/Checkbox";
 
 // -- Presentation
 import TitleE from "./presentation/Title";
@@ -81,6 +82,8 @@ export const MultiSelect = MultiSelectE;
 export const AsyncSelect = AsyncSelectE;
 export const Input = InputE;
 export const Textarea = TextareaE;
+export const Checkbox = CheckboxE;
+
 
 
 // -- Presentation

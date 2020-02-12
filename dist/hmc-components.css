@@ -239,7 +239,7 @@ body .h\:foo {
 .pd-sm, .field.textarea-field .wrapper .textarea, .pagination-footer .ellipsis, .card .actions {
   padding: var(--space-sm);
 }
-.pd-nm, .card .body, .card .title-bar .title, .card.tabbed .title-bar .tabs li {
+.pd-nm, .field.checkbox-field .wrapper .checkbox, .card .body, .card .title-bar .title, .card.tabbed .title-bar .tabs li {
   padding: var(--space-nm);
 }
 .pd-md {
@@ -1212,6 +1212,21 @@ body .h\:foo {
   border-bottom-color: var(--c-danger-1);
 }
 
+.field.checkbox-field .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.field.checkbox-field .wrapper .checkbox {
+  display: block;
+  border: none;
+  outline: none;
+}
+.field.checkbox-field .wrapper .label {
+  display: block;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+}
 body {
   font-family: sans-serif;
 }

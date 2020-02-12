@@ -52,6 +52,10 @@ export interface InputProps extends ReactStyleProps, FieldMetaStateProps, FieldC
   htmlType?: 'text' | 'number' | 'password' | string;
 }
 
+export interface CheckboxProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
+  label?: string;
+}
+
 
 export interface TextareaProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
   label?: string;

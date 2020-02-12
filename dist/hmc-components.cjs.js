@@ -33897,6 +33897,20 @@ var Textarea = function (props) {
                 " ", "" + (required ? '*' : '')))));
 };
 
+var Checkbox = function (props) {
+    var value = props.value, onChange = props.onChange, label = props.label, dirty = props.dirty, touched = props.touched, valid = props.valid, _a = props.required, required = _a === void 0 ? false : _a, _b = props.className, className = _b === void 0 ? '' : _b, _c = props.style, style = _c === void 0 ? {} : _c;
+    var oc = function (e) {
+        onChange(pathOr$1('', ['target', 'checked'], e));
+    };
+    var cleanValue = isNil$1(value) ? false : value;
+    return (React__default.createElement(Field, { style: style, className: "checkbox-field " + className, type: 'checkbox', dirty: dirty, valid: valid, touched: touched },
+        React__default.createElement("div", { className: 'wrapper' },
+            React__default.createElement("span", { className: "label " },
+                label,
+                " ", "" + (required ? '*' : '')),
+            React__default.createElement("input", { type: 'checkbox', className: 'checkbox', value: cleanValue, onChange: oc }))));
+};
+
 var Title = function (_a) {
     var children = _a.children, _b = _a.size, size = _b === void 0 ? 'nm' : _b, _c = _a.style, style = _c === void 0 ? {} : _c, _d = _a.className, className = _d === void 0 ? '' : _d;
     return (React__default.createElement("div", { className: "title title-" + size + " " + className, style: style }, children));
@@ -33935,6 +33949,7 @@ var MultiSelect$1 = MultiSelect;
 var AsyncSelect$1 = AsyncSelect;
 var Input$2 = Input$1;
 var Textarea$1 = Textarea;
+var Checkbox$1 = Checkbox;
 // -- Presentation
 var Title$1 = Title;
 var LinkAlike$1 = LinkAlike;
@@ -33948,6 +33963,7 @@ exports.Card = Card$1;
 exports.CardActions = CardActions$1;
 exports.CardBody = CardBody$1;
 exports.CardTitle = CardTitle$1;
+exports.Checkbox = Checkbox$1;
 exports.CollapsibleCard = CollapsibleCard$1;
 exports.ControlArea = ControlArea$1;
 exports.Currency = Currency$1;

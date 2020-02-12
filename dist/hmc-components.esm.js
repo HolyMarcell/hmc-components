@@ -33889,6 +33889,20 @@ var Textarea = function (props) {
                 " ", "" + (required ? '*' : '')))));
 };
 
+var Checkbox = function (props) {
+    var value = props.value, onChange = props.onChange, label = props.label, dirty = props.dirty, touched = props.touched, valid = props.valid, _a = props.required, required = _a === void 0 ? false : _a, _b = props.className, className = _b === void 0 ? '' : _b, _c = props.style, style = _c === void 0 ? {} : _c;
+    var oc = function (e) {
+        onChange(pathOr$1('', ['target', 'checked'], e));
+    };
+    var cleanValue = isNil$1(value) ? false : value;
+    return (React.createElement(Field, { style: style, className: "checkbox-field " + className, type: 'checkbox', dirty: dirty, valid: valid, touched: touched },
+        React.createElement("div", { className: 'wrapper' },
+            React.createElement("span", { className: "label " },
+                label,
+                " ", "" + (required ? '*' : '')),
+            React.createElement("input", { type: 'checkbox', className: 'checkbox', value: cleanValue, onChange: oc }))));
+};
+
 var Title = function (_a) {
     var children = _a.children, _b = _a.size, size = _b === void 0 ? 'nm' : _b, _c = _a.style, style = _c === void 0 ? {} : _c, _d = _a.className, className = _d === void 0 ? '' : _d;
     return (React.createElement("div", { className: "title title-" + size + " " + className, style: style }, children));
@@ -33927,8 +33941,9 @@ var MultiSelect$1 = MultiSelect;
 var AsyncSelect$1 = AsyncSelect;
 var Input$2 = Input$1;
 var Textarea$1 = Textarea;
+var Checkbox$1 = Checkbox;
 // -- Presentation
 var Title$1 = Title;
 var LinkAlike$1 = LinkAlike;
 
-export { AsyncSelect$1 as AsyncSelect, Button$1 as Button, CC$1 as CC, CH$1 as CH, CV$1 as CV, Card$1 as Card, CardActions$1 as CardActions, CardBody$1 as CardBody, CardTitle$1 as CardTitle, CollapsibleCard$1 as CollapsibleCard, ControlArea$1 as ControlArea, Currency$1 as Currency, DatePretty$1 as DatePretty, E$1 as E, Grid$1 as Grid, Icon$1 as Icon, Input$2 as Input, LinkAlike$1 as LinkAlike, LoadingUntil$1 as LoadingUntil, MultiSelect$1 as MultiSelect, PaginationFooter$1 as PaginationFooter, RelativeTime$1 as RelativeTime, Select$2 as Select, Spinner$1 as Spinner, TabBar$1 as TabBar, TabbedCard$1 as TabbedCard, Textarea$1 as Textarea, Title$1 as Title, YesNoIcon$1 as YesNoIcon };
+export { AsyncSelect$1 as AsyncSelect, Button$1 as Button, CC$1 as CC, CH$1 as CH, CV$1 as CV, Card$1 as Card, CardActions$1 as CardActions, CardBody$1 as CardBody, CardTitle$1 as CardTitle, Checkbox$1 as Checkbox, CollapsibleCard$1 as CollapsibleCard, ControlArea$1 as ControlArea, Currency$1 as Currency, DatePretty$1 as DatePretty, E$1 as E, Grid$1 as Grid, Icon$1 as Icon, Input$2 as Input, LinkAlike$1 as LinkAlike, LoadingUntil$1 as LoadingUntil, MultiSelect$1 as MultiSelect, PaginationFooter$1 as PaginationFooter, RelativeTime$1 as RelativeTime, Select$2 as Select, Spinner$1 as Spinner, TabBar$1 as TabBar, TabbedCard$1 as TabbedCard, Textarea$1 as Textarea, Title$1 as Title, YesNoIcon$1 as YesNoIcon };
