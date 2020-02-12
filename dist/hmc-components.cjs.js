@@ -11263,7 +11263,6 @@ var propEq$1 = function () {
 };
 var range$1 = function (start, end) { return range(start, end); };
 var filter$1 = function (predicate, filterable) { return filter(predicate, filterable); };
-//# sourceMappingURL=ram.js.map
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -20609,13 +20608,11 @@ var Icon = function (_a) {
     var s = prop$1(size, iconSizes);
     return (React__default.createElement(FontAwesomeIcon, { icon: icon, style: style, className: "icon " + className + " " + s, tabIndex: tabIndex, onClick: onClick }));
 };
-//# sourceMappingURL=Icon.js.map
 
 var Spinner = function (_a) {
     var _b = _a.icon, icon = _b === void 0 ? 'spinner' : _b, size = _a.size, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
     return React__default.createElement(Icon, { icon: icon, size: size, className: "fa-spin " + className, style: style });
 };
-//# sourceMappingURL=Spinner.js.map
 
 var Button = function (_a) {
     var _b = _a.type, type = _b === void 0 ? 'default' : _b, _c = _a.disabled, disabled = _c === void 0 ? false : _c, _d = _a.active, active = _d === void 0 ? false : _d, _e = _a.promise, promise = _e === void 0 ? false : _e, _f = _a.loading, loading = _f === void 0 ? false : _f, _g = _a.appearance, appearance = _g === void 0 ? 'default' : _g, groupPos = _a.groupPos, _h = _a.className, className = _h === void 0 ? '' : _h, _j = _a.style, style = _j === void 0 ? {} : _j, onClick = _a.onClick, _k = _a.size, size = _k === void 0 ? 'nm' : _k, children = _a.children;
@@ -20646,19 +20643,16 @@ var Button = function (_a) {
         (loading || promiseOn) &&
             React__default.createElement(Spinner, null)));
 };
-//# sourceMappingURL=Button.js.map
 
 var ControlArea = function (_a) {
     var onClick = _a.onClick, _b = _a.type, type = _b === void 0 ? 'default' : _b, children = _a.children, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
     return (React__default.createElement("div", { className: "control-area control-area--" + type + " " + className, style: style, onClick: onClick }, children));
 };
-//# sourceMappingURL=ControlArea.js.map
 
 var Card = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "card " + className, style: style }, children));
 };
-//# sourceMappingURL=Card.js.map
 
 var CardTitle = function (_a) {
     var topRight = _a.topRight, children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
@@ -20669,19 +20663,16 @@ var CardTitle = function (_a) {
         !isNil$1(topRight) &&
             React__default.createElement("div", { className: 'top-right' }, topRight)));
 };
-//# sourceMappingURL=CardTitle.js.map
 
 var CardBody = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "body " + className, style: style }, children));
 };
-//# sourceMappingURL=CardBody.js.map
 
 var CardActions = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "actions " + className, style: style }, children));
 };
-//# sourceMappingURL=CardActions.js.map
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -20714,32 +20705,27 @@ var Grid = function (_a) {
     var grid = __assign(__assign({}, style), { display: 'grid', gridTemplateColumns: cols, gridTemplateRows: "repeat(" + rows + ", 1fr)", gridColumnGap: colGap, gridRowGap: rowGap });
     return (React__default.createElement("div", { style: grid, className: className + " grid" }, children));
 };
-//# sourceMappingURL=Grid.js.map
 
 var E = function (_a) {
     var _b = _a.children, children = _b === void 0 ? null : _b, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
     var pos = __assign(__assign({}, style), { gridColumn: '0 / 1', gridRow: '0 / 1' });
     return (React__default.createElement("div", { style: pos, className: className }, children));
 };
-//# sourceMappingURL=E.js.map
 
 var CC = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "d-f f-jc-c f-ai-c " + className, style: __assign({ height: '100%' }, style) }, children));
 };
-//# sourceMappingURL=CC.js.map
 
 var CV = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "d-f f-ai-c " + className, style: __assign({ height: '100%' }, style) }, children));
 };
-//# sourceMappingURL=CV.js.map
 
 var CH = function (_a) {
     var children = _a.children, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("div", { className: "d-f f-jc-c " + className, style: __assign({ height: '100%' }, style) }, children));
 };
-//# sourceMappingURL=CH.js.map
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -22099,7 +22085,6 @@ var TabbedCard = function (_a) {
                 React__default.createElement("div", { className: 'tabbed-animation-wrapper' }, pathOr(null, [active, 'body'], tabs)))),
         children));
 };
-//# sourceMappingURL=TabbedCard.js.map
 
 var CollapsibleCard = function (_a) {
     var children = _a.children, title = _a.title, topRight = _a.topRight, _b = _a.collapsed, collapsed = _b === void 0 ? false : _b, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
@@ -22114,20 +22099,17 @@ var CollapsibleCard = function (_a) {
         React__default.createElement(CSSTransition, { in: !isCollapsed, timeout: 110, classNames: 'collapsible-card' },
             React__default.createElement("div", { className: 'collapsible-animation-wrapper' }, children))));
 };
-//# sourceMappingURL=CollapsibleCard.js.map
 
 var YesNoIcon = function (_a) {
     var yes = _a.yes, _b = _a.yesIcon, yesIcon = _b === void 0 ? 'check' : _b, _c = _a.noIcon, noIcon = _c === void 0 ? 'times' : _c, size = _a.size, _d = _a.className, className = _d === void 0 ? '' : _d, _e = _a.style, style = _e === void 0 ? {} : _e;
     return yes ? React__default.createElement(Icon, { icon: yesIcon, size: size, className: className, style: style }) : React__default.createElement(Icon, { icon: noIcon, size: size, className: className, style: style });
 };
-//# sourceMappingURL=YesNoIcon.js.map
 
 var Currency = function (_a) {
     var amount = _a.amount, currency = _a.currency, locale = _a.locale;
     var loc = isNil$1(locale) ? window.navigator.language : locale;
     return React__default.createElement(React__default.Fragment, null, new Intl.NumberFormat(loc, { style: 'currency', currency: currency }).format(amount));
 };
-//# sourceMappingURL=Currency.js.map
 
 var moment = createCommonjsModule(function (module, exports) {
 (function (global, factory) {
@@ -26735,7 +26717,6 @@ var RelativeTime = function (_a) {
     var loc = isNil$1(locale) ? window.navigator.language : locale;
     return React__default.createElement(React__default.Fragment, null, moment(date).locale(loc).fromNow());
 };
-//# sourceMappingURL=RelativeTime.js.map
 
 var DatePretty = function (_a) {
     var date = _a.date, _b = _a.format, format = _b === void 0 ? 'lll' : _b, locale = _a.locale;
@@ -26747,7 +26728,6 @@ var DatePretty = function (_a) {
     var l = moment(date);
     return React__default.createElement(React__default.Fragment, null, l.format(format));
 };
-//# sourceMappingURL=DatePretty.js.map
 
 var LoadingUntil = function (_a) {
     var loading = _a.loading, _b = _a.hasData, hasData = _b === void 0 ? false : _b, alt = _a.alt, children = _a.children, _c = _a.className, className = _c === void 0 ? '' : _c, _d = _a.style, style = _d === void 0 ? {} : _d;
@@ -26766,7 +26746,6 @@ var LoadingUntil = function (_a) {
             React__default.createElement("div", { className: className, style: style },
                 React__default.createElement(Icon, { icon: 'spinner', className: 'fa-spin fa-3x' }));
 };
-//# sourceMappingURL=LoadingUntil.js.map
 
 var PaginationFooter = function (_a) {
     var pagination = _a.pagination, _b = _a.showTotal, showTotal = _b === void 0 ? true : _b, _c = _a.prevNextBtns, prevNextBtns = _c === void 0 ? true : _c, _d = _a.totalLabel, totalLabel = _d === void 0 ? 'Total' : _d, _e = _a.className, className = _e === void 0 ? '' : _e, _f = _a.style, style = _f === void 0 ? {} : _f;
@@ -26830,7 +26809,6 @@ var PaginationFooter = function (_a) {
                 ": ",
                 totalElements)));
 };
-//# sourceMappingURL=PaginationFooter.js.map
 
 var TabBar = function (_a) {
     var tabs = _a.tabs, onChange = _a.onChange, active = _a.active, _b = _a.style, style = _b === void 0 ? {} : _b, _c = _a.className, className = _c === void 0 ? '' : _c;
@@ -26853,7 +26831,6 @@ var TabBar = function (_a) {
                                 React__default.createElement("li", null, "foo")))));
         }))));
 };
-//# sourceMappingURL=TabBar.js.map
 
 var Field = function (_a) {
     var valid = _a.valid, dirty = _a.dirty, touched = _a.touched, children = _a.children, style = _a.style, className = _a.className;
@@ -26861,7 +26838,6 @@ var Field = function (_a) {
     var c = "field " + (v ? 'field--valid' : 'field--invalid') + " ";
     return (React__default.createElement("div", { className: c + " " + className, style: style }, children));
 };
-//# sourceMappingURL=Field.js.map
 
 function _objectWithoutProperties$1(source, excluded) {
   if (source == null) return {};
@@ -33660,7 +33636,6 @@ var Select$1 = function (props) {
             " ", "" + (required ? '*' : '')),
         React__default.createElement(index, { placeholder: placeholder, isClearable: clearable, options: options, onChange: oc, value: selected })));
 };
-//# sourceMappingURL=Select.js.map
 
 var MultiSelect = function (props) {
     var value = props.value, _a = props.options, options = _a === void 0 ? [] : _a, label = props.label, dirty = props.dirty, valid = props.valid, touched = props.touched, required = props.required, onChange = props.onChange, _b = props.clearable, clearable = _b === void 0 ? false : _b, _c = props.placeholder, placeholder = _c === void 0 ? 'Search...' : _c, className = props.className, style = props.style;
@@ -33680,7 +33655,6 @@ var MultiSelect = function (props) {
             " ", "" + (required ? '*' : '')),
         React__default.createElement(index, { isMulti: true, placeholder: placeholder, isClearable: clearable, options: options, onChange: oc, value: selected })));
 };
-//# sourceMappingURL=MultiSelect.js.map
 
 var defaultProps$3 = {
   cacheOptions: false,
@@ -33886,7 +33860,6 @@ var AsyncSelect = function (_a) {
     return (React__default.createElement(Field, { style: style, className: "" + className, type: 'select', dirty: dirty, valid: valid, touched: touched },
         React__default.createElement(Async, { placeholder: placeholder, clearValue: true, isClearable: clearable, loadOptions: asyncOptions, defaultOptions: options, onChange: oc, value: selected })));
 };
-//# sourceMappingURL=AsyncSelect.js.map
 
 var Input$1 = function (props) {
     var value = props.value, onChange = props.onChange, label = props.label, dirty = props.dirty, touched = props.touched, valid = props.valid, _a = props.required, required = _a === void 0 ? false : _a, _b = props.htmlType, htmlType = _b === void 0 ? 'text' : _b, _c = props.className, className = _c === void 0 ? '' : _c, _d = props.style, style = _d === void 0 ? {} : _d;
@@ -33902,7 +33875,6 @@ var Input$1 = function (props) {
                 label,
                 " ", "" + (required ? '*' : '')))));
 };
-//# sourceMappingURL=Input.js.map
 
 var Textarea = function (props) {
     var value = props.value, onChange = props.onChange, label = props.label, dirty = props.dirty, touched = props.touched, valid = props.valid, _a = props.required, required = _a === void 0 ? false : _a, _b = props.className, className = _b === void 0 ? '' : _b, _c = props.style, style = _c === void 0 ? {} : _c;
@@ -33924,7 +33896,6 @@ var Textarea = function (props) {
                 label,
                 " ", "" + (required ? '*' : '')))));
 };
-//# sourceMappingURL=Textarea.js.map
 
 var Checkbox = function (props) {
     var value = props.value, onChange = props.onChange, label = props.label, dirty = props.dirty, touched = props.touched, valid = props.valid, _a = props.required, required = _a === void 0 ? false : _a, _b = props.className, className = _b === void 0 ? '' : _b, _c = props.style, style = _c === void 0 ? {} : _c;
@@ -33939,19 +33910,16 @@ var Checkbox = function (props) {
                 " ", "" + (required ? '*' : '')),
             React__default.createElement("input", { type: 'checkbox', className: 'checkbox', value: cleanValue, onChange: oc }))));
 };
-//# sourceMappingURL=Checkbox.js.map
 
 var Title = function (_a) {
     var children = _a.children, _b = _a.size, size = _b === void 0 ? 'nm' : _b, _c = _a.style, style = _c === void 0 ? {} : _c, _d = _a.className, className = _d === void 0 ? '' : _d;
     return (React__default.createElement("div", { className: "title title-" + size + " " + className, style: style }, children));
 };
-//# sourceMappingURL=Title.js.map
 
 var LinkAlike = function (_a) {
     var children = _a.children, onClick = _a.onClick, _b = _a.className, className = _b === void 0 ? '' : _b, _c = _a.style, style = _c === void 0 ? {} : _c;
     return (React__default.createElement("span", { className: "link-alike " + className, onClick: onClick, style: style }, children));
 };
-//# sourceMappingURL=LinkAlike.js.map
 
 var Button$1 = Button;
 var ControlArea$1 = ControlArea;
@@ -33985,7 +33953,6 @@ var Checkbox$1 = Checkbox;
 // -- Presentation
 var Title$1 = Title;
 var LinkAlike$1 = LinkAlike;
-//# sourceMappingURL=index.js.map
 
 exports.AsyncSelect = AsyncSelect$1;
 exports.Button = Button$1;
