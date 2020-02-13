@@ -44,6 +44,12 @@ export interface AsyncSelectProps extends ReactStyleProps, FieldMetaStateProps, 
   clearable?: boolean;
   placeholder?: string;
 }
+export interface AsyncMultiSelectProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
+  asyncOptions: (search) => Promise<DataItem[]>;
+  options: DataItem[];
+  clearable?: boolean;
+  placeholder?: string;
+}
 
 
 

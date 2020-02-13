@@ -2,29 +2,28 @@ import React from "react";
 import Field from "../Field";
 import {AsyncSelectProps} from "../types";
 import AsyncReactSelect from 'react-select/async';
-import {find, prop, propEq} from "../../util/ram";
 
-const AsyncSelect: React.FC<AsyncSelectProps> =
-  ({value, asyncOptions, options = [], dirty, valid, touched,
-     onChange, clearable = false, placeholder = 'Search...', className, style}) => {
-    const oc = (item) => {
-      onChange(prop('value', item));
-    };
+const AsyncSelect: React.FC<AsyncSelectProps> = (props) => {
+  const {
+    value, asyncOptions, options = [], dirty, valid, touched,
+    onChange, clearable = false, placeholder = 'Search...', className, style
+  } = props;
 
-    const selected = find(propEq('value', value))(options);
 
-    return (
-      <Field style={style} className={`${className}`} type={'select'} dirty={dirty} valid={valid} touched={touched}>
-        <AsyncReactSelect
-          placeholder={placeholder}
-          clearValue
-          isClearable={clearable}
-          loadOptions={asyncOptions}
-          defaultOptions={options}
-          onChange={oc}
-          value={selected}/>
-      </Field>
-    )
-  };
+
+
+  return (
+    <Field style={style} className={`${className}`} type={'select'} dirty={dirty} valid={valid} touched={touched}>
+      <AsyncReactSelect
+        placeholder={placeholder}
+        clearValue
+        isClearable={clearable}
+        loadOptions={asyncOptions}
+        defaultOptions={options}
+        onChange={onChange}
+        value={value}/>
+    </Field>
+  )
+};
 
 export default AsyncSelect;

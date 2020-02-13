@@ -8,7 +8,11 @@ const MultiSelect: React.FC<MultiSelectProps> = (props) => {
 
   const {value, options = [], label, dirty, valid, touched, required, onChange, clearable = false, placeholder = 'Search...', className, style} = props;
   const oc = (item) => {
-    onChange(item.map(({value}) => value));
+    if(isNil(item)) {
+      onChange([]);
+    } else {
+      onChange(item.map(({value}) => value));
+    }
   };
 
   const selected = isNil(value) ? [] : options.filter(({value: val}) => contains(val, value));

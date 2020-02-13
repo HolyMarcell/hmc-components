@@ -25,6 +25,7 @@ export declare const TabBar: import("react").FC<import("./types").TabBarProps>;
 export declare const Select: import("react").FC<import("./form/types").SelectProps>;
 export declare const MultiSelect: import("react").FC<import("./form/types").MultiSelectProps>;
 export declare const AsyncSelect: import("react").FC<import("./form/types").AsyncSelectProps>;
+export declare const AsyncMultiSelect: import("react").FC<import("./form/types").AsyncMultiSelectProps>;
 export declare const Input: import("react").FC<import("./form/types").InputProps>;
 export declare const Textarea: import("react").FC<import("./form/types").TextareaProps>;
 export declare const Checkbox: import("react").FC<import("./form/types").CheckboxProps>;
