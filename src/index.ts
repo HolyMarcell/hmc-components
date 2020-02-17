@@ -29,7 +29,16 @@ import DatePrettyE from "./data/DatePretty";
 import LoadingUntilE from "./datamangagement/LoadingUntil";
 import PaginationFooterE from "./datamangagement/PaginationFooter";
 
+// -- Tabbed
+
 import TabBarE from "./tabs/TabBar";
+import TabsE from "./tabs/Tabs";
+
+// -- Popover
+
+import TooltipE from "./popover/Tooltip";
+import DropdownE from "./popover/Dropdown";
+
 
 // -- Form
 import SelectE from "./form/controls/Select";
@@ -73,8 +82,15 @@ export const DatePretty = DatePrettyE;
 export const LoadingUntil = LoadingUntilE;
 export const PaginationFooter = PaginationFooterE;
 
+// -- Tabbed
 
 export const TabBar = TabBarE;
+export const Tabs = TabsE;
+
+// -- Popover
+
+export const Tooltip = TooltipE;
+export const Dropdown = DropdownE;
 
 // -- Form
 

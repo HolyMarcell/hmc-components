@@ -38,7 +38,7 @@ export const checkbox = () => {
 
 
   return (
-    <div>
+    <div style={{width: '300px', margin: '0 auto'}}>
       <Checkbox label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)} /> <br/> <br/>
 
       <Checkbox label={'Laibel'} onChange={setVal2} value={val2} valid={true} dirty={!isNil(val)} /> <br/> <br/>

@@ -1,38 +1,33 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TabBarProps} from "./types";
 import {isNil} from "../util/ram";
 import Icon from '../icon/Icon';
+import Dropdown from '../popover/Dropdown';
 
-const TabBar: React.FC<TabBarProps> = ({tabs, onChange, active, style = {}, className = ''}) => {
+const TabBar: React.FC<TabBarProps> = ({tabs, align = 'left', onChange, active, style = {}, className = ''}) => {
 
-  const [visibleOptions, setVisibleOptions] = useState(null);
 
   const changeTab = (id) => {
-    setVisibleOptions(null);
     onChange(id);
   };
 
   return (
     <div className={`tabs ${className}`} style={style}>
-      <ul className={'tabs-navigation'}>
+      <ul className={`tabs-navigation ${align === 'left' ? 'f-jc-s' : 'f-jc-e'}`}>
         {tabs.map((item, i) => {
           const {id, title, options} = item;
+          const ac = id === active;
           return (
-            <li key={`${id},${i}`} className={`${id === active ? 'active' : ''}`}>
+            <li key={`${id},${i}`} className={`${ac ? 'active' : ''}`}>
               <span onClick={() => changeTab(id)}>
                 {title}
               </span>
               {!isNil(options) &&
-              <>
-                <span className={'options'} onClick={() => setVisibleOptions((v) => isNil(v) ? id : null)}>
-                  <Icon icon={'ellipsis-v'} className={'optselect'}/>
+              <Dropdown content={options}>
+                <span className={`options options--${ac ?`'active` : 'inactive'}`}>
+                  <Icon icon={'check-square'} className={'optselect'}/>
                 </span>
-                {visibleOptions === id &&
-                  <ul>
-                    <li>foo</li>
-                  </ul>
-                }
-              </>
+              </Dropdown>
               }
             </li>
           );

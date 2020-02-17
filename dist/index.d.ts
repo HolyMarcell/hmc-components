@@ -22,6 +22,9 @@ export declare const DatePretty: import("react").FC<import("./types").DatePretty
 export declare const LoadingUntil: import("react").FC<import("./types").LoadingUntilProps>;
 export declare const PaginationFooter: import("react").FC<import("./types").PaginationFooterProps>;
 export declare const TabBar: import("react").FC<import("./types").TabBarProps>;
+export declare const Tabs: import("react").FC<import("./types").TabsProps>;
+export declare const Tooltip: import("react").FC<import("./types").TooltipProps>;
+export declare const Dropdown: import("react").FC<import("./types").DropdownProps>;
 export declare const Select: import("react").FC<import("./form/types").SelectProps>;
 export declare const MultiSelect: import("react").FC<import("./form/types").MultiSelectProps>;
 export declare const AsyncSelect: import("react").FC<import("./form/types").AsyncSelectProps>;
