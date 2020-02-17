@@ -25,7 +25,7 @@ const TabBar: React.FC<TabBarProps> = ({tabs, align = 'left', onChange, active, 
               {!isNil(options) &&
               <Dropdown content={options}>
                 <span className={`options options--${ac ?`'active` : 'inactive'}`}>
-                  <Icon icon={'check-square'} className={'optselect'}/>
+                  <Icon icon={'ellipsis-h'} className={'optselect'}/>
                 </span>
               </Dropdown>
               }
