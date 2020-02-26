@@ -5,6 +5,7 @@ import filesize from 'rollup-plugin-filesize';
 import localResolve from 'rollup-plugin-local-resolve';
 import typescript from "rollup-plugin-typescript2";
 import sass from 'rollup-plugin-sass';
+import dts from 'rollup-plugin-dts';
 
 import pkg from './package.json';
 
@@ -26,10 +27,6 @@ const config = [
       'react',
       'react-dom',
     ],
-    globals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-    },
     plugins: [
       sass({
         output: 'dist/hmc-components.css',
@@ -45,6 +42,11 @@ const config = [
       }),
       filesize(),
     ],
+  },
+  {
+    input: "src/types.d.ts",
+    output: [{file: "dist/types.d.ts", format: "es"}],
+    plugins: [dts()],
   }
 
 ];
