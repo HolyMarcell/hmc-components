@@ -30,6 +30,20 @@ export interface SelectProps extends ReactStyleProps, FieldMetaStateProps, Field
   label?: string;
 }
 
+export interface CreatableSelectProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
+  options: DataItem[];
+  clearable?: boolean;
+  placeholder?: string;
+  label?: string;
+}
+
+export interface CreatableMultiSelectProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
+  options: DataItem[];
+  clearable?: boolean;
+  placeholder?: string;
+  label?: string;
+}
+
 export interface MultiSelectProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
   options: DataItem[];
   clearable?: boolean;

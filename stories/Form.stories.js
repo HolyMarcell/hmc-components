@@ -1,5 +1,14 @@
 import React, {useState} from 'react';
-import {AsyncSelect, Checkbox, Input, MultiSelect, Select, Textarea} from "../src";
+import {
+  AsyncSelect,
+  Checkbox,
+  CreatableMultiSelect,
+  CreatableSelect,
+  Input,
+  MultiSelect,
+  Select,
+  Textarea
+} from "../src";
 import {isNil} from "../src/util/ram";
 
 export default {
@@ -100,6 +109,48 @@ export const multiSelect = () => {
     <div style={{width: '200px'}}>
       <h3>Select</h3>
       <MultiSelect options={options} dirty={false} onChange={oc} valid={true} value={'baz'} touched={false} />
+    </div>
+  );
+};
+
+
+export const creatableSelect = () => {
+  const options = [
+    {value: 'foo', label: 'Foo'},
+    {value: 'bar', label: 'Bar'},
+    {value: 'baz', label: 'Baz'},
+    {value: 'buz', label: 'Buz'},
+    {value: 'fiz', label: 'Fiz'},
+  ];
+
+  const [vals, setVals] = useState([]);
+
+
+  return (
+    <div style={{width: '200px'}}>
+      <h3>Select</h3>
+      <CreatableSelect options={options} dirty={false} onChange={setVals} valid={true} value={vals} touched={false} />
+      {vals.toString()}
+    </div>
+  );
+};
+
+export const creatableMultiSelect = () => {
+  const options = [
+    {value: 'foo', label: 'Foo'},
+    {value: 'bar', label: 'Bar'},
+    {value: 'baz', label: 'Baz'},
+    {value: 'buz', label: 'Buz'},
+    {value: 'fiz', label: 'Fiz'},
+  ];
+
+  const [vals, setVals] = useState([]);
+
+  return (
+    <div style={{width: '200px'}}>
+      <h3>Select</h3>
+      <CreatableMultiSelect options={options} dirty={false} onChange={setVals} valid={true} value={vals} touched={false} />
+      {vals.toString()}
     </div>
   );
 };
