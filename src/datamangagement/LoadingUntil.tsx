@@ -16,9 +16,7 @@ const LoadingUntil: React.FC<LoadingUntilProps> =
           <Icon icon={'spinner'} className={'fa-spin fa-3x spinner'}/>
         </div>
         }
-        {showChildren &&
-
-        children} 
+        {showChildren && children}
       </div>
     );
   };
