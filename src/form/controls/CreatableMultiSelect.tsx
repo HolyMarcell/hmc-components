@@ -2,7 +2,7 @@ import React from "react";
 import Field from "../Field";
 import {CreatableMultiSelectProps} from "../types";
 import ReactCreatableSelect from 'react-select/creatable';
-import {find, isNil, propEq} from "../../util/ram";
+import {isNil} from "../../util/ram";
 
 const CreatableMultiSelect: React.FC<CreatableMultiSelectProps> = (props) => {
 
@@ -16,7 +16,7 @@ const CreatableMultiSelect: React.FC<CreatableMultiSelectProps> = (props) => {
     }
   };
 
-  const selected = find(propEq('value', value))(options);
+  const selected = isNil(value) ? [] : value;
 
   return (
     <Field
