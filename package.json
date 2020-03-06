@@ -1,6 +1,6 @@
 {
   "name": "@holymarcell/components",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "react components shared for me",
   "module": "dist/hmc-components.esm.js",
   "main": "dist/hmc-components.cjs.js",

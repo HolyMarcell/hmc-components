@@ -11,7 +11,7 @@ const LoadingUntil: React.FC<LoadingUntilProps> =
 
     return (
       <div className={`${loading && hasData ? 'loading-overlay' : ''}`}>
-        {loading && hasData &&
+        {loading &&
         <div className={className} style={style}>
           <Icon icon={'spinner'} className={'fa-spin fa-3x spinner'}/>
         </div>
