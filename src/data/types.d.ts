@@ -11,6 +11,11 @@ export interface RelativeTimeProps {
   locale?: string;
 }
 
+export interface DurationProps {
+  length: number;
+  locale?: string;
+}
+
 
 export interface DatePrettyProps {
   date?: string;

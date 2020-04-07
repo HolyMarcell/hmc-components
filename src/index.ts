@@ -24,6 +24,7 @@ import SpinnerE from "./icon/Spinner";
 
 import CurrencyE from "./data/Currency";
 import RelativeTimeE from "./data/RelativeTime";
+import DurationE from "./data/Duration";
 import DatePrettyE from "./data/DatePretty";
 
 import LoadingUntilE from "./datamangagement/LoadingUntil";
@@ -79,6 +80,7 @@ export const Spinner = SpinnerE;
 
 export const Currency = CurrencyE;
 export const RelativeTime = RelativeTimeE;
+export const Duration = DurationE;
 export const DatePretty = DatePrettyE;
 
 export const LoadingUntil = LoadingUntilE;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Currency, RelativeTime, DatePretty} from "../src";
+import {Currency, DatePretty, Duration, RelativeTime} from "../src";
 
 export default {
   title: 'Data',
@@ -16,19 +16,28 @@ export const currency = () => (<>
 
 
 export const relativeTime = () => (<>
-  <RelativeTime date={'2019-11-12T10:22:22+0000'} /> <br/>
-  <RelativeTime date={'2019-10-12T10:22:22+0000'} /> <br/>
-  <RelativeTime date={'2019-12-12T10:22:22+0000'} /> <br/>
-  <RelativeTime date={'2019-12-12T10:22:22+0000'} locale={'de-DE'} /> <br/>
+  <RelativeTime date={'2019-11-12T10:22:22+0000'}/> <br/>
+  <RelativeTime date={'2019-10-12T10:22:22+0000'}/> <br/>
+  <RelativeTime date={'2019-12-12T10:22:22+0000'}/> <br/>
+  <RelativeTime date={'2019-12-12T10:22:22+0000'} locale={'de-DE'}/> <br/>
+</>);
+
+
+export const duration = () => (<>
+  <Duration length={10000}/> <br/>
+  <Duration length={110000}/> <br/>
+  <Duration length={1110000}/> <br/>
+  <Duration length={11110000}/> <br/>
+  <Duration length={11110000} locale={'de-DE'}/> <br/>
 </>);
 
 
 export const datePretty = () => (<>
   <p>Prop: 'format' accepts moment formatting</p>
-  Browser Locale (short): <DatePretty date={'2019-11-12T10:22:22+0000'} format={'l'} /> <br/>
-  Browser Locale (middle): <DatePretty date={'2019-10-12T10:22:22+0000'} format={'ll'} /> <br/>
+  Browser Locale (short): <DatePretty date={'2019-11-12T10:22:22+0000'} format={'l'}/> <br/>
+  Browser Locale (middle): <DatePretty date={'2019-10-12T10:22:22+0000'} format={'ll'}/> <br/>
   Browser Locale (long): <DatePretty date={'2019-10-12T10:22:22+0000'} format={'lll'}/> <br/>
   <br/>
   jp-JP (default): <DatePretty date={'2019-12-12T10:22:22+0000'} locale={'jp-JP'}/> <br/>
-  de-DE (default): <DatePretty date={'2019-12-12T10:22:22+0000'} locale={'de-DE'} /> <br/>
+  de-DE (default): <DatePretty date={'2019-12-12T10:22:22+0000'} locale={'de-DE'}/> <br/>
 </>);
