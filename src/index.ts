@@ -22,6 +22,7 @@ import IconE from "./icon/Icon";
 import YesNoIconE from "./icon/YesNoIcon";
 import SpinnerE from "./icon/Spinner";
 
+import CountryFlagE from "./data/CountryFlag";
 import CurrencyE from "./data/Currency";
 import RelativeTimeE from "./data/RelativeTime";
 import DurationE from "./data/Duration";
@@ -78,6 +79,7 @@ export const YesNoIcon = YesNoIconE;
 export const Spinner = SpinnerE;
 
 
+export const CountryFlag = CountryFlagE;
 export const Currency = CurrencyE;
 export const RelativeTime = RelativeTimeE;
 export const Duration = DurationE;

@@ -1,10 +1,17 @@
 import React from 'react';
-import {Currency, DatePretty, Duration, RelativeTime} from "../src";
+import {CountryFlag, Currency, DatePretty, Duration, RelativeTime} from "../src";
 
 export default {
   title: 'Data',
 };
 
+
+export const countryFlag = () => (<>
+  <CountryFlag countryCode={'US'} /> <br/>
+  <CountryFlag countryCode={'DE'} style={{width: '200px', height: '160px'}} /> <br/>
+  <CountryFlag countryCode={'GB'} /> <br/>
+  <CountryFlag countryCode={'FR'} /> <br/>
+</>);
 
 export const currency = () => (<>
   <Currency amount={10200012010} currency={'EUR'} locale={'de-DE'}/> <br/>

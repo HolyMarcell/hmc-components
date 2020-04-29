@@ -1,3 +1,4 @@
+import {ReactStyleProps} from "../commonTypes";
 
 
 export interface CurrencyProps {
@@ -21,4 +22,11 @@ export interface DatePrettyProps {
   date?: string;
   format?: 'l' | 'll' | 'lll' | string;
   locale?: string;
+}
+
+
+export interface CountryFlagProps extends ReactStyleProps {
+  countryCode: string;
+  svg?: boolean;
+  title?: string;
 }
