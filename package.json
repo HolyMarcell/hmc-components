@@ -3,7 +3,6 @@
   "version": "0.2.5",
   "description": "react components shared for me",
   "module": "dist/hmc-components.esm.js",
-  "main": "dist/hmc-components.cjs.js",
   "types": "dist/index.d.ts",
   "style": "dist/hmc-components.css",
   "scripts": {
@@ -42,7 +41,7 @@
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-bundle-scss": "^0.1.0",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-dts": "^1.3.0",
+    "rollup-plugin-dts": "^1.4.2",
     "rollup-plugin-filesize": "^7.0.0",
     "rollup-plugin-local-resolve": "^1.0.7",
     "rollup-plugin-node-resolve": "^5.2.0",

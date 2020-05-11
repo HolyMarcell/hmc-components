@@ -15,12 +15,12 @@ export interface TabBarProps extends ReactStyleProps{
   align?: string;
 }
 
-export interface Tab extends TabBarTab{
+export interface TbTTab extends TabBarTab{
   body: React.ReactNode;
 }
 
 export interface TabsProps extends ReactStyleProps {
-  tabs: Tab[];
+  tabs: TbTTab[];
   active?: string;
   alignTabs: 'left' | 'right' | string;
 }

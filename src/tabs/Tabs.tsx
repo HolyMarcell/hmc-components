@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
-import {path} from 'ramda';
 import {TabsProps} from "./types";
 import TabBar from './TabBar';
-import {find, isNil, propEq, prop} from "../util/ram";
-
-
+import {find, isNil, prop, propEq} from "../util/ram";
 
 
 const Tabs: React.FC<TabsProps> = ({tabs, active, alignTabs = 'left', className = '', style = {}}) => {
