@@ -1,115 +1,98 @@
 import './theme/theme.scss';
 
-import ButtonE from "./buttons/Button";
-import ControlAreaE from "./buttons/ControlArea";
+import Button from "./buttons/Button";
+import ControlArea from "./buttons/ControlArea";
+import Card from "./card/Card";
+import CardTitle from "./card/CardTitle";
+import CardBody from "./card/CardBody";
+import CardActions from "./card/CardActions";
+import Grid from "./grid/Grid";
+import E from "./grid/E";
+import CC from "./grid/CC";
+import CV from "./grid/CV";
+import CH from "./grid/CH";
+import TabbedCard from "./card/TabbedCard";
+import CollapsibleCard from "./card/CollapsibleCard";
+import Icon from "./icon/Icon";
+import YesNoIcon from "./icon/YesNoIcon";
+import Spinner from "./icon/Spinner";
+import CountryFlag from "./data/CountryFlag";
+import Currency from "./data/Currency";
+import RelativeTime from "./data/RelativeTime";
+import Duration from "./data/Duration";
+import DatePretty from "./data/DatePretty";
+import LoadingUntil from "./datamangagement/LoadingUntil";
+import PaginationFooter from "./datamangagement/PaginationFooter";
+import TabBar from "./tabs/TabBar";
+import Tabs from "./tabs/Tabs";
+import Tooltip from "./popover/Tooltip";
+import Dropdown from "./popover/Dropdown";
+import Select from "./form/controls/Select";
+import MultiSelect from "./form/controls/MultiSelect";
+import AsyncMultiSelect from "./form/controls/AsyncMultiSelect";
+import AsyncSelect from "./form/controls/AsyncSelect";
+import CreatableSelect from "./form/controls/CreatableSelect";
+import CreatableMultiSelect from "./form/controls/CreatableMultiSelect";
+import Input from "./form/controls/Input";
+import Textarea from "./form/controls/Textarea";
+import Checkbox from "./form/controls/Checkbox";
+import Title from "./presentation/Title";
+import LinkAlike from "./presentation/LinkAlike";
 
 
-import CardE from "./card/Card";
-import CardTitleE from "./card/CardTitle";
-import CardBodyE from "./card/CardBody";
-import CardActionsE from "./card/CardActions";
+// -- Components
 
-import GridE from "./grid/Grid";
-import EE from "./grid/E";
-import CCE from "./grid/CC";
-import CVE from "./grid/CV";
-import CHE from "./grid/CH";
+export {
+  Button,
+  ControlArea,
+  Card,
+  CardTitle,
+  CardBody,
+  CardActions,
+  Grid,
+  E,
+  CC,
+  CV,
+  CH,
+  TabbedCard,
+  CollapsibleCard,
+  Icon,
+  YesNoIcon,
+  Spinner,
+  CountryFlag,
+  Currency,
+  RelativeTime,
+  Duration,
+  DatePretty,
+  LoadingUntil,
+  PaginationFooter,
+  TabBar,
+  Tabs,
+  Tooltip,
+  Dropdown,
+  Select,
+  MultiSelect,
+  AsyncMultiSelect,
+  AsyncSelect,
+  CreatableSelect,
+  CreatableMultiSelect,
+  Input,
+  Textarea,
+  Checkbox,
+  Title,
+  LinkAlike
+}
 
-import TabbedCardE from "./card/TabbedCard";
-import CollapsibleCardE from "./card/CollapsibleCard";
+// -- Types
 
-import IconE from "./icon/Icon";
-import YesNoIconE from "./icon/YesNoIcon";
-import SpinnerE from "./icon/Spinner";
+export {
+  ButtonProps,
+  ControlAreaProps,
+  ButtonType
+} from './buttons/types';
 
-import CountryFlagE from "./data/CountryFlag";
-import CurrencyE from "./data/Currency";
-import RelativeTimeE from "./data/RelativeTime";
-import DurationE from "./data/Duration";
-import DatePrettyE from "./data/DatePretty";
-
-import LoadingUntilE from "./datamangagement/LoadingUntil";
-import PaginationFooterE from "./datamangagement/PaginationFooter";
-import TabBarE from "./tabs/TabBar";
-import TabsE from "./tabs/Tabs";
-import TooltipE from "./popover/Tooltip";
-import DropdownE from "./popover/Dropdown";
-// -- Form
-import SelectE from "./form/controls/Select";
-import MultiSelectE from "./form/controls/MultiSelect";
-import AsyncSelectE from "./form/controls/AsyncSelect";
-import CreatableSelectE from "./form/controls/CreatableSelect";
-import CreatableMultiSelectE from "./form/controls/CreatableMultiSelect";
-import AsyncMultiSelectE from "./form/controls/AsyncMultiSelect";
-import InputE from "./form/controls/Input";
-import TextareaE from "./form/controls/Textarea";
-import CheckboxE from "./form/controls/Checkbox";
-// -- Presentation
-import TitleE from "./presentation/Title";
-import LinkAlikeE from "./presentation/LinkAlike";
-
-// -- Tabbed
-
-// -- Popover
-
-export const Button = ButtonE;
-export const ControlArea = ControlAreaE;
-
-export const Card = CardE;
-export const CardTitle = CardTitleE;
-export const CardBody = CardBodyE;
-export const CardActions = CardActionsE;
-
-export const Grid = GridE;
-export const E = EE;
-export const CC = CCE;
-export const CV = CVE;
-export const CH = CHE;
-
-export const TabbedCard = TabbedCardE;
-export const CollapsibleCard = CollapsibleCardE;
-
-export const Icon = IconE;
-export const YesNoIcon = YesNoIconE;
-export const Spinner = SpinnerE;
-
-
-export const CountryFlag = CountryFlagE;
-export const Currency = CurrencyE;
-export const RelativeTime = RelativeTimeE;
-export const Duration = DurationE;
-export const DatePretty = DatePrettyE;
-
-export const LoadingUntil = LoadingUntilE;
-export const PaginationFooter = PaginationFooterE;
-
-// -- Tabbed
-
-export const TabBar = TabBarE;
-export const Tabs = TabsE;
-
-// -- Popover
-
-export const Tooltip = TooltipE;
-export const Dropdown = DropdownE;
-
-// -- Form
-
-export const Select = SelectE;
-export const MultiSelect = MultiSelectE;
-export const AsyncSelect = AsyncSelectE;
-export const CreatableSelect = CreatableSelectE;
-export const CreatableMultiSelect = CreatableMultiSelectE;
-export const AsyncMultiSelect = AsyncMultiSelectE;
-export const Input = InputE;
-export const Textarea = TextareaE;
-export const Checkbox = CheckboxE;
-
-
-
-// -- Presentation
-
-export const Title = TitleE;
-export const LinkAlike = LinkAlikeE;
-
-
+export {
+  PaginationFooterProps,
+  Pagination,
+  LoadingUntilProps
+} from './datamangagement/types'

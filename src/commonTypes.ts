@@ -6,7 +6,7 @@ export interface ReactStyleProps {
   style?: React.CSSProperties;
 }
 
-export interface AllyProps extends AriaAriaAttributes {
+export interface AllyProps {
   tabIndex?: number;
 }
 

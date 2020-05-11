@@ -30,7 +30,7 @@ const config = [
   // ES
   {
     input: 'src/index.ts',
-    output: { file: pkg.main, format: 'es', indent: false },
+    output: { file: pkg.module, format: 'es', indent: false },
     external: makeExternalPredicate([
       ...Object.keys(pkg.dependencies || {}),
       ...Object.keys(pkg.peerDependencies || {})
@@ -42,7 +42,8 @@ const config = [
       nodeResolve({
         extensions: ['.ts']
       }),
-      typescript({ tsconfigOverride: noDeclarationFiles }),
+      //typescript({ tsconfigOverride: noDeclarationFiles }),
+      typescript({ useTsconfigDeclarationDir: true }),
       babel({
         extensions: ['.ts'],
         plugins: [
@@ -56,11 +57,11 @@ const config = [
       filesize()
     ]
   },
-  {
-    input: "src/types.d.ts",
-    output: [{file: pkg.typings}],
+/*  {
+    input: "src/types.ts",
+    output: [{file: 'dist/types.ts'}],
     plugins: [dts()],
-  }
+  }*/
 
 ]
 

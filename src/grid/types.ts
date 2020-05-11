@@ -6,7 +6,7 @@ export interface EProps extends ReactStyleProps {
 }
 
 export interface GridProps extends ReactStyleProps {
-  cols: string;
+  cols?: string;
   rows?: number;
   rowGap?: string;
   colGap?: string;

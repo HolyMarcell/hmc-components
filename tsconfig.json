@@ -17,7 +17,9 @@
     "declaration": true,
     "declarationDir": "./dist",
     "esModuleInterop": true,
-    "removeComments": false
+    "removeComments": false,
+    "baseUrl": "./",
+    "types": ["./src/types"]
   },
   "exclude": [
     "node_modules"

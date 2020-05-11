@@ -4,7 +4,7 @@ import {is, isNil} from "../util/ram";
 import Spinner from "../icon/Spinner";
 
 
-export const Button: React.FC<ButtonProps> = (
+const Button: React.FC<ButtonProps> = (
   {
     type = 'default',
     disabled = false,

@@ -2,9 +2,8 @@
   "name": "@holymarcell/components",
   "version": "0.2.7",
   "description": "react components shared for me",
-  "module": "dist/index.js",
-  "main": "dist/index.js",
-  "typings": "index.d.ts",
+  "module": "dist/components.esm.js",
+  "typings": "dist/index.d.ts",
   "style": "dist/hmc-components.css",
   "files": [
     "dist",
