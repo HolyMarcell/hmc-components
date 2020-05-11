@@ -2,8 +2,6 @@ import React from 'react';
 import {CCProps} from "./types";
 
 
-
-
 const CC: React.FC<CCProps> = ({children, className = '', style = {}}) => {
 
   return (

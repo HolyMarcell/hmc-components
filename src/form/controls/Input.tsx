@@ -1,7 +1,7 @@
 import React from "react";
 import {InputProps} from "../types";
 import Field from "../Field";
-import {is, isEmpty, isNil, pathOr} from "../../util/ram";
+import {isEmpty, isNil, pathOr} from "../../util/ram";
 
 
 const Input: React.FC<InputProps> = (props) => {

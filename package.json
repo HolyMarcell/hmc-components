@@ -2,9 +2,14 @@
   "name": "@holymarcell/components",
   "version": "0.2.6",
   "description": "react components shared for me",
-  "module": "dist/hmc-components.esm.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "typings": "index.d.ts",
   "style": "dist/hmc-components.css",
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
   "scripts": {
     "start": "rollup -cw",
     "build": "NODE_ENV=production rollup -c",

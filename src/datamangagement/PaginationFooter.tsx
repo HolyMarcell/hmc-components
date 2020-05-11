@@ -5,7 +5,6 @@ import {filter, range} from '../util/ram';
 import {PaginationFooterProps} from "./types";
 
 
-
 const PaginationFooter: React.FC<PaginationFooterProps> = (
   {
     pagination,

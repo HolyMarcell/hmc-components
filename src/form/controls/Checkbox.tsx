@@ -1,7 +1,7 @@
 import React from "react";
 import {CheckboxProps} from "../types";
 import Field from "../Field";
-import {isEmpty, isNil, pathOr} from "../../util/ram";
+import {isNil, pathOr} from "../../util/ram";
 
 
 const Checkbox: React.FC<CheckboxProps> = (props) => {
