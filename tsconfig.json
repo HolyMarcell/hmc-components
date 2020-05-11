@@ -5,16 +5,19 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "lib": ["es5", "es6", "es7", "es2017", "dom"],
+    "lib": ["es2017", "dom"],
     "jsx": "react",
     "sourceMap": true,
-    "module": "es6",
+    "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": false,
     "outDir": "./dist",
     "preserveConstEnums": true,
-    "target": "es5",
-    "declaration": true
+    "target": "esnext",
+    "declaration": true,
+    "declarationDir": "./dist",
+    "esModuleInterop": true,
+    "removeComments": false
   },
   "exclude": [
     "node_modules"

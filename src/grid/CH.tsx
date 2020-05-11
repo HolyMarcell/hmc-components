@@ -2,8 +2,6 @@ import React from 'react';
 import {CHProps} from "./types";
 
 
-
-
 const CH: React.FC<CHProps> = ({children, className = '', style = {}}) => {
 
   return (

@@ -2,7 +2,6 @@ import React from 'react';
 import {EProps} from "./types";
 
 
-
 const E: React.FC<EProps> = ({children = null, className = '', style = {}}) => {
   const pos = {
     ...style,

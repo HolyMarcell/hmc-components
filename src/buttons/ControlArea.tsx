@@ -2,9 +2,6 @@ import React from "react";
 import {ControlAreaProps} from "./types";
 
 
-
-
-
 const ControlArea: React.FC<ControlAreaProps> = ({onClick, type = 'default', children, className = '', style = {}}) => {
 
   return (

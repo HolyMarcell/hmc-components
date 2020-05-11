@@ -30,7 +30,7 @@ const config = [
   // ES
   {
     input: 'src/index.ts',
-    output: { file: pkg.module, format: 'es', indent: false },
+    output: { file: pkg.main, format: 'es', indent: false },
     external: makeExternalPredicate([
       ...Object.keys(pkg.dependencies || {}),
       ...Object.keys(pkg.peerDependencies || {})
@@ -58,7 +58,7 @@ const config = [
   },
   {
     input: "src/types.d.ts",
-    output: [{file: "dist/index.d.ts", format: "es"}],
+    output: [{file: pkg.typings}],
     plugins: [dts()],
   }
 
