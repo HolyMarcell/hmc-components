@@ -4,6 +4,7 @@ import {
   Checkbox,
   CreatableMultiSelect,
   CreatableSelect,
+  Icon,
   Input,
   MultiSelect,
   Select,
@@ -26,15 +27,30 @@ export const input = () => {
 
   return (
     <div>
-      <Input label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+      <Input label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)}/> <br/> <br/>
 
-      <Input label={'Laibel'} onChange={setVal2} htmlType={'number'} value={val2} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+      <Input label={'Number'} onChange={setVal2} htmlType={'number'} value={val2} valid={true} dirty={!isNil(val)}/>
+      <br/> <br/>
 
       <br/>
 
-      <Input label={'Laibel'} onChange={setVal} htmlType={'password'} value={val} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+      <Input label={'Password'} onChange={setVal} htmlType={'password'} value={val} valid={true} dirty={!isNil(val)}/>
+      <br/> <br/>
 
-      <Input label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+      <Input
+        label={'Prefix'}
+        onChange={setVal}
+        value={val}
+        valid={true}
+        dirty={!isNil(val)}
+        prefix={<Icon icon={'caret-right'} />}/> <br/> <br/>
+      <Input
+        label={'Suffix'}
+        onChange={setVal}
+        value={val}
+        valid={true}
+        dirty={!isNil(val)}
+        suffix={<Icon icon={'caret-left'} />}/> <br/> <br/>
     </div>
   )
 };
@@ -45,12 +61,11 @@ export const checkbox = () => {
   const [val2, setVal2] = useState(null);
 
 
-
   return (
     <div style={{width: '300px', margin: '0 auto'}}>
-      <Checkbox label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+      <Checkbox label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)}/> <br/> <br/>
 
-      <Checkbox label={'Laibel'} onChange={setVal2} value={val2} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+      <Checkbox label={'Laibel'} onChange={setVal2} value={val2} valid={true} dirty={!isNil(val)}/> <br/> <br/>
 
       <br/>
 
@@ -64,12 +79,11 @@ export const textarea = () => {
   const [val2, setVal2] = useState(null);
 
 
-
   return (
     <div>
-      <Textarea label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+      <Textarea label={'Laibel'} onChange={setVal} value={val} valid={true} dirty={!isNil(val)}/> <br/> <br/>
 
-      <Textarea label={'Laibel'} onChange={setVal2} value={val2} valid={true} dirty={!isNil(val)} /> <br/> <br/>
+      <Textarea label={'Laibel'} onChange={setVal2} value={val2} valid={true} dirty={!isNil(val)}/> <br/> <br/>
 
       <br/>
 
@@ -90,7 +104,7 @@ export const select = () => {
   return (
     <div style={{width: '200px'}}>
       <h3>Select</h3>
-      <Select options={options} dirty={false} onChange={oc} valid={true} value={'baz'} touched={false} />
+      <Select options={options} dirty={false} onChange={oc} valid={true} value={'baz'} touched={false}/>
     </div>
   );
 };
@@ -108,7 +122,7 @@ export const multiSelect = () => {
   return (
     <div style={{width: '200px'}}>
       <h3>Select</h3>
-      <MultiSelect options={options} dirty={false} onChange={oc} valid={true} value={'baz'} touched={false} />
+      <MultiSelect options={options} dirty={false} onChange={oc} valid={true} value={'baz'} touched={false}/>
     </div>
   );
 };
@@ -129,7 +143,7 @@ export const creatableSelect = () => {
   return (
     <div style={{width: '200px'}}>
       <h3>Select</h3>
-      <CreatableSelect options={options} dirty={false} onChange={setVals} valid={true} value={vals} touched={false} />
+      <CreatableSelect options={options} dirty={false} onChange={setVals} valid={true} value={vals} touched={false}/>
       {vals.toString()}
     </div>
   );
@@ -149,7 +163,8 @@ export const creatableMultiSelect = () => {
   return (
     <div style={{width: '200px'}}>
       <h3>Select</h3>
-      <CreatableMultiSelect options={options} dirty={false} onChange={setVals} valid={true} value={vals} touched={false} />
+      <CreatableMultiSelect options={options} dirty={false} onChange={setVals} valid={true} value={vals}
+                            touched={false}/>
       {vals.toString()}
     </div>
   );
@@ -179,7 +194,7 @@ export const asyncSelect = () => {
         onChange={oc}
         valid={true}
         value={'baz'}
-        touched={false} />
+        touched={false}/>
     </div>
   );
 };

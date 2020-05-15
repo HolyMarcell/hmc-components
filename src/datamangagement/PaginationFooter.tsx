@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from '../icon/Icon';
 import {filter, range} from '../util/ram';
 import {PaginationFooterProps} from "./types";
-import Button from 'src/buttons/Button';
+import { Button } from '../';
 
 
 const PaginationFooter: React.FC<PaginationFooterProps> = (

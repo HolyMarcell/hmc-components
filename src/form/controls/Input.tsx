@@ -2,7 +2,7 @@ import React from "react";
 import {InputProps} from "../types";
 import Field from "../Field";
 import {isEmpty, isNil, pathOr} from "../../util/ram";
-
+import {Input as AntInput} from 'antd';
 
 const Input: React.FC<InputProps> = (props) => {
   const {
@@ -15,7 +15,11 @@ const Input: React.FC<InputProps> = (props) => {
     required = false,
     htmlType = 'text',
     className = '',
-    style = {}
+    style = {},
+    prefix,
+    suffix,
+    placeholder
+
   } = props;
 
 
@@ -37,12 +41,14 @@ const Input: React.FC<InputProps> = (props) => {
       touched={touched}>
       <div className={'wrapper'}>
 
-        <input
-          pattern={htmlType === 'number' ? '/^[0-9]*$/' : undefined}
-          className={'input'}
+        <AntInput
+          className={''}
+          placeholder={placeholder}
           type={htmlType}
           value={cleanValue}
           onChange={oc}
+          prefix={prefix}
+          suffix={suffix}
         />
         <span className={`label ${empty ? 'label--placeholder' : 'label--top'}`}>{label} {`${required ? '*' : ''}`}</span>
       </div>

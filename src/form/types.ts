@@ -1,4 +1,5 @@
 import {DataItem, ReactStyleProps} from "../commonTypes";
+import React from "react";
 
 
 export type OnChangeFunc = (value: any) => any;
@@ -73,6 +74,9 @@ export interface AsyncMultiSelectProps extends ReactStyleProps, FieldMetaStatePr
 export interface InputProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
   label?: string;
   htmlType?: 'text' | 'number' | 'password' | string;
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
+  placeholder?: string;
 }
 
 export interface CheckboxProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
