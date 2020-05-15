@@ -39,6 +39,7 @@ const Checkbox: React.FC<CheckboxProps> = (props) => {
           type={'checkbox'}
           className={'checkbox'}
           value={cleanValue}
+          checked={cleanValue}
           onChange={oc}
         />
       </div>
