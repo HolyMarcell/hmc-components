@@ -74,12 +74,28 @@ export interface AsyncMultiSelectProps extends ReactStyleProps, FieldMetaStatePr
 export interface InputProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
   label?: string;
   htmlType?: 'text' | 'number' | 'password' | string;
-  prefix?: React.ReactNode;
-  suffix?: React.ReactNode;
+  prefix?: string;
+  suffix?: string;
+  placeholder?: string;
+}
+
+export interface InputNumberProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
+  label?: string;
+  htmlType?: 'text' | 'number' | 'password' | string;
+  prefix?: string;
+  min?: number;
+  max?: number;
+  precision?: number;
+  formatter?: (value: any) => any;
+  parser?: (value: any) => any;
   placeholder?: string;
 }
 
 export interface CheckboxProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
+  label?: string;
+}
+
+export interface ToggleProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
   label?: string;
 }
 
