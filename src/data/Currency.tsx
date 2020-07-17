@@ -1,6 +1,6 @@
 import {CurrencyProps} from "./types";
 import React from "react";
-import {isNil} from "../util/ram";
+import {isNil} from 'ramda';
 
 
 const Currency: React.FC<CurrencyProps> = ({amount, currency, locale}) => {

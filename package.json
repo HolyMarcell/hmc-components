@@ -3,12 +3,9 @@
   "version": "0.2.11",
   "description": "react components shared for me",
   "module": "dist/components.esm.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/components.esm.js",
+  "types": "dist/types",
   "style": "dist/hmc-components.css",
-  "files": [
-    "dist",
-    "index.d.ts"
-  ],
   "scripts": {
     "start": "rollup -cw",
     "build": "NODE_ENV=production rollup -c",
@@ -29,6 +26,7 @@
     "@storybook/addons": "^5.3.18",
     "@storybook/react": "^5.3.18",
     "@types/jest": "^25.2.1",
+    "@types/ramda": "^0.27.11",
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^2.27.0",

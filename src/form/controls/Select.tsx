@@ -2,7 +2,7 @@ import React from "react";
 import Field from "../Field";
 import {SelectProps} from "../types";
 import ReactSelect from 'react-select';
-import {find, prop, propEq} from "../../util/ram";
+import {find, prop, propEq} from "ramda";
 
 const Select: React.FC<SelectProps> = (props) => {
 

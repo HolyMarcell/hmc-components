@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {DurationProps} from "./types";
 import React from "react";
-import {isNil} from "../util/ram";
+import {isNil} from 'ramda';
 
 
 const Duration: React.FC<DurationProps> = ({length, locale}) => {

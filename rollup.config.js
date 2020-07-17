@@ -4,7 +4,6 @@ import filesize from 'rollup-plugin-filesize';
 import typescript from "rollup-plugin-typescript2";
 import pkg from './package.json';
 import sass from 'rollup-plugin-sass';
-import dts from 'rollup-plugin-dts';
 
 // -- Config via https://github.com/reduxjs/redux/blob/master/rollup.config.js
 // -- I love it!

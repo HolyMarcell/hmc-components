@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
-import {isNil, pathOr} from 'ramda';
-import {is, isEmpty} from "../util/ram";
+import {is, isEmpty, isNil, pathOr} from 'ramda';
 import Card from "./Card";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {TabbedCardProps} from "./types";

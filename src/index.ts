@@ -38,8 +38,8 @@ import Textarea from "./form/controls/Textarea";
 import Checkbox from "./form/controls/Checkbox";
 import Title from "./presentation/Title";
 import LinkAlike from "./presentation/LinkAlike";
-import { NumberInput } from './form/controls/NumberInput';
-import { Toggle } from './form/controls/Toggle';
+import {NumberInput} from './form/controls/NumberInput';
+import {Toggle} from './form/controls/Toggle';
 
 
 // -- Components
@@ -86,17 +86,3 @@ export {
   Title,
   LinkAlike
 }
-
-// -- Types
-
-export {
-  ButtonProps,
-  ControlAreaProps,
-  ButtonType
-} from './buttons/types';
-
-export {
-  PaginationFooterProps,
-  Pagination,
-  LoadingUntilProps
-} from './datamangagement/types'

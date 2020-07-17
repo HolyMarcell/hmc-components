@@ -1,5 +1,4 @@
 import {DataItem, ReactStyleProps} from "../commonTypes";
-import React from "react";
 
 
 export type OnChangeFunc = (value: any) => any;
@@ -26,7 +25,7 @@ export interface FieldProps extends ReactStyleProps, FieldMetaStateProps {
 
 
 export interface SelectProps extends ReactStyleProps, FieldMetaStateProps, FieldControlProps {
-  options: DataItem[];
+  options?: DataItem[];
   clearable?: boolean;
   placeholder?: string;
   label?: string;

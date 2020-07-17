@@ -3,8 +3,9 @@ import {far} from '@fortawesome/free-regular-svg-icons';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {prop} from "ramda";
 import {IconProps} from "./types";
-import {prop} from "../util/ram";
+
 
 library.add(far, fas);
 
@@ -20,7 +21,7 @@ const iconSizes = {
 
 
 const Icon: React.FC<IconProps> = ({icon, size = 'nm', style = {}, className = '', tabIndex, onClick}) => {
-  const s = prop(size, iconSizes);
+  const s = prop(size as any, iconSizes);
   return (
     <FontAwesomeIcon icon={icon as IconProp} style={style} className={`icon ${className} ${s}`} tabIndex={tabIndex} onClick={onClick}/>
   )

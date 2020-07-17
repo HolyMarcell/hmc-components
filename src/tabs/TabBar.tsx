@@ -1,6 +1,6 @@
 import React from 'react';
 import {TabBarProps} from "./types";
-import {isNil} from "../util/ram";
+import {isNil} from "ramda";
 import Icon from '../icon/Icon';
 import Dropdown from '../popover/Dropdown';
 

@@ -2,7 +2,7 @@ import React from "react";
 import Field from "../Field";
 import {AsyncMultiSelectProps} from "../types";
 import AsyncReactSelect from 'react-select/async';
-import {isNil} from "../../util/ram";
+import {isNil} from 'ramda';
 
 const AsyncMultiSelect: React.FC<AsyncMultiSelectProps> = (props) => {
 

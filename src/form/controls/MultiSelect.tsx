@@ -2,11 +2,13 @@ import React from "react";
 import Field from "../Field";
 import {MultiSelectProps} from "../types";
 import ReactSelect from 'react-select';
-import {contains, isNil} from "../../util/ram";
+import {contains, isNil} from "ramda";
 
 const MultiSelect: React.FC<MultiSelectProps> = (props) => {
 
-  const {value, options = [], label, dirty, valid, touched, required, onChange, clearable = false, placeholder = 'Search...', className, style} = props;
+  const {value, options = [], label, dirty, valid,
+    touched, required, onChange, clearable = false,
+    placeholder = 'Search...', className, style} = props;
   const oc = (item) => {
     if(isNil(item)) {
       onChange([]);
