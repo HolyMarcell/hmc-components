@@ -1,8 +1,8 @@
 import React from "react";
 import {InputProps} from "../types";
-import {Field} from "../Field";
-import {isEmpty, isNil, pathOr} from "../../util/ram";
 import {Input as AntInput} from 'antd';
+import {Field} from "../Field";
+import {isEmpty, isNil, pathOr} from "ramda";
 
 export const Input: React.FC<InputProps> = (props) => {
   const {

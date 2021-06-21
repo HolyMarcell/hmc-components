@@ -86,17 +86,3 @@ export {
   Title,
   LinkAlike
 }
-
-// -- Types
-
-export {
-  ButtonProps,
-  ControlAreaProps,
-  ButtonType
-} from './buttons/types';
-
-export {
-  PaginationFooterProps,
-  Pagination,
-  LoadingUntilProps
-} from './datamangagement/types'

@@ -1,7 +1,7 @@
 import React from "react";
 import {InputNumberProps} from "../types";
 import {Field} from "../Field";
-import {isEmpty, isNil, pathOr} from "../../util/ram";
+import {isEmpty, isNil, pathOr} from "ramda";
 import {InputNumber as AntInput} from 'antd';
 
 export const NumberInput: React.FC<InputNumberProps> = (props) => {

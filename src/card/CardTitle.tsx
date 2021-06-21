@@ -1,6 +1,6 @@
 import React from "react";
-import {isNil} from "../util/ram";
 import {CardTitleProps} from "./types";
+import {isNil} from "ramda";
 
 
 export const CardTitle: React.FC<CardTitleProps> = ({topRight, children, className = '', style = {}}) => {

@@ -1,8 +1,8 @@
 import moment from 'moment';
 import {RelativeTimeProps} from "./types";
 import React from "react";
-import {isNil} from "../util/ram";
 
+import {isNil} from 'ramda';
 
 export const RelativeTime: React.FC<RelativeTimeProps> = ({date, locale}) => {
   // @TODO: Add tooltip with real time

@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button} from '../buttons/Button';
 import {Icon} from '../icon/Icon';
-import {filter, range} from '../util/ram';
 import {PaginationFooterProps} from "./types";
+import {filter, range} from 'ramda';
 
 
 export const PaginationFooter: React.FC<PaginationFooterProps> = (

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {TextareaProps} from "../types";
 import {Field} from "../Field";
-import {isEmpty, isNil, pathOr} from "../../util/ram";
+import {isEmpty, isNil, pathOr} from "ramda";
 
 
 export const Textarea: React.FC<TextareaProps> = (props) => {

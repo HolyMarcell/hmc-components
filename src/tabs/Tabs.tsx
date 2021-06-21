@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {TabsProps} from "./types";
 import {TabBar} from './TabBar';
-import {find, isNil, prop, propEq} from "../util/ram";
+import {TabsProps, TbTTab} from "./types";
+import {find, isNil, prop, propEq} from "ramda";
 
 
 export const Tabs: React.FC<TabsProps> = ({tabs, active, alignTabs = 'left', className = '', style = {}}) => {
@@ -19,7 +19,7 @@ export const Tabs: React.FC<TabsProps> = ({tabs, active, alignTabs = 'left', cla
         onChange={setCurrent}
         align={alignTabs} />
       <div className={'tabs-body'}>
-        {prop('body', find(propEq('id', current))(tabs))}
+        {prop('body', (find(propEq('id', current))(tabs) as TbTTab))}
       </div>
     </div>
   );

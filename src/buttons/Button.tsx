@@ -1,7 +1,7 @@
 import {ButtonProps} from "./types";
 import React, {useEffect, useRef, useState} from "react";
-import {is, isNil} from "../util/ram";
 import {Spinner} from "../icon/Spinner";
+import {is, isNil} from "ramda";
 
 
 export const Button: React.FC<ButtonProps> = (

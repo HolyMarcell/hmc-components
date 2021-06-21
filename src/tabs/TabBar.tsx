@@ -1,8 +1,8 @@
 import React from 'react';
 import {TabBarProps} from "./types";
-import {isNil} from "../util/ram";
 import {Icon} from '../icon/Icon';
 import {Dropdown} from '../popover/Dropdown';
+import {isNil} from "ramda";
 
 export const TabBar: React.FC<TabBarProps> = ({tabs, align = 'left', onChange, active, style = {}, className = ''}) => {
 

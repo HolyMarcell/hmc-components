@@ -1,6 +1,6 @@
 import React from "react";
 import {FieldProps} from "./types";
-import {isNil} from "../util/ram";
+import {isNil} from "ramda";
 
 
 export const Field: React.FC<FieldProps> = ({valid, dirty, touched, children, style, className}) => {

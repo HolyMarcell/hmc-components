@@ -15,11 +15,10 @@
     "preserveConstEnums": true,
     "target": "esnext",
     "declaration": true,
-    "declarationDir": "./dist",
+    "declarationDir": "./dist/types",
     "esModuleInterop": true,
     "removeComments": false,
-    "baseUrl": "./",
-    "types": ["./src/types"]
+    "baseUrl": "./"
   },
   "exclude": [
     "node_modules"

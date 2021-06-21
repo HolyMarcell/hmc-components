@@ -3,8 +3,9 @@ import {far} from '@fortawesome/free-regular-svg-icons';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {prop} from "ramda";
 import {IconProps} from "./types";
-import {prop} from "../util/ram";
+
 
 library.add(far, fas);
 

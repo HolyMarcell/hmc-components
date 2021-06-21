@@ -2,7 +2,7 @@ import React from "react";
 import {Field} from "../Field";
 import {CreatableMultiSelectProps} from "../types";
 import ReactCreatableSelect from 'react-select/creatable';
-import {isNil} from "../../util/ram";
+import {isNil} from "ramda";
 
 export const CreatableMultiSelect: React.FC<CreatableMultiSelectProps> = (props) => {
 

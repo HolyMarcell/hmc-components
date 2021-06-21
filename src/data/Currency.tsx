@@ -1,6 +1,6 @@
 import {CurrencyProps} from "./types";
 import React from "react";
-import {isNil} from "../util/ram";
+import {isNil} from 'ramda';
 
 
 export const Currency: React.FC<CurrencyProps> = ({amount, currency, locale}) => {
@@ -9,3 +9,4 @@ export const Currency: React.FC<CurrencyProps> = ({amount, currency, locale}) =>
 
   return <>{new Intl.NumberFormat(loc, {style: 'currency', currency: currency}).format(amount)}</>
 };
+

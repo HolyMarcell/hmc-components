@@ -2,7 +2,7 @@ import React from "react";
 import {Field} from "../Field";
 import {CreatableSelectProps} from "../types";
 import ReactCreatableSelect from 'react-select/creatable';
-import {find, prop, propEq} from "../../util/ram";
+import {find, prop, propEq} from "ramda";
 
 export const CreatableSelect: React.FC<CreatableSelectProps> = (props) => {
 
