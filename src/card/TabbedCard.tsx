@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import {isNil, pathOr} from 'ramda';
 import {is, isEmpty} from "../util/ram";
-import Card from "./Card";
+import {Card} from "./Card";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {TabbedCardProps} from "./types";
 
 
-const TabbedCard: React.FC<TabbedCardProps> = ({children, topRight, tabs, className = '', style = {}}) => {
+export const TabbedCard: React.FC<TabbedCardProps> = ({children, topRight, tabs, className = '', style = {}}) => {
 
   const [active, setActive] = useState(0);
 
@@ -45,4 +45,3 @@ const TabbedCard: React.FC<TabbedCardProps> = ({children, topRight, tabs, classN
   );
 };
 
-export default TabbedCard;

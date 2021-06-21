@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {TextareaProps} from "../types";
-import Field from "../Field";
+import {Field} from "../Field";
 import {isEmpty, isNil, pathOr} from "../../util/ram";
 
 
-const Textarea: React.FC<TextareaProps> = (props) => {
+export const Textarea: React.FC<TextareaProps> = (props) => {
   const {
     value,
     onChange,
@@ -56,4 +56,3 @@ const Textarea: React.FC<TextareaProps> = (props) => {
   );
 };
 
-export default Textarea;

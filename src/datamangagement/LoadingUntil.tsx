@@ -1,9 +1,9 @@
 import React from "react";
 import {LoadingUntilProps} from "./types";
-import Icon from "../icon/Icon";
+import {Icon} from "../icon/Icon";
 
 
-const LoadingUntil: React.FC<LoadingUntilProps> =
+export const LoadingUntil: React.FC<LoadingUntilProps> =
   ({loading = false, hasData = false,  children, className = '', style = {}}) => {
 
 
@@ -21,5 +21,3 @@ const LoadingUntil: React.FC<LoadingUntilProps> =
     );
   };
 
-
-export default LoadingUntil;

@@ -2,7 +2,7 @@ import React from 'react';
 import {EProps} from "./types";
 
 
-const E: React.FC<EProps> = ({children = null, className = '', style = {}}) => {
+export const E: React.FC<EProps> = ({children = null, className = '', style = {}}) => {
   const pos = {
     ...style,
     gridColumn: '0 / 1',
@@ -16,4 +16,3 @@ const E: React.FC<EProps> = ({children = null, className = '', style = {}}) => {
   )
 };
 
-export default E;

@@ -2,7 +2,7 @@ import React from "react";
 import {CardActionsProps} from "./types";
 
 
-const CardActions: React.FC<CardActionsProps> = ({children, className = '', style = {}}) => {
+export const CardActions: React.FC<CardActionsProps> = ({children, className = '', style = {}}) => {
 
 
   return (
@@ -12,6 +12,3 @@ const CardActions: React.FC<CardActionsProps> = ({children, className = '', styl
   );
 
 };
-
-
-export default CardActions;

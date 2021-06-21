@@ -1,10 +1,10 @@
 import React from "react";
-import Field from "../Field";
+import {Field} from "../Field";
 import {MultiSelectProps} from "../types";
 import ReactSelect from 'react-select';
 import {contains, isNil} from "../../util/ram";
 
-const MultiSelect: React.FC<MultiSelectProps> = (props) => {
+export const MultiSelect: React.FC<MultiSelectProps> = (props) => {
 
   const {value, options = [], label, dirty, valid, touched, required, onChange, clearable = false, placeholder = 'Search...', className, style} = props;
   const oc = (item) => {
@@ -37,4 +37,3 @@ const MultiSelect: React.FC<MultiSelectProps> = (props) => {
   )
 };
 
-export default MultiSelect;

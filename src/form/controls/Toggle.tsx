@@ -1,6 +1,6 @@
 import React from "react";
 import {ToggleProps} from "../types";
-import Field from "../Field";
+import {Field} from "../Field";
 import {isNil} from "../../util/ram";
 import {Switch} from "antd";
 

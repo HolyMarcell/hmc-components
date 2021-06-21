@@ -2,7 +2,7 @@ import React from 'react';
 import {TitleProps} from "./types";
 
 
-const Title: React.FC<TitleProps> = ({children, size = 'nm', style = {}, className = ''}) => {
+export const Title: React.FC<TitleProps> = ({children, size = 'nm', style = {}, className = ''}) => {
 
 
   return (
@@ -11,5 +11,3 @@ const Title: React.FC<TitleProps> = ({children, size = 'nm', style = {}, classNa
     </div>
   )
 };
-
-export default Title;

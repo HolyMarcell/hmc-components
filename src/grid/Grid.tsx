@@ -2,7 +2,7 @@ import React from 'react';
 import {GridProps} from "./types";
 
 
-const Grid: React.FC<GridProps> = ({children, cols = '1fr 1fr 1fr',  rows = 1, rowGap = '1rem', colGap = '1rem', className = '', style = {}}) => {
+export const Grid: React.FC<GridProps> = ({children, cols = '1fr 1fr 1fr',  rows = 1, rowGap = '1rem', colGap = '1rem', className = '', style = {}}) => {
 
   const grid = {
     ...style,
@@ -22,4 +22,3 @@ const Grid: React.FC<GridProps> = ({children, cols = '1fr 1fr 1fr',  rows = 1, r
 };
 
 
-export default Grid;

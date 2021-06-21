@@ -2,7 +2,7 @@ import React from "react";
 import {CardProps} from "./types";
 
 
-const Card: React.FC<CardProps> = ({children, className = '', style = {}}) => {
+export const Card: React.FC<CardProps> = ({children, className = '', style = {}}) => {
 
 
   return (
@@ -14,4 +14,3 @@ const Card: React.FC<CardProps> = ({children, className = '', style = {}}) => {
 };
 
 
-export default Card;

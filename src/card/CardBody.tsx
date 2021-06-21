@@ -2,7 +2,7 @@ import React from "react";
 import {CardBodyProps} from "./types";
 
 
-const CardBody: React.FC<CardBodyProps> = ({children, className = '', style = {}}) => {
+export const CardBody: React.FC<CardBodyProps> = ({children, className = '', style = {}}) => {
 
 
   return (
@@ -14,4 +14,3 @@ const CardBody: React.FC<CardBodyProps> = ({children, className = '', style = {}
 };
 
 
-export default CardBody;

@@ -1,10 +1,10 @@
 import {ButtonProps} from "./types";
 import React, {useEffect, useRef, useState} from "react";
 import {is, isNil} from "../util/ram";
-import Spinner from "../icon/Spinner";
+import {Spinner} from "../icon/Spinner";
 
 
-const Button: React.FC<ButtonProps> = (
+export const Button: React.FC<ButtonProps> = (
   {
     type = 'default',
     disabled = false,
@@ -67,4 +67,3 @@ const Button: React.FC<ButtonProps> = (
   )
 };
 
-export default Button;

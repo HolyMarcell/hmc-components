@@ -1,10 +1,10 @@
 import React from "react";
-import Field from "../Field";
+import {Field} from "../Field";
 import {SelectProps} from "../types";
 import ReactSelect from 'react-select';
 import {find, prop, propEq} from "../../util/ram";
 
-const Select: React.FC<SelectProps> = (props) => {
+export const Select: React.FC<SelectProps> = (props) => {
 
   const {value, options = [], label, dirty, valid, touched, required, onChange, clearable = false, placeholder = 'Search...', className, style} = props;
   const oc = (item) => {
@@ -32,4 +32,3 @@ const Select: React.FC<SelectProps> = (props) => {
   )
 };
 
-export default Select;

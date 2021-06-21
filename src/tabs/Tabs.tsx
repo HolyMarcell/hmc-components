@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {TabsProps} from "./types";
-import TabBar from './TabBar';
+import {TabBar} from './TabBar';
 import {find, isNil, prop, propEq} from "../util/ram";
 
 
-const Tabs: React.FC<TabsProps> = ({tabs, active, alignTabs = 'left', className = '', style = {}}) => {
+export const Tabs: React.FC<TabsProps> = ({tabs, active, alignTabs = 'left', className = '', style = {}}) => {
 
 
   const initialActive = isNil(active) ? prop(0, tabs) : find(propEq('id', active))(tabs);
@@ -25,4 +25,3 @@ const Tabs: React.FC<TabsProps> = ({tabs, active, alignTabs = 'left', className 
   );
 };
 
-export default Tabs;

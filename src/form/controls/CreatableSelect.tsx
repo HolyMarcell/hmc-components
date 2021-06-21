@@ -1,10 +1,10 @@
 import React from "react";
-import Field from "../Field";
+import {Field} from "../Field";
 import {CreatableSelectProps} from "../types";
 import ReactCreatableSelect from 'react-select/creatable';
 import {find, prop, propEq} from "../../util/ram";
 
-const CreatableSelect: React.FC<CreatableSelectProps> = (props) => {
+export const CreatableSelect: React.FC<CreatableSelectProps> = (props) => {
 
   const {value, options = [], label, dirty, valid, touched, required,
     onChange, clearable = false, placeholder = 'Search...', className, style} = props;
@@ -33,4 +33,3 @@ const CreatableSelect: React.FC<CreatableSelectProps> = (props) => {
   )
 };
 
-export default CreatableSelect;

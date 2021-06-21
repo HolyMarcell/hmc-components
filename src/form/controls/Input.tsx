@@ -1,10 +1,10 @@
 import React from "react";
 import {InputProps} from "../types";
-import Field from "../Field";
+import {Field} from "../Field";
 import {isEmpty, isNil, pathOr} from "../../util/ram";
 import {Input as AntInput} from 'antd';
 
-const Input: React.FC<InputProps> = (props) => {
+export const Input: React.FC<InputProps> = (props) => {
   const {
     value,
     onChange,
@@ -56,4 +56,3 @@ const Input: React.FC<InputProps> = (props) => {
   );
 };
 
-export default Input;

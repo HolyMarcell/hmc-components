@@ -3,7 +3,7 @@ import {isNil} from "../util/ram";
 import {CardTitleProps} from "./types";
 
 
-const CardTitle: React.FC<CardTitleProps> = ({topRight, children, className = '', style = {}}) => {
+export const CardTitle: React.FC<CardTitleProps> = ({topRight, children, className = '', style = {}}) => {
   return (
     <div className={`title-bar ${className}`} style={style}>
       {!isNil(children) &&
@@ -18,4 +18,3 @@ const CardTitle: React.FC<CardTitleProps> = ({topRight, children, className = ''
     </div>);
 
 };
-export default CardTitle;

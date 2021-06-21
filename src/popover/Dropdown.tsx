@@ -1,9 +1,9 @@
 import React from "react";
 import {DropdownProps} from "./types";
-import Tippy from "@tippy.js/react";
+import Tippy from "@tippyjs/react";
 import {placementMapper} from "./util";
 
-const Dropdown: React.FC<DropdownProps> = (props) => {
+export const Dropdown: React.FC<DropdownProps> = (props) => {
   const {content, show, caret = true, position = 'top', children} = props;
 
 
@@ -27,4 +27,3 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
 };
 
 
-export default Dropdown;

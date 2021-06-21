@@ -1,9 +1,9 @@
 import React from "react";
 import {TooltipProps} from "./types";
-import Tippy from "@tippy.js/react";
+import Tippy from "@tippyjs/react";
 import {placementMapper} from "./util";
 
-const Tooltip: React.FC<TooltipProps> = (props) => {
+export const Tooltip: React.FC<TooltipProps> = (props) => {
   const {content, show, mode = 'hover', caret = true, position = 'top', children} = props;
 
 
@@ -44,4 +44,3 @@ const Tooltip: React.FC<TooltipProps> = (props) => {
 };
 
 
-export default Tooltip;

@@ -1,10 +1,10 @@
 import React from "react";
 import {CheckboxProps} from "../types";
-import Field from "../Field";
+import {Field} from "../Field";
 import {isNil, pathOr} from "../../util/ram";
 
 
-const Checkbox: React.FC<CheckboxProps> = (props) => {
+export const Checkbox: React.FC<CheckboxProps> = (props) => {
   const {
     value,
     onChange,
@@ -47,4 +47,3 @@ const Checkbox: React.FC<CheckboxProps> = (props) => {
   );
 };
 
-export default Checkbox;

@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
-import Card from "./Card";
+import {Card} from "./Card";
 import {CSSTransition} from "react-transition-group";
-import CardTitle from "./CardTitle";
+import {CardTitle} from "./CardTitle";
 import {CollapsibleCardProps} from "./types";
-import Icon from '../icon/Icon';
+import {Icon} from '../icon/Icon';
 
 
-const CollapsibleCard: React.FC<CollapsibleCardProps> = ({children, title, topRight, collapsed = false, className = '', style = {}}) => {
+export const CollapsibleCard: React.FC<CollapsibleCardProps> = ({children, title, topRight, collapsed = false, className = '', style = {}}) => {
 
   const [isCollapsed, setCollapsed] = useState(collapsed);
 
@@ -33,5 +33,3 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({children, title, topRi
     </Card>
   );
 };
-
-export default CollapsibleCard;

@@ -1,10 +1,10 @@
 import React from 'react';
 import {TabBarProps} from "./types";
 import {isNil} from "../util/ram";
-import Icon from '../icon/Icon';
-import Dropdown from '../popover/Dropdown';
+import {Icon} from '../icon/Icon';
+import {Dropdown} from '../popover/Dropdown';
 
-const TabBar: React.FC<TabBarProps> = ({tabs, align = 'left', onChange, active, style = {}, className = ''}) => {
+export const TabBar: React.FC<TabBarProps> = ({tabs, align = 'left', onChange, active, style = {}, className = ''}) => {
 
 
   const changeTab = (id) => {
@@ -37,5 +37,4 @@ const TabBar: React.FC<TabBarProps> = ({tabs, align = 'left', onChange, active, 
   );
 };
 
-export default TabBar;
 

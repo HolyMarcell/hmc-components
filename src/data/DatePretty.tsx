@@ -4,7 +4,7 @@ import {isNil} from 'ramda';
 import {DatePrettyProps} from "./types";
 
 
-const DatePretty: React.FC<DatePrettyProps> = ({date, format = 'lll', locale}) => {
+export const DatePretty: React.FC<DatePrettyProps> = ({date, format = 'lll', locale}) => {
   const loc = isNil(locale) ? window.navigator.language : locale;
 
   if(isNil(date)) {
@@ -17,5 +17,3 @@ const DatePretty: React.FC<DatePrettyProps> = ({date, format = 'lll', locale}) =
   </>
 
 };
-
-export default DatePretty;

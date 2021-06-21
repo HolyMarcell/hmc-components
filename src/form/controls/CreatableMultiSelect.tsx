@@ -1,10 +1,10 @@
 import React from "react";
-import Field from "../Field";
+import {Field} from "../Field";
 import {CreatableMultiSelectProps} from "../types";
 import ReactCreatableSelect from 'react-select/creatable';
 import {isNil} from "../../util/ram";
 
-const CreatableMultiSelect: React.FC<CreatableMultiSelectProps> = (props) => {
+export const CreatableMultiSelect: React.FC<CreatableMultiSelectProps> = (props) => {
 
   const {value, options = [], label, dirty, valid, touched, required,
     onChange, clearable = false, placeholder = 'Search...', className, style} = props;
@@ -38,4 +38,3 @@ const CreatableMultiSelect: React.FC<CreatableMultiSelectProps> = (props) => {
   )
 };
 
-export default CreatableMultiSelect;

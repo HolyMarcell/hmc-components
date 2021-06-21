@@ -19,11 +19,9 @@ const iconSizes = {
 };
 
 
-const Icon: React.FC<IconProps> = ({icon, size = 'nm', style = {}, className = '', tabIndex, onClick}) => {
+export const Icon: React.FC<IconProps> = ({icon, size = 'nm', style = {}, className = '', tabIndex, onClick}) => {
   const s = prop(size, iconSizes);
   return (
     <FontAwesomeIcon icon={icon as IconProp} style={style} className={`icon ${className} ${s}`} tabIndex={tabIndex} onClick={onClick}/>
   )
 };
-
-export default Icon;

@@ -1,10 +1,10 @@
 import React from "react";
-import Field from "../Field";
+import {Field} from "../Field";
 import {AsyncMultiSelectProps} from "../types";
 import AsyncReactSelect from 'react-select/async';
 import {isNil} from "../../util/ram";
 
-const AsyncMultiSelect: React.FC<AsyncMultiSelectProps> = (props) => {
+export const AsyncMultiSelect: React.FC<AsyncMultiSelectProps> = (props) => {
 
   const {value, options = [], asyncOptions, dirty, valid, touched, required, onChange, clearable = false, placeholder = 'Search...', className, style} = props;
   const oc = (items) => {
@@ -31,4 +31,3 @@ const AsyncMultiSelect: React.FC<AsyncMultiSelectProps> = (props) => {
   )
 };
 
-export default AsyncMultiSelect;

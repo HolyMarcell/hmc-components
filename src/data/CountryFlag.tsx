@@ -3,7 +3,7 @@ import React from "react";
 import {CountryFlagProps} from "./types";
 
 
-const CountryFlag: React.FC<CountryFlagProps> =
+export const CountryFlag: React.FC<CountryFlagProps> =
   ({countryCode, title, svg = true, className = '', style = {}}) => {
 
 
@@ -19,4 +19,3 @@ const CountryFlag: React.FC<CountryFlagProps> =
 
   }
 
-export default CountryFlag;

@@ -1,11 +1,11 @@
 import React from 'react';
-import Icon from '../icon/Icon';
+import {Button} from '../buttons/Button';
+import {Icon} from '../icon/Icon';
 import {filter, range} from '../util/ram';
 import {PaginationFooterProps} from "./types";
-import { Button } from '../';
 
 
-const PaginationFooter: React.FC<PaginationFooterProps> = (
+export const PaginationFooter: React.FC<PaginationFooterProps> = (
   {
     pagination,
     showTotal = true,
@@ -99,5 +99,3 @@ const PaginationFooter: React.FC<PaginationFooterProps> = (
     </div>
   )
 };
-
-export default PaginationFooter;
