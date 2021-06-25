@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {TextareaProps} from "../types";
 import {Field} from "../Field";
-import {isEmpty, isNil, pathOr} from "ramda";
+import {isEmpty, is, pathOr, has} from "ramda";
 
 
 export const Textarea: React.FC<TextareaProps> = (props) => {
@@ -23,12 +23,17 @@ export const Textarea: React.FC<TextareaProps> = (props) => {
     const value = pathOr('', ['target', 'value'], e);
     onChange(value);
   };
-  const cleanValue = isNil(value) ? '' : value;
+  const cleanValue = is(String, value) ? value : '';
 
 
   useEffect(() => {
-    const newlines = (cleanValue.split("\n") || []).length;
-    setRows(newlines < 4 ? 4 : newlines);
+    let newlines = 4;
+    if(has('split', cleanValue)) {
+      newlines = (cleanValue.split("\n") || []).length;
+    } else {
+      newlines = 4;
+    }
+    setRows(Math.max(newlines, 4));
   }, [cleanValue]);
 
 
