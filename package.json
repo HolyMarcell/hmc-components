@@ -1,6 +1,6 @@
 {
   "name": "@holymarcell/components",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "react components shared for me",
   "module": "dist/components.esm.js",
   "typings": "dist/types/index.d.ts",
