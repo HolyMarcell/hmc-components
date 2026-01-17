@@ -1,6 +1,6 @@
 {
   "name": "@holymarcell/components",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "react components shared for me",
   "module": "dist/components.esm.js",
   "typings": "dist/types/index.d.ts",
@@ -17,10 +17,6 @@
   },
   "author": "Tristan Döhl",
   "license": "SEE LICENSE IN LICENSE.md",
-  "devDependencies": {
-
-  },
-  "dependencies": {
-
-  }
+  "devDependencies": {},
+  "dependencies": {}
 }
