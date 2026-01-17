@@ -15,7 +15,7 @@ if (level === undefined) {
 }
 
 const run = async () => {
-  await exec('npm run build').then(print);
+  // await exec('npm run build').then(print);
   try {
     await exec('git commit -am "Chore: updating version ' + level + '"').then(print);
   } catch {
